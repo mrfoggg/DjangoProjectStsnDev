@@ -7,7 +7,7 @@ import hmac
 import hashlib
 
 class OrderWebhook(APIView):
-    private_key = "ваш_секретный_ключ"
+    private_key = "11112222333442"
 
     def post(self, request):
         data = request.data
