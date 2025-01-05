@@ -12,7 +12,10 @@ class OrderWebhook(APIView):
     def post(self, request):
         data = request.data
 
-        print('WEBHOOOOOK POST',  data)
+        if not data:
+            print("Received empty data.")
+        else:
+            print('WEBHOOOOOK POST', data)
 
         # Проверка подписи
         hash_value = data.get('hash')
