@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment=" # 'domain'">
+    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="clear">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/home/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736045835416</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="clear">
+      <option name="closed" value="true" />
+      <created>1736046060556</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1736046060556</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +266,7 @@
     <MESSAGE value="        data = request.data&#10;&#10;        print('WEBHOOOOOK POST',  data)" />
     <MESSAGE value="if not data" />
     <MESSAGE value=" # 'domain'" />
-    <option name="LAST_COMMIT_MESSAGE" value=" # 'domain'" />
+    <MESSAGE value="clear" />
+    <option name="LAST_COMMIT_MESSAGE" value="clear" />
   </component>
 </project>
