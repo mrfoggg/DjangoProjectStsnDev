@@ -12,7 +12,7 @@ class OrderWebhook(APIView):
     def post(self, request):
         data = request.data
 
-        print('WEBHOOOOOK POST',  request.POST)
+        print('WEBHOOOOOK POST',  data)
 
         # Проверка подписи
         hash_value = data.get('hash')
@@ -32,7 +32,7 @@ class OrderWebhook(APIView):
             'order_id': data['order']['id'],
             'date': data['order']['date'],
             'domain': data['order']['domain'],
-            'test_domain': data['order']['test_domain'],
+            # 'test_domain': data['order']['test_domain'],
             'total_amount': data['order']['total']['amount'],
             'currency': data['order']['total']['currency'],
             'customer_name': data['customer']['name'],
