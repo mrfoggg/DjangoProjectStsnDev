@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="        data = request.data&#10;&#10;        print('WEBHOOOOOK POST',  data)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="if not data">
       <change beforePath="$PROJECT_DIR$/orders/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736045203380</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="if not data">
+      <option name="closed" value="true" />
+      <created>1736045716223</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1736045716223</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,6 +246,7 @@
     <MESSAGE value="response realization" />
     <MESSAGE value="print('WEBHOOOOOK POST',  request.POST)" />
     <MESSAGE value="        data = request.data&#10;&#10;        print('WEBHOOOOOK POST',  data)" />
-    <option name="LAST_COMMIT_MESSAGE" value="        data = request.data&#10;&#10;        print('WEBHOOOOOK POST',  data)" />
+    <MESSAGE value="if not data" />
+    <option name="LAST_COMMIT_MESSAGE" value="if not data" />
   </component>
 </project>

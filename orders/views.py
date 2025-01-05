@@ -34,7 +34,7 @@ class OrderWebhook(APIView):
         serializer = OrderSerializer(data={
             'order_id': data['order']['id'],
             'date': data['order']['date'],
-            'domain': data['order']['domain'],
+            # 'domain': data['order']['domain'],
             # 'test_domain': data['order']['test_domain'],
             'total_amount': data['order']['total']['amount'],
             'currency': data['order']['total']['currency'],
