@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="undo">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="ALLOWED_HOSTS = ['https://djangoprojectstsndev.onrender.com']">
       <change beforePath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736042173703</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ALLOWED_HOSTS = ['https://djangoprojectstsndev.onrender.com']">
+      <option name="closed" value="true" />
+      <created>1736042788716</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736042788716</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +183,7 @@
     <MESSAGE value="RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')&#10;if RENDER_EXTERNAL_HOSTNAME:&#10;    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)" />
     <MESSAGE value="manage py execute_from_command_line(['manage.py', 'runserver', f'0.0.0.0:{port}'])" />
     <MESSAGE value="undo" />
-    <option name="LAST_COMMIT_MESSAGE" value="undo" />
+    <MESSAGE value="ALLOWED_HOSTS = ['https://djangoprojectstsndev.onrender.com']" />
+    <option name="LAST_COMMIT_MESSAGE" value="ALLOWED_HOSTS = ['https://djangoprojectstsndev.onrender.com']" />
   </component>
 </project>
