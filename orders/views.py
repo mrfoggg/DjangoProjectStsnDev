@@ -18,12 +18,12 @@ class OrderWebhook(APIView):
         order_date = str(data['order']['date'])
         expected_hash = hmac.new(
             self.private_key.encode(),
-            (len(order_id) + order_id + len(order_date) + order_date).encode(),
+            (str(len(order_id)) + order_id + str(len(order_date)) + order_date).encode(),
             hashlib.md5
         ).hexdigest()
 
         if hash_value != expected_hash:
-            return Response({'detail': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+            return self.create_response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
 
         # Сохранение заказа
         serializer = OrderSerializer(data={
@@ -41,6 +41,12 @@ class OrderWebhook(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({'state': 'Received'}, status=status.HTTP_200_OK)
+            return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return self.create_response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+    def create_response(self, data, http_status):
+        """Создание ответа с добавлением заголовка `State`."""
+        response = Response(data, status=http_status)
+        response['State'] = 'Received' if http_status == status.HTTP_200_OK else 'Error'
+        return response
