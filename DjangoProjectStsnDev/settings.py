@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['djangoprojectstsndev.onrender.com']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://djangoprojectstsndev.onrender.com'
+]
+
 # Application definition
 
 INSTALLED_APPS = [
