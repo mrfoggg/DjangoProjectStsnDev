@@ -20,11 +20,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-if __name__ == '__main__':
-    import os
-    from django.core.management import execute_from_command_line
-
-    port = os.environ.get('PORT', 8000)  # Render задает порт через переменную PORT
-    execute_from_command_line(['manage.py', 'runserver', f'0.0.0.0:{port}'])
-
