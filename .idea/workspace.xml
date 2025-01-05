@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="ALLOWED_HOSTS = ['djangoprojectstsndev.onrender.com', '127.0.0.1']">
+    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')&#10;if RENDER_EXTERNAL_HOSTNAME:&#10;    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736041106008</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')&#10;if RENDER_EXTERNAL_HOSTNAME:&#10;    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)">
+      <option name="closed" value="true" />
+      <created>1736041428537</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736041428537</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +157,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
     <MESSAGE value="ALLOWED_HOSTS = ['djangoprojectstsndev.onrender.com', '127.0.0.1']" />
-    <option name="LAST_COMMIT_MESSAGE" value="ALLOWED_HOSTS = ['djangoprojectstsndev.onrender.com', '127.0.0.1']" />
+    <MESSAGE value="RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')&#10;if RENDER_EXTERNAL_HOSTNAME:&#10;    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)" />
+    <option name="LAST_COMMIT_MESSAGE" value="RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')&#10;if RENDER_EXTERNAL_HOSTNAME:&#10;    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)" />
   </component>
 </project>
