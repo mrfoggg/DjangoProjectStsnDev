@@ -12,6 +12,8 @@ class OrderWebhook(APIView):
     def post(self, request):
         data = request.data
 
+        print('WEBHOOOOOK POST',  request.POST)
+
         # Проверка подписи
         hash_value = data.get('hash')
         order_id = str(data['order']['id'])
