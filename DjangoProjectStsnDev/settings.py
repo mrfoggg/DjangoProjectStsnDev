@@ -124,7 +124,7 @@ USE_TZ = True
 # STATIC_URL = 'static_files/stsn_dev_static/'
 # STATIC_ROOT = '/home/h68663c/public_html/static_files/stsn_dev_static'
 
-STATIC_URL = 'static/'
+STATIC_URL = 'stsn_dev/static/'
 STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
 
 MEDIA_URL = '/media/'
