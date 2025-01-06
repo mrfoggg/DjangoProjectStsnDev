@@ -32,20 +32,20 @@ class OrderWebhook(APIView):
         if hash_value != expected_hash:
             return self.create_response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
 
-        # serializer = OrderSerializer(data={
-        #     'order_id': data['order']['id'],
-        #     'date': data['order']['date'],
-        #     'domain': data['order']['domain'],
-        #     'test_domain': data['order']['test_domain'],
-        #     'total_amount': data['order']['total']['amount'],
-        #     'currency': data['order']['total']['currency'],
-        #     'customer_name': data['customer']['name'],
-        #     'customer_email': data['customer']['email'],
-        #     'developer_name': data['developer']['name'],
-        #     'developer_email': data['developer']['email'],
-        # })
-        #
-        # print('serializer ', serializer)
+        serializer = OrderSerializer(data={
+            'order_id': data['order']['id'],
+            'date': data['order']['date'],
+            'domain': data['order']['domain'],
+            'test_domain': data['order']['test_domain'],
+            'total_amount': data['order']['total']['amount'],
+            'currency': data['order']['total']['currency'],
+            'customer_name': data['customer']['name'],
+            'customer_email': data['customer']['email'],
+            'developer_name': data['developer']['name'],
+            'developer_email': data['developer']['email'],
+        })
+
+        print('serializer ', serializer)
 
         return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
 
