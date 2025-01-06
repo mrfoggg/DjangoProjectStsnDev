@@ -21,6 +21,7 @@ class OrderWebhook(APIView):
         hash_value = data.get('hash')
         order_id = str(data['order']['id'])
         order_date = str(data['order']['date'])
+
         expected_hash = hmac.new(
             self.private_key.encode(),
             (str(len(order_id)) + order_id + str(len(order_date)) + order_date).encode(),
@@ -29,6 +30,21 @@ class OrderWebhook(APIView):
 
         if hash_value != expected_hash:
             return self.create_response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
+
+        serializer = OrderSerializer(data={
+            'order_id': data['order']['id'],
+            'date': data['order']['date'],
+            'domain': data['order']['domain'],
+            'test_domain': data['order']['test_domain'],
+            'total_amount': data['order']['total']['amount'],
+            'currency': data['order']['total']['currency'],
+            'customer_name': data['customer']['name'],
+            'customer_email': data['customer']['email'],
+            'developer_name': data['developer']['name'],
+            'developer_email': data['developer']['email'],
+        })
+
+        print('serializer ', serializer)
 
         return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
 
