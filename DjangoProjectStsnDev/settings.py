@@ -123,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 # STATIC_ROOT = BASE_DIR / 'static_files'
-STATIC_ROOT = '/home/h68663c/public_html/mydjangoproject/static'
+STATIC_ROOT = '/home/h68663c/public_html/static_files/stsn_dev_static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "static_media"
