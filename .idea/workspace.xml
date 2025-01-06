@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="no LOGGING">
+    <list default="true" id="90d154e1-1c4b-410e-be8d-d3fc269b00be" name="Changes" comment="ALLOWED_HOSTS = ['stsn-dev.kyiv.ua']">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProjectStsnDev/settings.py" afterDir="false" />
     </list>
@@ -114,7 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1736034242123</updated>
       <workItem from="1736034243089" duration="3601000" />
-      <workItem from="1736163778388" duration="8974000" />
+      <workItem from="1736163778388" duration="9436000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -300,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736183339681</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="ALLOWED_HOSTS = ['stsn-dev.kyiv.ua']">
+      <option name="closed" value="true" />
+      <created>1736183917318</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1736183917318</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,6 +348,7 @@
     <MESSAGE value="LOGGING" />
     <MESSAGE value="DEBUG = True" />
     <MESSAGE value="no LOGGING" />
-    <option name="LAST_COMMIT_MESSAGE" value="no LOGGING" />
+    <MESSAGE value="ALLOWED_HOSTS = ['stsn-dev.kyiv.ua']" />
+    <option name="LAST_COMMIT_MESSAGE" value="ALLOWED_HOSTS = ['stsn-dev.kyiv.ua']" />
   </component>
 </project>
