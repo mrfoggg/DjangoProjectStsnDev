@@ -40,18 +40,18 @@ class OrderWebhook(APIView):
                 developer_data = data.get('developer', {})
 
                 # Сохранение заказа
-                serializer = OrderSerializer(data={
-                    'order_id': order_data.get('id'),
-                    'date': order_data.get('date'),
-                    'domain': order_data.get('domain'),
-                    'test_domain': order_data.get('test_domain'),
-                    'total_amount': order_data.get('total', {}).get('amount'),
-                    'currency': order_data.get('total', {}).get('currency'),
-                    'customer_name': customer_data.get('name'),
-                    'customer_email': customer_data.get('email'),
-                    'developer_name': developer_data.get('name'),
-                    'developer_email': developer_data.get('email'),
-                })
+                # serializer = OrderSerializer(data={
+                #     'order_id': order_data.get('id'),
+                #     'date': order_data.get('date'),
+                #     'domain': order_data.get('domain'),
+                #     'test_domain': order_data.get('test_domain'),
+                #     'total_amount': order_data.get('total', {}).get('amount'),
+                #     'currency': order_data.get('total', {}).get('currency'),
+                #     'customer_name': customer_data.get('name'),
+                #     'customer_email': customer_data.get('email'),
+                #     'developer_name': developer_data.get('name'),
+                #     'developer_email': developer_data.get('email'),
+                # })
 
                 if serializer.is_valid():
                     # serializer.save()
