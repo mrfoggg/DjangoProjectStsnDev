@@ -15,11 +15,15 @@ class OrderWebhook(APIView):
 
         if not data:
             print("Received empty data.")
-        else:
-            print('WEBHOOOOOK POST', data)
+            return self.create_response({'detail': 'Invalid request format'}, status.HTTP_400_BAD_REQUEST)
+
+        print('WEBHOOOOOK POST', data)
 
         # Проверка подписи
         hash_value = data.get('hash')
+        if 'order' not in data or not hash_value:
+            return self.create_response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
+
         order_id = str(data['order']['id'])
         order_date = str(data['order']['date'])
 
@@ -32,23 +36,33 @@ class OrderWebhook(APIView):
         if hash_value != expected_hash:
             return self.create_response({'detail': 'Unauthorized'}, status.HTTP_401_UNAUTHORIZED)
 
-        serializer = OrderSerializer(data={
-            'order_id': data['order']['id'],
-            'date': data['order']['date'],
-            'domain': data['order']['domain'],
-            'test_domain': data['order']['test_domain'],
-            'total_amount': data['order']['total']['amount'],
-            'currency': data['order']['total']['currency'],
-            'customer_name': data['customer']['name'],
-            'customer_email': data['customer']['email'],
-            'developer_name': data['developer']['name'],
-            'developer_email': data['developer']['email'],
-        })
+        # Обработка по статусу
+        status_code = data.get('status')
+        if status_code == 'auth':
+            return self.create_response({'state': 'Authorized', 'detail': 'Ready to receive form'}, status.HTTP_200_OK)
 
-        print('serializer ', serializer)
+        elif status_code == 'success':
+            # Сериализация данных происходит только при статусе `success`
+            serializer = OrderSerializer(data={
+                'order_id': data['order']['id'],
+                'date': data['order']['date'],
+                'domain': data['order']['domain'],
+                'test_domain': data['order']['test_domain'],
+                'total_amount': data['order']['total']['amount'],
+                'currency': data['order']['total']['currency'],
+                'customer_name': data['customer']['name'],
+                'customer_email': data['customer']['email'],
+                'developer_name': data['developer']['name'],
+                'developer_email': data['developer']['email'],
+            })
 
-        return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
+            if serializer.is_valid():
+                serializer.save()
+                return self.create_response({'state': 'Received', 'detail': 'Form successfully received'}, status.HTTP_200_OK)
+            else:
+                return self.create_response({'state': 'Error', 'errors': serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
+        return self.create_response({'detail': 'Unknown status'}, status.HTTP_400_BAD_REQUEST)
 
     def create_response(self, data, http_status):
         """Создание ответа с добавлением заголовка `State`."""
