@@ -29,9 +29,11 @@ class OrderWebhook(APIView):
             # Обработка по статусу
             status_value = data.get('status')
             if status_value == 'auth':
+                print('AUTH')
                 return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
 
             elif status_value == 'success':
+                print('SUCCESS')
                 # Проверяем наличие всех данных
                 order_data = data.get('order', {})
                 customer_data = data.get('customer', {})
