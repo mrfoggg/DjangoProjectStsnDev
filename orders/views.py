@@ -54,7 +54,7 @@ class OrderWebhook(APIView):
                 })
 
                 if serializer.is_valid():
-                    serializer.save()
+                    # serializer.save()
                     return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
                 else:
                     return self.create_response(serializer.errors, status.HTTP_400_BAD_REQUEST)
