@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qw8agq#nes-i4+8iz7tn&x00=8z+ymg+^dbi(7oqqv(dve92h-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['stsn-dev.kyiv.ua/', '127.0.0.1', 'localhost']
 
@@ -60,8 +60,7 @@ ROOT_URLCONF = 'DjangoProjectStsnDev.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
