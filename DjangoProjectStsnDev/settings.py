@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qw8agq#nes-i4+8iz7tn&x00=8z+ymg+^dbi(7oqqv(dve92h-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['stsn-dev.kyiv.ua/', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['http://stsn-dev.kyiv.ua/']
 
 # CSRF_TRUSTED_ORIGINS = [
 #     'https://djangoprojectstsndev.onrender.com'
@@ -127,36 +127,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-#             'datefmt' : "%d/%b/%Y %H:%M:%S"
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'mysite.log',
-#             'formatter': 'verbose'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers':['file'],
-#             'propagate': True,
-#             'level':'DEBUG',
-#         },
-#         'MYAPP': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#         },
-#     }
-# }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug.log',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
