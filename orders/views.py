@@ -53,11 +53,11 @@ class OrderWebhook(APIView):
                 #     'developer_email': developer_data.get('email'),
                 # })
 
-                if serializer.is_valid():
-                    # serializer.save()
-                    return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
-                else:
-                    return self.create_response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+                # if serializer.is_valid():
+                #     # serializer.save()
+                #     return self.create_response({'state': 'Received'}, status.HTTP_200_OK)
+                # else:
+                #     return self.create_response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
             else:
                 return self.create_response({'detail': 'Unsupported status'}, status.HTTP_400_BAD_REQUEST)
