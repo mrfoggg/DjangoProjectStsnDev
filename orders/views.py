@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rich import print
 from .models import Order
 from .serializers import OrderSerializer
 import hmac
@@ -11,6 +12,7 @@ class OrderWebhook(APIView):
 
     def post(self, request):
         data = request.data
+        print('DATA', data)
 
         # Проверка подписи
         hash_value = data.get('hash')
