@@ -28,13 +28,25 @@ class OrderWebhook(APIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED, headers={'State': 'Unauthorized'})
 
         request_type = data.get('status', '')
-        print('STATUS', request_type)
         if request_type == "auth":
             print('===AUTH===')
             return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
             print('===success===')
+            serializer = OrderSerializer(data={
+                'order_id': data['order']['id'],
+                'date': data['order']['date'],
+                'domain': data['order']['domain'],
+                'test_domain': data['order']['test_domain'],
+                'total_amount': data['order']['total']['amount'],
+                'currency': data['order']['total']['currency'],
+                'customer_name': data['customer']['name'],
+                'customer_email': data['customer']['email'],
+                'developer_name': data['developer']['name'],
+                'developer_email': data['developer']['email'],
+            })
+            serializer.save()
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
 
 
