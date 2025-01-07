@@ -34,6 +34,7 @@ class OrderWebhook(APIView):
 
         elif request_type == "success":
             print('===success===')
+
             serializer = OrderSerializer(data={
                 'order_id': data['order']['id'],
                 'date': data['order']['date'],
@@ -46,7 +47,7 @@ class OrderWebhook(APIView):
                 'developer_name': data['developer']['name'],
                 'developer_email': data['developer']['email'],
             })
-            serializer.save()
+            # serializer.save()
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
 
 
