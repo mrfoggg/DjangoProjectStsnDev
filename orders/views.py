@@ -24,6 +24,9 @@ class OrderWebhook(APIView):
             hashlib.md5
         ).hexdigest()
 
+        print('hash_value', hash_value)
+        print('expected_hash', expected_hash)
+
         if hash_value != expected_hash:
             return Response({'State': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
