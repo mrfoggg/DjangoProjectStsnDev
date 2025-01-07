@@ -8,7 +8,7 @@ import hmac
 import hashlib
 
 class OrderWebhook(APIView):
-    private_key = "ваш_секретный_ключ"
+    private_key = "11112222333442"
 
     def post(self, request):
         data = request.data
@@ -21,7 +21,7 @@ class OrderWebhook(APIView):
         hash_str = str(len(order_id)) + order_id + str(len(order_date)) + order_date
         expected_hash = hmac.new(
             self.private_key.encode(),
-            (hash_str).encode(),
+            hash_str.encode(),
             hashlib.md5
         ).hexdigest()
 
