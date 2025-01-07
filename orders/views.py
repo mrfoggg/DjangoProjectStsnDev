@@ -49,6 +49,8 @@ class OrderWebhook(APIView):
             })
             if serializer.is_valid():
                 serializer.save()
+            else:
+                print('serializer.errors - ', serializer.errors)
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
 
 
