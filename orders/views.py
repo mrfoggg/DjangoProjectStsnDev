@@ -25,13 +25,13 @@ class OrderWebhook(APIView):
         ).hexdigest()
 
         if hash_value != expected_hash:
-            return Response({'State': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED, headers={'State': 'Unauthorized'})
 
         request_type = data.get('status', '')
         print('STATUS', request_type)
         if request_type == "auth":
             print('===AUTH===')
-            return Response({'State': 'Authorized'}, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
             print('===success===')
