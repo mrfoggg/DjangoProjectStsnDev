@@ -33,9 +33,11 @@ class OrderWebhook(APIView):
         request_type = data.get('status', '')
         print('STATUS', request_type)
         if request_type == "auth":
+            print('===AUTH===')
             return Response({'State': 'Authorized'}, status=status.HTTP_200_OK)
 
         elif request_type == "success":
+            print('===success===')
             return Response({'state': 'Received'}, status=status.HTTP_200_OK)
 
 
