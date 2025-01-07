@@ -26,10 +26,11 @@ class OrderWebhook(APIView):
             return Response({'State': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
         request_type = data.get('status', '')
-        if status == "auth":
+        print('STATUS', request_type)
+        if request_type == "auth":
             return Response({'State': 'Authorized'}, status=status.HTTP_200_OK)
 
-        else:
+        elif request_type == "success":
             # Сохранение заказа
             serializer = OrderSerializer(data={
                 'order_id': data['order']['id'],
