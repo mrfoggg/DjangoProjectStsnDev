@@ -47,7 +47,7 @@ class OrderWebhook(APIView):
                 'developer_name': data['developer']['name'],
                 'developer_email': data['developer']['email'],
             })
-            # serializer.save()
+            serializer.save()
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
 
 
