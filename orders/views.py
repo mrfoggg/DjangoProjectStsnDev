@@ -18,12 +18,14 @@ class OrderWebhook(APIView):
         hash_value = data.get('hash')
         order_id = str(data['order']['id'])
         order_date = str(data['order']['date'])
+        hash_str = str(len(order_id)) + order_id + str(len(order_date)) + order_date
         expected_hash = hmac.new(
             self.private_key.encode(),
-            (str(len(order_id)) + order_id + str(len(order_date)) + order_date).encode(),
+            (hash_str).encode(),
             hashlib.md5
         ).hexdigest()
 
+        print('hash_str', hash_str)
         print('hash_value', hash_value)
         print('expected_hash', expected_hash)
 
