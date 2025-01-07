@@ -35,6 +35,6 @@ class OrderWebhook(APIView):
 
         elif request_type == "success":
             print('===success===')
-            return Response({'State': 'Received'}, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
 
 
