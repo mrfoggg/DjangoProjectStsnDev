@@ -31,23 +31,6 @@ class OrderWebhook(APIView):
             return Response({'State': 'Authorized'}, status=status.HTTP_200_OK)
 
         elif request_type == "success":
-            # Сохранение заказа
-            serializer = OrderSerializer(data={
-                'order_id': data['order']['id'],
-                'date': data['order']['date'],
-                'domain': data['order']['domain'],
-                'test_domain': data['order']['test_domain'],
-                'total_amount': data['order']['total']['amount'],
-                'currency': data['order']['total']['currency'],
-                'customer_name': data['customer']['name'],
-                'customer_email': data['customer']['email'],
-                'developer_name': data['developer']['name'],
-                'developer_email': data['developer']['email'],
-            })
+            return Response({'state': 'Received'}, status=status.HTTP_200_OK)
 
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'state': 'Received'}, status=status.HTTP_200_OK)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
