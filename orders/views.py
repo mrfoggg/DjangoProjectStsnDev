@@ -1,3 +1,4 @@
+from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -35,9 +36,21 @@ class OrderWebhook(APIView):
         elif request_type == "success":
             print('===success===')
 
+            # Преобразование даты в правильный формат
+            try:
+                # Преобразуем строку в объект datetime, предполагая формат даты, который может быть в data['order']['date']
+                order_date_obj = datetime.strptime(order_date,
+                                                   "%Y-%m-%dT%H:%M:%S")  # Замените формат в зависимости от вашего ввода
+                formatted_order_date = order_date_obj.isoformat()  # Получаем строку в формате ISO 8601
+            except ValueError:
+                print(f"Неверный формат даты: {order_date}")
+                return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": "Invalid date format"})
+
+            # Создание хеша для проверки подписи
+
             serializer = OrderSerializer(data={
                 'order_id': data['order']['id'],
-                'date': data['order']['date'],
+                'date': formatted_order_date,
                 'domain': data['order']['domain'],
                 'test_domain': data['order']['test_domain'],
                 'total_amount': data['order']['total']['amount'],
