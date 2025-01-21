@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'DjangoProjectStsnDev.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'h68663c_stsn_db',
+        'USER': 'h68663c_stsn',
+        'PASSWORD': 'M3Ch6a94Ph',
+        'HOST': 'localhost',  # Или IP адрес сервера PostgreSQL
+        'PORT': '5432',  # Порт PostgreSQL, по умолчанию 5432
     }
 }
 

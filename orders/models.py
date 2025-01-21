@@ -14,3 +14,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.order_id} - {self.customer_name}"
+
+
+# class Developer(models.Model):
+#     order_id = models.IntegerField(unique=True)
+#     name = models.CharField(max_length=255)
+#     email = models.EmailField()
+#     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
+
