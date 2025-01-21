@@ -85,11 +85,11 @@ DATABASES = {
         'NAME': 'h68663c_stsn_db',
         'USER': 'h68663c_stsn',
         'PASSWORD': 'M3Ch6a94Ph',
-        'HOST': 'localhost',  # Или IP адрес сервера PostgreSQL
+        'HOST': '127.0.0.1',  # Или IP адрес сервера PostgreSQL
         'PORT': '5432',  # Порт PostgreSQL, по умолчанию 5432
-        'OPTIONS': {
-            'sslmode': 'disable',  # Отключаем SSL
-        },
+        # 'OPTIONS': {
+        #     'sslmode': 'disable',  # Отключаем SSL
+        # },
     }
 }
 
