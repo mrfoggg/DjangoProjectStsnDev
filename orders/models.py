@@ -2,7 +2,7 @@ from django.contrib.postgres.fields import HStoreField
 from django.db import models
 
 class Order(models.Model):
-    id = models.IntegerField(unique=True)
+    id = models.IntegerField(unique=True, primary_key=True)
     date = models.DateTimeField()
 
     currency = models.CharField(max_length=10)
@@ -17,7 +17,7 @@ class Order(models.Model):
 
 
 class Developer(models.Model):
-    id = models.IntegerField(unique=True)
+    id = models.IntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
