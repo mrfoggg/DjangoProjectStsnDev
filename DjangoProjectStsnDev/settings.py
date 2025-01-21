@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': 'M3Ch6a94Ph',
         'HOST': 'localhost',  # Или IP адрес сервера PostgreSQL
         'PORT': '5432',  # Порт PostgreSQL, по умолчанию 5432
+        'OPTIONS': {
+            'sslmode': 'disable',  # Отключаем SSL
+        },
     }
 }
 
