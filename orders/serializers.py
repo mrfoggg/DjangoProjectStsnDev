@@ -26,7 +26,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
         if developer_id:
             Developer.objects.update_or_create(
-                # id=developer_id,
                 id=111,
                 defaults={
                     'name': developer_name,
