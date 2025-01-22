@@ -47,8 +47,6 @@ class OrderWebhook(APIView):
                 'total_amount': data['order']['total']['amount'],
                 'commission': data['order']['commission'],
 
-                # 'customer_name': data['customer']['name'],
-                # 'customer_email': data['customer']['email'],
                 'developer_id': data['developer']['id'],
                 'developer_name': data['developer']['name'],
                 'developer_email': data['developer']['email'],
