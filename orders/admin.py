@@ -13,9 +13,11 @@ class OrderAdmin(admin.ModelAdmin):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['name', 'email']
 
+
 @admin.register(ForumFile)
 class ForumFileAdmin(admin.ModelAdmin):
     list_display = ['name']
+
 
 @admin.register(Developer)
 class DeveloperAdmin(admin.ModelAdmin):
