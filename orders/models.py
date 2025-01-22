@@ -21,7 +21,7 @@ class Developer(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
-    credits = HStoreField()
+    credits = HStoreField(null=True, blank=True)
 
     def __str__(self):
         return f"Order {self.id} - {self.name}"

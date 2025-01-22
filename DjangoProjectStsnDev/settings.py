@@ -24,8 +24,9 @@ SECRET_KEY = 'django-insecure-qw8agq#nes-i4+8iz7tn&x00=8z+ymg+^dbi(7oqqv(dve92h-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+IS_LOCAL = False if BASE_DIR.parent.name == 'django_projects' else True
 
-ALLOWED_HOSTS = ['stsn-dev.kyiv.ua']
+ALLOWED_HOSTS = ['127.0.0.1', 'stsn-dev.kyiv.ua']
 
 # CSRF_TRUSTED_ORIGINS = [
 #     'https://djangoprojectstsndev.onrender.com'
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
     'rest_framework',
+    'django_json_widget',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,7 @@ DATABASES = {
         'NAME': 'h68663c_stsn_db',
         'USER': 'h68663c_stsn',
         'PASSWORD': 'M3Ch6a94Ph',
-        'HOST': '',  # подключение через Unix-сокеты
+        'HOST': '127.0.0.1' if IS_LOCAL else '',  # подключение через Unix-сокеты
         'PORT': '5432',
     }
 }
@@ -136,40 +138,41 @@ MEDIA_ROOT = BASE_DIR / "static_media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
+if not IS_LOCAL:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {message}',
+                'style': '{',
+            },
+            'simple': {
+                'format': '{levelname} {message}',
+                'style': '{',
+            },
         },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple',
+            },
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': '/home/h68663c/django_projects/stsn_dev/debug.log',
+                'formatter': 'verbose',
+            },
         },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+        'loggers': {
+            'django': {
+                'handlers': ['console', 'file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/home/h68663c/django_projects/stsn_dev/debug.log',
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
+    }
 
 PRIVATE_KEY = "11112222333442"
 
