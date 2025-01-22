@@ -8,6 +8,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         developer_id = validated_data.pop('developer_id', None)
+        developer_name = validated_data.pop('developer_name', '')
         developer_email = validated_data.pop('developer_email', '')
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
@@ -15,7 +16,7 @@ class OrderSerializer(serializers.ModelSerializer):
         Developer.objects.update_or_create(
             id=developer_id,
             defaults={
-                'name': validated_data.pop('developer_name', ''),
+                'name': developer_name,
                 'email': developer_email,
                 'link': developer_link,
                 'credits': developer_credits,
