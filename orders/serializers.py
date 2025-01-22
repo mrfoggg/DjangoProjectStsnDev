@@ -31,7 +31,7 @@ class OrderSerializer(serializers.ModelSerializer):
                     'name': developer_name,
                     'email': developer_email,
                     'link': developer_link,
-                    'credits': '',
+                    'credits': '{"breed": "labrador"}',
                 }
             )
 
