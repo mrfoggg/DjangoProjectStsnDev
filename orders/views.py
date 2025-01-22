@@ -62,7 +62,7 @@ class OrderWebhook(APIView):
             print('DEV CRDT - ', developer_credits)
             print('CREDITS TYPE - ', type(developer_credits))
             if serializer.is_valid():
-                print('VALIDDDD')
+                print("VALID DATA:", serializer.validated_data)
                 serializer.save()
             else:
                 print('serializer.errors - ', serializer.errors)
