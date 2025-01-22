@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Order, Developer
 
 class OrderSerializer(serializers.ModelSerializer):
+    developer_id = serializers.IntegerField(write_only=True)
+    developer_name = serializers.CharField(write_only=True)
+    developer_email = serializers.EmailField(write_only=True)
+    developer_link = serializers.CharField(write_only=True)
+    developer_credits = serializers.HStoreField(write_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
