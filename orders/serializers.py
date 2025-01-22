@@ -25,7 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
         # Сохраняем данные в таблицу Developer
         developer, _ = Developer.objects.get_or_create(
             id=developer_id,
-            defaults={'name': developer_name, 'email': developer_email, 'link': developer_link, 'credits': developer_credits}
+            defaults={'id': developer_id, 'name': developer_name, 'email': developer_email, 'link': developer_link, 'credits': developer_credits}
         )
 
         # Сохраняем данные в основную таблицу Order, связывая её с Customer и Developer
