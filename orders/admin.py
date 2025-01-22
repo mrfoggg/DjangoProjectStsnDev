@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.postgres.fields import HStoreField
-# from django_json_widget.widgets import JSONEditorWidget
+from django_json_widget.widgets import JSONEditorWidget
 from .models import Developer, Order
 
 
