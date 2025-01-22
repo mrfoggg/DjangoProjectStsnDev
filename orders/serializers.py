@@ -14,16 +14,18 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
+        print(f'developer_id: {developer_id} (type: {type(developer_id)})')
 
-        developer, created = Developer.objects.update_or_create(
-            id=developer_id,
-            defaults={
-                'name': developer_name,
-                'email': developer_email,
-                'link': developer_link,
-                'credits': developer_credits,
-            }
-        )
+        if developer_id:
+            Developer.objects.update_or_create(
+                id=developer_id,
+                defaults={
+                    'name': developer_name,
+                    'email': developer_email,
+                    'link': developer_link,
+                    'credits': developer_credits,
+                }
+            )
 
         # Сохранение Order
         order = Order.objects.create(**validated_data)
