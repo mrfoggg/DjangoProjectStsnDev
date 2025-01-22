@@ -57,6 +57,7 @@ class OrderWebhook(APIView):
             })
 
             if serializer.is_valid():
+                print('VALID')
                 serializer.save()
             else:
                 print('serializer.errors - ', serializer.errors)
