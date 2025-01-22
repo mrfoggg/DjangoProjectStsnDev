@@ -37,7 +37,7 @@ class OrderWebhook(APIView):
             order_date_obj = datetime.fromtimestamp(order_timestamp)  # Преобразуем в datetime объект
             formatted_order_date = order_date_obj.isoformat()  # Получаем строку в формате ISO 8601
 
-            serializer = OrderSerializer(data={
+            data = {
                 'id': data['order']['id'],
                 'date': formatted_order_date,
                 'domain': data['order']['domain'],
@@ -52,7 +52,11 @@ class OrderWebhook(APIView):
                 'developer_email': data['developer']['email'],
                 'developer_link': data['developer']['link'],
                 'developer_credits': {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])},
-            })
+            }
+
+            print('DATA - ', data)
+
+            serializer = OrderSerializer(data=data)
 
             if serializer.is_valid():
                 print("VALID DATA:", serializer.validated_data)
