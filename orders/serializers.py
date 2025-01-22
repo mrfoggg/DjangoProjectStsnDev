@@ -14,7 +14,7 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
-        # print(f'developer_id: {developer_id} (type: {type(developer_id)})')
+        print(f'developer_id: {developer_id} (type: {type(developer_id)})')
 
         if developer_id:
             Developer.objects.update_or_create(
