@@ -18,10 +18,6 @@ class OrderSerializer(serializers.ModelSerializer):
         print("CREDITS IN CREATE:", developer_credits)
         print("CREDITS TYPE IN CREATE:", type(developer_credits))
 
-        # Убедитесь, что все ключи и значения строки
-        if not all(isinstance(k, str) and isinstance(v, str) for k, v in developer_credits.items()):
-            raise ValueError("All keys and values in developer_credits must be strings")
-
         # Сохранение Developer
         developer_id = validated_data.pop('developer_id', None)
         developer_name = validated_data.pop('developer_name', '')
