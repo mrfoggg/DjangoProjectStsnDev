@@ -2,31 +2,38 @@ from rest_framework import serializers
 from .models import Order, Developer
 
 class OrderSerializer(serializers.ModelSerializer):
+    developer_id = serializers.IntegerField(write_only=True)
+    developer_name = serializers.CharField(write_only=True)
+    developer_email = serializers.EmailField(write_only=True)
+    developer_link = serializers.CharField(write_only=True)
+    developer_credits = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
 
     def create(self, validated_data):
         print('validated_data--', validated_data)
+
+        # Извлекаем данные для Developer
+        developer_id = validated_data.pop('developer_id', None)
+        developer_name = validated_data.pop('developer_name', '')
+        developer_email = validated_data.pop('developer_email', '')
+        developer_link = validated_data.pop('developer_link', '')
+        developer_credits = validated_data.pop('developer_credits', 0)
+
+        # Сохраняем Developer
+        if developer_id:
+            developer, _ = Developer.objects.get_or_create(
+                id=developer_id,
+                defaults={
+                    'name': developer_name,
+                    'email': developer_email,
+                    'link': developer_link,
+                    'credits': developer_credits,
+                }
+            )
+
+        # Сохраняем Order
         order = Order.objects.create(**validated_data)
-        # Извлекаем данные, которые нужно сохранить в связанных таблицах
-        # customer_name = validated_data.pop('customer_name')
-        # customer_email = validated_data.pop('customer_email')
-        developer_id = validated_data.pop('developer_id')
-        developer_name = validated_data.pop('developer_name')
-        developer_email = validated_data.pop('developer_email')
-        developer_link = validated_data.pop('developer_link')
-        developer_credits = validated_data.pop('developer_credits')
-
-        # Сохраняем данные в таблицу Developer
-        developer, _ = Developer.objects.get_or_create(
-            id=developer_id,
-            defaults={'id': developer_id, 'name': developer_name, 'email': developer_email, 'link': developer_link, 'credits': developer_credits}
-        )
-
-        # Сохраняем данные в основную таблицу Order, связывая её с Customer и Developer
-        order = Order.objects.create(
-            **validated_data,
-        )
-
         return order
