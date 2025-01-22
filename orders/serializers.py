@@ -20,11 +20,11 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_name = validated_data.pop('developer_name', '')
         developer_email = validated_data.pop('developer_email', '')
         developer_link = validated_data.pop('developer_link', '')
-        developer_credits = validated_data.pop('developer_credits', 0)
+        developer_credits = validated_data.pop('developer_credits', {})
 
         # Сохраняем Developer
         if developer_id:
-            developer, _ = Developer.objects.get_or_create(
+            developer, _ = Developer.objects.update_or_create(
                 id=developer_id,
                 defaults={
                     'name': developer_name,
