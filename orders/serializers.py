@@ -35,10 +35,6 @@ class OrderSerializer(serializers.ModelSerializer):
                 },
                 create_defaults={
                     'id': developer_id,
-                    'name': developer_name,
-                    'email': developer_email,
-                    'link': developer_link,
-                    'credits': developer_credits,  # Передаем словарь
                 }
             )
 
