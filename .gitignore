@@ -1,9 +1,0 @@
-# created by virtualenv automatically
-*.idea
-
-# Игнорировать все файлы в папках migrations
-migrations/**
-
-# Исключить __init__.py из игнорирования
-!migrations/**/__init__.py
-
