@@ -8,19 +8,25 @@ class OrderSerializer(serializers.ModelSerializer):
     developer_link = serializers.CharField(write_only=True)
     developer_credits = serializers.HStoreField(write_only=True)
 
+    customer_id = serializers.IntegerField(write_only=True)
+    customer_name = serializers.CharField(write_only=True)
+    customer_email = serializers.EmailField(write_only=True)
+    customer_link = serializers.CharField(write_only=True)
+
+    file_id = serializers.IntegerField(write_only=True)
+    file_name = serializers.CharField(write_only=True)
+    file_link = serializers.CharField(write_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
 
     def create(self, validated_data):
-        print('create validated_data - ', validated_data)
         developer_id = validated_data.pop('developer_id', None)
         developer_name = validated_data.pop('developer_name', '')
         developer_email = validated_data.pop('developer_email', '')
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
-
-        print(f'developer_id: {developer_id} (type: {type(developer_id)})')
 
         if developer_id:
             Developer.objects.update_or_create(

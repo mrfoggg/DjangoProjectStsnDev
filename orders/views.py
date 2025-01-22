@@ -40,6 +40,7 @@ class OrderWebhook(APIView):
             data = {
                 'id': data['order']['id'],
                 'date': formatted_order_date,
+
                 'domain': data['order']['domain'],
                 'test_domain': data['order']['test_domain'],
 
@@ -52,6 +53,15 @@ class OrderWebhook(APIView):
                 'developer_email': data['developer']['email'],
                 'developer_link': data['developer']['link'],
                 'developer_credits': {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])},
+
+                'customer_id': data['customer']['id'],
+                'customer_name': data['customer']['name'],
+                'customer_email': data['customer']['email'],
+                'customer_link': data['customer']['link'],
+
+                'file_id': data['file']['id'],
+                'file_name': data['file']['name'],
+                'file_link': data['file']['link'],
             }
 
             print('DATA - ', data)

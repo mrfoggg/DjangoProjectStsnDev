@@ -26,3 +26,22 @@ class Developer(models.Model):
     def __str__(self):
         return f"Order {self.id} - {self.name}"
 
+
+class Customer(models.Model):
+    id = models.IntegerField(unique=True, primary_key=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
+
+    def __str__(self):
+        return f"Order {self.id} - {self.name}"
+
+
+class ForumFile(models.Model):
+    id = models.IntegerField(unique=True, primary_key=True)
+    name = models.CharField(max_length=255)
+    link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
+
+    def __str__(self):
+        return f"Order {self.id} - {self.name}"
+
