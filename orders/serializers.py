@@ -25,7 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
 
         if developer_id:
-            Developer.objects.update_or_create(
+            obj, created = Developer.objects.update_or_create(
                 id=111,
                 defaults={
                     'name': developer_name,
