@@ -15,7 +15,7 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_credits = validated_data.pop('developer_credits', {})
 
 
-        Developer.objects.update_or_create(
+        developer, created = Developer.objects.update_or_create(
             id=developer_id,
             defaults={
                 'name': developer_name,
