@@ -30,12 +30,9 @@ class OrderWebhook(APIView):
 
         request_type = data.get('status', '')
         if request_type == "auth":
-            print('===AUTH===')
             return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
-            print('===success===')
-
             order_timestamp = int(data['order']['date'])  # Получаем timestamp
             order_date_obj = datetime.fromtimestamp(order_timestamp)  # Преобразуем в datetime объект
             formatted_order_date = order_date_obj.isoformat()  # Получаем строку в формате ISO 8601
@@ -58,11 +55,8 @@ class OrderWebhook(APIView):
                 'developer_link': data['developer']['link'],
                 'developer_credits': {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])},
             })
-            developer_credits = {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])}
-            print('DEV CRDT - ', developer_credits)
-            print('CREDITS TYPE - ', type(developer_credits))
+
             if serializer.is_valid():
-                print("VALID DATA:", serializer.validated_data)
                 serializer.save()
             else:
                 print('serializer.errors - ', serializer.errors)
