@@ -58,6 +58,7 @@ class OrderWebhook(APIView):
                 'developer_link': data['developer']['link'],
                 'developer_credits': {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])},
             })
+            print('DEV CRDT - ', {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])})
             if serializer.is_valid():
                 serializer.save()
             else:
