@@ -22,6 +22,8 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
+        print('validated_data--', validated_data)
+
 
         # Сохраняем Developer, если developer_id указан
         if developer_id:
