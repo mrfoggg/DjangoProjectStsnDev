@@ -13,6 +13,8 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        print('DDATA', validated_data)
+        order = Order.objects.create(**validated_data)
         developer_credits = validated_data.pop('developer_credits', {})
         print("CREDITS IN CREATE:", developer_credits)
         print("CREDITS TYPE IN CREATE:", type(developer_credits))
