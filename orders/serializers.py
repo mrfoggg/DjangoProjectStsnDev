@@ -7,6 +7,8 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        print('validated_data--', validated_data)
+        order = Order.objects.create(**validated_data)
         # Извлекаем данные, которые нужно сохранить в связанных таблицах
         # customer_name = validated_data.pop('customer_name')
         # customer_email = validated_data.pop('customer_email')
