@@ -1,0 +1,17 @@
+# created by virtualenv automatically
+*.idea
+*.venv
+
+# Игнорировать все файлы внутри всех папок migrations
+**/migrations/**
+
+# Исключить из игнорирования файлы __init__.py
+!**/migrations/__init__.py
+
+# Игнорировать папки __pycache__
+**/__pycache__/
+
+# Игнорировать скомпилированные файлы Python
+*.pyc
+*.pyo
+
