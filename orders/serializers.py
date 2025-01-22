@@ -16,12 +16,6 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link')
         developer_credits = validated_data.pop('developer_credits')
 
-        # Сохраняем данные в таблицу Customer
-        # customer, _ = Customer.objects.get_or_create(
-        #     email=customer_email,
-        #     defaults={'name': customer_name}
-        # )
-
         # Сохраняем данные в таблицу Developer
         developer, _ = Developer.objects.get_or_create(
             id=developer_id,
@@ -31,8 +25,6 @@ class OrderSerializer(serializers.ModelSerializer):
         # Сохраняем данные в основную таблицу Order, связывая её с Customer и Developer
         order = Order.objects.create(
             **validated_data,
-            # customer_name=customer.name,  # Пример, если нужно сохранить в Order имя заказчика
-            # developer_name=developer.name  # Пример, если нужно сохранить имя разработчика
         )
 
         return order

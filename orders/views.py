@@ -45,8 +45,10 @@ class OrderWebhook(APIView):
                 'date': formatted_order_date,
                 'domain': data['order']['domain'],
                 'test_domain': data['order']['test_domain'],
-                'total_amount': data['order']['total']['amount'],
+
                 'currency': data['order']['total']['currency'],
+                'total_amount': data['order']['total']['amount'],
+                'commission': data['order']['commission'],
 
                 # 'customer_name': data['customer']['name'],
                 # 'customer_email': data['customer']['email'],
