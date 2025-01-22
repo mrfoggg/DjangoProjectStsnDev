@@ -13,31 +13,32 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        print('validated_data--', validated_data)
+        developer_credits = validated_data.pop('developer_credits', {})
+        print("CREDITS IN CREATE:", developer_credits)
+        print("CREDITS TYPE IN CREATE:", type(developer_credits))
 
-        # Извлекаем данные для Developer
+        # Убедитесь, что все ключи и значения строки
+        if not all(isinstance(k, str) and isinstance(v, str) for k, v in developer_credits.items()):
+            raise ValueError("All keys and values in developer_credits must be strings")
+
+        # Сохранение Developer
         developer_id = validated_data.pop('developer_id', None)
         developer_name = validated_data.pop('developer_name', '')
         developer_email = validated_data.pop('developer_email', '')
         developer_link = validated_data.pop('developer_link', '')
-        developer_credits = validated_data.pop('developer_credits', {})
 
-        print('validated_data--', validated_data)
-
-
-        # Сохраняем Developer, если developer_id указан
         if developer_id:
             Developer.objects.update_or_create(
                 id=developer_id,
                 defaults={
-                    'id': developer_id,
                     'name': developer_name,
                     'email': developer_email,
                     'link': developer_link,
-                    'credits': developer_credits,
+                    'credits': developer_credits,  # Передаем словарь
                 }
             )
 
-        # Сохраняем Order
+        # Сохранение Order
         order = Order.objects.create(**validated_data)
         return order
+
