@@ -28,6 +28,12 @@ class OrderSerializer(serializers.ModelSerializer):
             Developer.objects.update_or_create(
                 id=developer_id,
                 defaults={
+                    'name': developer_name,
+                    'email': developer_email,
+                    'link': developer_link,
+                    'credits': developer_credits,  # Передаем словарь
+                },
+                create_defaults={
                     'id': developer_id,
                     'name': developer_name,
                     'email': developer_email,
