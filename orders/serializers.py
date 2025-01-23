@@ -37,19 +37,18 @@ class OrderSerializer(serializers.ModelSerializer):
         file_name = validated_data.pop('file_name', '')
         file_link = validated_data.pop('file_link', '')
 
-        if developer_id:
-            Developer.objects.update_or_create(
-                id=developer_id,
-                defaults={
-                    'name': developer_name,
-                    'email': developer_email,
-                    'link': developer_link,
-                    'credits': developer_credits,
-                }
-            )
+        developer, _ = Developer.objects.update_or_create(
+            id=developer_id,
+            defaults={
+                'name': developer_name,
+                'email': developer_email,
+                'link': developer_link,
+                'credits': developer_credits,
+            }
+        )
 
         if customer_id:
-            Customer.objects.update_or_create(
+            customer, _ = Customer.objects.update_or_create(
                 id=customer_id,
                 defaults={
                     'name': customer_name,
@@ -59,11 +58,12 @@ class OrderSerializer(serializers.ModelSerializer):
             )
 
         if file_id:
-            ForumFile.objects.update_or_create(
+            file, _ = ForumFile.objects.update_or_create(
                 id=file_id,
                 defaults={
                     'name': file_name,
                     'link': file_link,
+                    'developer': developer,
                 }
             )
 
