@@ -17,6 +17,9 @@ class OrderSerializer(serializers.ModelSerializer):
     file_name = serializers.CharField(write_only=True)
     file_link = serializers.CharField(write_only=True)
 
+    domain = serializers.CharField(write_only=True)
+    test_domain = serializers.CharField(write_only=True)
+
     class Meta:
         model = Order
         exclude = ['customer']
