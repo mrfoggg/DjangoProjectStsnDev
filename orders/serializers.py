@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, Developer, ForumFile, Order
+from .models import Customer, Developer, ForumFile, Order, OrderFile
 
 class OrderSerializer(serializers.ModelSerializer):
     developer_id = serializers.IntegerField(write_only=True)
@@ -28,7 +28,7 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
-        customer_id = validated_data.pop('customer_id', None)
+        customer_id = validated_data['customer_id']
         customer_name = validated_data.pop('customer_name', '')
         customer_email = validated_data.pop('customer_email', '')
         customer_link = validated_data.pop('customer_link', '')
@@ -36,6 +36,10 @@ class OrderSerializer(serializers.ModelSerializer):
         file_id = validated_data.pop('file_id', None)
         file_name = validated_data.pop('file_name', '')
         file_link = validated_data.pop('file_link', '')
+
+        domain = validated_data.pop('domain', '')
+        test_domain = validated_data.pop('test_domain', '')
+
 
         developer, _ = Developer.objects.update_or_create(
             id=developer_id,
@@ -67,5 +71,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
         # Сохранение Order
         order = Order.objects.create(**validated_data)
+
+        OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
+
         return order
 
