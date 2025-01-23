@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
 import hashlib
+from urllib.parse import urlparse
 
 
 class Customer(models.Model):
@@ -88,17 +89,19 @@ class OrderFile(models.Model):
     def save(self, *args, **kwargs):
         extension = self.file.extension
         if extension:
+            # Обработка домена
+            parsed_domain = urlparse(self.domain)
+            clean_domain = parsed_domain.hostname  # Извлекаем только доменное имя
+
             # Генерация domain_license
-            domain_license_hash = hashlib.sha256(f"{extension.secret_key}{self.domain}".encode()).hexdigest()
+            domain_license_hash = hashlib.sha256(f"{extension.secret_key}{clean_domain}".encode()).hexdigest()
             self.domain_license = domain_license_hash
 
             # Генерация test_domain_license, если test_domain задан
-            if self.test_domain:
-                test_domain_license_hash = hashlib.sha256(f"{extension.secret_key}{self.test_domain}".encode()).hexdigest()
+            if hasattr(self, 'test_domain') and self.test_domain:
+                parsed_test_domain = urlparse(self.test_domain)
+                clean_test_domain = parsed_test_domain.hostname  # Извлекаем только доменное имя
+                test_domain_license_hash = hashlib.sha256(f"{extension.secret_key}{clean_test_domain}".encode()).hexdigest()
                 self.test_domain_license = test_domain_license_hash
 
         super().save(*args, **kwargs)
-
-
-
-
