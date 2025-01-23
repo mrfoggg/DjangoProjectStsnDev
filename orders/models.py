@@ -41,7 +41,7 @@ class ForumFile(models.Model):
     id = models.IntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
-    developer =models.ForeignKey(Developer, on_delete=models.CASCADE)
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
 
     def __str__(self):
         return f"ForumFile {self.id} - {self.name}"
