@@ -23,6 +23,7 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(ForumFile)
 class ForumFileAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'developer']
+    readonly_fields = ['get_extension_name']
 
 
 @admin.register(Extension)

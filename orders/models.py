@@ -41,6 +41,15 @@ class ForumFile(models.Model):
     def __str__(self):
         return f"{self.id} - {self.name}"
 
+    def get_extension_name(self):
+        try:
+            extension = Extension.objects.get(file_id=self.id)  # Ищем Extension по file_id
+            return extension.name
+        except Extension.DoesNotExist:
+            return 'Нет расширения'
+
+    get_extension_name.short_description = 'Название расширения'
+
 
 class Order(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
