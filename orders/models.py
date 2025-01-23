@@ -30,7 +30,7 @@ class ForumFile(models.Model):
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
 
     def __str__(self):
-        return f"ForumFile {self.id} - {self.name}"
+        return f"{self.id} - {self.name}"
 
 
 class Order(models.Model):
