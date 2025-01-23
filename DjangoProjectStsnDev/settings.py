@@ -151,9 +151,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.stsn-dev.kyiv.ua'
 EMAIL_PORT = 587  # Порт SMTP-сервера
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'support@stsn-dev.kyiv.ua'  # Ваш адрес электронной почты
-EMAIL_HOST_PASSWORD = 'cJqnv}p8FkG,'  # Ваш пароль от электронной почты
-DEFAULT_FROM_EMAIL = 'support@stsn-dev.kyiv.ua'  # Адрес электронной почты по умолчанию для отправки
+EMAIL_HOST_USER = 'support@stsn-dev.kyiv.ua'
+DEFAULT_FROM_EMAIL = 'support@stsn-dev.kyiv.ua'
+EMAIL_HOST_PASSWORD = 'cJqnv}p8FkG,'
 
 if not IS_LOCAL:
     LOGGING = {
