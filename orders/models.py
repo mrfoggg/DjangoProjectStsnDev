@@ -46,7 +46,7 @@ class ForumFile(models.Model):
 
     @property
     def extension(self):
-        return Extension.objects.filter(file_id=self.id).first()
+        return Extension.objects.first()
 
     def extension_name(self):
         if self.extension:
