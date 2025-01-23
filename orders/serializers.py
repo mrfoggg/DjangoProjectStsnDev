@@ -47,25 +47,23 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        if customer_id:
-            customer, _ = Customer.objects.update_or_create(
-                id=customer_id,
-                defaults={
-                    'name': customer_name,
-                    'email': customer_email,
-                    'link': customer_link,
-                }
-            )
+        customer, _ = Customer.objects.update_or_create(
+            id=customer_id,
+            defaults={
+                'name': customer_name,
+                'email': customer_email,
+                'link': customer_link,
+            }
+        )
 
-        if file_id:
-            file, _ = ForumFile.objects.update_or_create(
-                id=file_id,
-                defaults={
-                    'name': file_name,
-                    'link': file_link,
-                    'developer': developer,
-                }
-            )
+        file, _ = ForumFile.objects.update_or_create(
+            id=file_id,
+            defaults={
+                'name': file_name,
+                'link': file_link,
+                'developer': developer,
+            }
+        )
 
         # Сохранение Order
         order = Order.objects.create(**validated_data)
