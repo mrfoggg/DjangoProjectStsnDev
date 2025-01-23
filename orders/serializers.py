@@ -8,7 +8,7 @@ class OrderSerializer(serializers.ModelSerializer):
     developer_link = serializers.CharField(write_only=True)
     developer_credits = serializers.HStoreField(write_only=True)
 
-    # customer = serializers.IntegerField(write_only=True)
+    customer_id = serializers.IntegerField(write_only=True)
     customer_name = serializers.CharField(write_only=True)
     customer_email = serializers.EmailField(write_only=True)
     customer_link = serializers.CharField(write_only=True)
@@ -51,7 +51,7 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        customer, _ = Customer.objects.update_or_create(
+        validated_data['customer'], _ = Customer.objects.update_or_create(
             id=customer_id,
             defaults={
                 'name': customer_name,
