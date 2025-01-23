@@ -9,7 +9,7 @@ class Customer(models.Model):
     link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
 
     def __str__(self):
-        return f"Customer {self.id} - {self.name}"
+        return f"{self.id} - {self.name}"
 
 
 class Developer(models.Model):
@@ -20,7 +20,15 @@ class Developer(models.Model):
     credits = HStoreField(null=True, blank=True)
 
     def __str__(self):
-        return f"Developer {self.id} - {self.name}"
+        return f"{self.id} - {self.name}"
+
+
+class Extension(models.Model):
+    name = models.CharField(max_length=255)
+    secret_key = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class ForumFile(models.Model):
@@ -28,6 +36,7 @@ class ForumFile(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
+    extension = models.OneToOneField(on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.id} - {self.name}"
