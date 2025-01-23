@@ -41,14 +41,16 @@ class ForumFile(models.Model):
     def __str__(self):
         return f"{self.id} - {self.name}"
 
-    def get_extension_name(self):
-        try:
-            extension = Extension.objects.get(file_id=self.id)  # Ищем Extension по file_id
-            return extension.name
-        except Extension.DoesNotExist:
-            return 'Нет расширения'
+    @property
+    def extension(self):
+        return Extension.objects.filter(name=self.name).first()
 
-    get_extension_name.short_description = 'Расширения'
+    def extension_name(self):
+        if self.extension:
+            return self.extension.name
+        return 'Нет соответствия'
+
+    extension_name.short_description = 'Расширение'
 
 
 class Order(models.Model):
@@ -71,6 +73,9 @@ class OrderFile(models.Model):
 
     domain = models.CharField(max_length=255)
     test_domain = models.CharField(max_length=255, blank=True, null=True)
+
+    domain_license = models.CharField(max_length=255, blank=True, null=True)
+    test_domain_license = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"Order {self.order.id} - {self.file.name}"
