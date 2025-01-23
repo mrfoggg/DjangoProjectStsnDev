@@ -140,8 +140,11 @@ MEDIA_ROOT = BASE_DIR / "static_media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = 'django://'
-CELERY_RESULT_BACKEND = 'django-db'
+# settings.py
+
+CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
+CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+
 
 if not IS_LOCAL:
     LOGGING = {
