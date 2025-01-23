@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django.contrib.postgres',
+    'django_celery_results',
     'django_json_widget',
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
@@ -138,6 +139,9 @@ MEDIA_ROOT = BASE_DIR / "static_media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = 'django://'
+CELERY_RESULT_BACKEND = 'django-db'
 
 if not IS_LOCAL:
     LOGGING = {

@@ -60,6 +60,14 @@ class ForumFile(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'New'),
+        ('processing', 'Processing'),
+        ('processed', 'Processed'),
+        ('email_sent', 'Email Sent'),
+        ('email_failed', 'Email Failed'),
+    ]
+
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     date = models.DateTimeField()
 
@@ -68,6 +76,8 @@ class Order(models.Model):
     commission = models.DecimalField(max_digits=15, decimal_places=2)
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
 
     def __str__(self):
         return f"Order {self.id} - {self.customer.name}"
