@@ -54,7 +54,7 @@ class OrderWebhook(APIView):
                 'developer_link': data['developer']['link'],
                 'developer_credits': {item['currency']: str(item['amount']) for item in data['developer'].get('credits', [])},
 
-                'customer_id': data['customer']['id'],
+                'customer': data['customer']['id'],
                 'customer_name': data['customer']['name'],
                 'customer_email': data['customer']['email'],
                 'customer_link': data['customer']['link'],
