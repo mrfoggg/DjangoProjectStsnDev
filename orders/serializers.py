@@ -19,7 +19,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = '__all__'
+        exclude = ['customer']
 
     def create(self, validated_data):
         developer_id = validated_data.pop('developer_id', None)

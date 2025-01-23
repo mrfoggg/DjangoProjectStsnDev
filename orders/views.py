@@ -58,7 +58,6 @@ class OrderWebhook(APIView):
                 'customer_name': data['customer']['name'],
                 'customer_email': data['customer']['email'],
                 'customer_link': data['customer']['link'],
-                'customer': '',
 
                 'file_id': data['file']['id'],
                 'file_name': data['file']['name'],
