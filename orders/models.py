@@ -35,7 +35,7 @@ class Extension(models.Model):
 class ForumFile(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
-    link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
+    link = models.URLField(max_length=200, verbose_name="Расщирение на форуме")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
 
     def __str__(self):
@@ -48,7 +48,7 @@ class ForumFile(models.Model):
         except Extension.DoesNotExist:
             return 'Нет расширения'
 
-    get_extension_name.short_description = 'Название расширения'
+    get_extension_name.short_description = 'Расширения'
 
 
 class Order(models.Model):
