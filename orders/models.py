@@ -58,7 +58,6 @@ class ForumFile(models.Model):
     extension_name.short_description = 'Расширение'
 
 
-
 class Order(models.Model):
     STATUS_CHOICES = [
         ('new', 'New'),

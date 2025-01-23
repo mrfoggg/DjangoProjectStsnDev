@@ -10,7 +10,7 @@ class OrderFileInline(admin.TabularInline):  # Можно заменить на 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Order._meta.get_fields()]
-    list_display = ['id', 'date', 'customer', 'total_amount']
+    list_display = ['id', 'date', 'customer', 'total_amount', 'status']
 
     inlines = [OrderFileInline]
 
