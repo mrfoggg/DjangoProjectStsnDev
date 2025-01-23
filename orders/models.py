@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Customer(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True)
+    id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
@@ -13,7 +13,7 @@ class Customer(models.Model):
 
 
 class Developer(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True)
+    id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
@@ -25,6 +25,7 @@ class Developer(models.Model):
 
 class Extension(models.Model):
     name = models.CharField(max_length=255)
+    file_id = models.PositiveIntegerField(null=True, blank=True)
     secret_key = models.CharField(max_length=255)
 
     def __str__(self):
@@ -32,18 +33,17 @@ class Extension(models.Model):
 
 
 class ForumFile(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True)
+    id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
-    extension = models.OneToOneField(Extension, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.id} - {self.name}"
 
 
 class Order(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True)
+    id = models.PositiveIntegerField(unique=True, primary_key=True)
     date = models.DateTimeField()
 
     currency = models.CharField(max_length=10)
