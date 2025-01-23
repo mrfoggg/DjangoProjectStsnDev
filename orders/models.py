@@ -2,6 +2,7 @@ from django.contrib.postgres.fields import HStoreField
 from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
+import hashlib
 
 
 class Customer(models.Model):
@@ -84,8 +85,19 @@ class OrderFile(models.Model):
     def __str__(self):
         return f"Order {self.order.id} - {self.file.name}"
 
+    def save(self, *args, **kwargs):
+        extension = self.file.extension
+        if extension:
+            # Генерация domain_license
+            domain_license_hash = hashlib.sha256(f"{extension.secret_key}{self.domain}".encode()).hexdigest()
+            self.domain_license = domain_license_hash
 
+            # Генерация test_domain_license, если test_domain задан
+            if self.test_domain:
+                test_domain_license_hash = hashlib.sha256(f"{extension.secret_key}{self.test_domain}".encode()).hexdigest()
+                self.test_domain_license = test_domain_license_hash
 
+        super().save(*args, **kwargs)
 
 
 
