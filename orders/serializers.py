@@ -28,7 +28,7 @@ class OrderSerializer(serializers.ModelSerializer):
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
-        customer_id = validated_data['customer']
+        customer_id = validated_data['customer_id']
         customer_name = validated_data.pop('customer_name', '')
         customer_email = validated_data.pop('customer_email', '')
         customer_link = validated_data.pop('customer_link', '')
