@@ -36,7 +36,7 @@ class ForumFile(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField(max_length=200, verbose_name="Ссылка на расщирение")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
-    extension = models.OneToOneField(on_delete=models.SET_NULL, null=True, blank=True)
+    extension = models.OneToOneField(Extension, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.id} - {self.name}"
