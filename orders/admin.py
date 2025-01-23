@@ -1,11 +1,18 @@
 from django.contrib import admin
-from .models import Developer, ForumFile, Order, Customer
+from .models import Customer, Developer, ForumFile, Order, OrderFile
+
+
+class OrderFileInline(admin.TabularInline):  # Можно заменить на StackedInline для другого отображения
+    model = OrderFile
+    extra = 1  # Количество пустых строк для добавления новых записей
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Order._meta.get_fields()]
     list_display = ['id', 'date', 'customer', 'total_amount']
+
+    inlines = [OrderFileInline]
 
 
 @admin.register(Customer)
