@@ -1,5 +1,7 @@
 from django.contrib.postgres.fields import HStoreField
 from django.db import models
+from django.urls import reverse
+from django.utils.html import format_html
 
 
 class Customer(models.Model):
@@ -35,7 +37,7 @@ class Extension(models.Model):
 class ForumFile(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
-    link = models.URLField(max_length=200, verbose_name="Расщирение на форуме")
+    link = models.URLField(max_length=200, verbose_name="Расширение на форуме")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
 
     def __str__(self):
@@ -47,10 +49,12 @@ class ForumFile(models.Model):
 
     def extension_name(self):
         if self.extension:
-            return self.extension.name
+            admin_edit_url = reverse('admin:orders_forumfile_change', args=[self.pk])
+            return format_html('<a href="{}">{}</a>', admin_edit_url, self.extension.name)
         return 'Нет соответствия'
 
     extension_name.short_description = 'Расширение'
+
 
 
 class Order(models.Model):
