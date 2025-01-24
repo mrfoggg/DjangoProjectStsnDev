@@ -73,7 +73,8 @@ class OrderWebhook(APIView):
                 serializer = OrderSerializer(data=order_data)
 
             if serializer.is_valid():
-                print('VALID')
+                print('VALIDATED DATA___ - ', serializer.validated_data)
+
                 order = serializer.save()
 
                 # Проверяем статус заказа
