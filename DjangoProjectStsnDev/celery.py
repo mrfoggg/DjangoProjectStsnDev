@@ -18,3 +18,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Автоматически находите задачи в приложениях
 app.autodiscover_tasks()
+
+# поведение для повторных попыток подключения к брокеру.
+app.conf.broker_connection_retry_on_startup = True
