@@ -140,15 +140,18 @@ MEDIA_ROOT = BASE_DIR / "static_media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# settings.py
 
-CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
-CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+# Настройка Celery для использования memory pip install kombu
+CELERY_BROKER_URL = 'memory://'
+CELERY_RESULT_BACKEND = 'rpc://'
+
+# Настройка Celery для использования SQLAlchemy pip install sqlalchemy
+# CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
+# CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
 
 # CELERY_BROKER_URL = 'django://'
 # CELERY_RESULT_BACKEND = 'django-db'
 
-# settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.stsn-dev.kyiv.ua'
