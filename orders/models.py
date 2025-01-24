@@ -14,7 +14,7 @@ class ForumCustomer(models.Model):
 
     class Meta:
         verbose_name = 'Пользователь форума'
-        verbose_name_plural = 'Пользователь форума'
+        verbose_name_plural = 'Пользователи форума'
 
     def __str__(self):
         return f"{self.id} - {self.name}"
