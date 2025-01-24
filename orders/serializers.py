@@ -73,7 +73,10 @@ class OrderSerializer(serializers.ModelSerializer):
         )
 
         # Сохранение Order
-        order = Order.objects.create(**validated_data)
+        # order = Order.objects.create(**validated_data)
+
+        order_id = validated_data['id']
+        order, created = Order.objects.get_or_create(id=order_id, defaults=validated_data)
 
         OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
 
