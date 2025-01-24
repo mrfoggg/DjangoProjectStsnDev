@@ -17,34 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: orders/models.py:13 orders/models.py:27
+#: orders/models.py:13
 msgid "nickname"
-msgstr ""
+msgstr "Нікнейм"
 
-#: orders/models.py:14 orders/models.py:28
+#: orders/models.py:14
 msgid "email"
-msgstr ""
+msgstr "Електронна пошта"
 
-#: orders/models.py:15 orders/models.py:29
+#: orders/models.py:15
 msgid "user_link"
-msgstr ""
-
-#: orders/models.py:18
-msgid "forum_user"
-msgstr ""
+msgstr "Посилання на користувача"
 
 #: orders/models.py:19
+msgid "forum_user"
+msgstr "Профіль покупця"
+
+#: orders/models.py:20
 msgid "forum_users"
-msgstr ""
+msgstr "Профілі покупців"
 
 #: orders/models.py:30
 msgid "credits"
-msgstr ""
+msgstr "Баланс"
 
 #: orders/models.py:33
 msgid "developer_account"
-msgstr ""
+msgstr "Обліковий запис розробника"
 
 #: orders/models.py:34
 msgid "developer_accounts"
-msgstr ""
+msgstr "Облікові записи розробників"
+
