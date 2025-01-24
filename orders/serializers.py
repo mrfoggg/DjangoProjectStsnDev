@@ -83,6 +83,9 @@ class OrderSerializer(serializers.ModelSerializer):
         print('validated_data - ', validated_data)
         print('======================order_id===================================================== ', order_id)
 
+        # Убедитесь, что customer_id передается корректно
+        validated_data['customer_id'] = customer.id
+
         order, created = Order.objects.update_or_create(
             id=order_id,
             defaults=validated_data
