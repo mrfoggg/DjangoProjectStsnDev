@@ -157,6 +157,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+
 if not IS_LOCAL:
     LOGGING = {
         'version': 1,
