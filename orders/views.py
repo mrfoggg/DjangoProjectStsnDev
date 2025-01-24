@@ -67,11 +67,11 @@ class OrderWebhook(APIView):
             order_id = data['order']['id']
             existing_order = Order.objects.filter(id=order_id).first()
 
-            if existing_order:
-                serializer = OrderSerializer(existing_order, data=order_data, partial=True)
-            else:
-                serializer = OrderSerializer(data=order_data)
-
+            # if existing_order:
+            #     serializer = OrderSerializer(existing_order, data=order_data, partial=True)
+            # else:
+            #     serializer = OrderSerializer(data=order_data)
+            serializer = OrderSerializer(data=order_data)
             if serializer.is_valid():
                 print('VALIDATED DATA___ - ', serializer.validated_data)
 
