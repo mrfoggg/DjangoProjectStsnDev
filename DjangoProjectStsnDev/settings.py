@@ -142,8 +142,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 
-CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
-CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+# CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
+# CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+
+CELERY_BROKER_URL = 'django://'
+CELERY_RESULT_BACKEND = 'django-db'
 
 # settings.py
 

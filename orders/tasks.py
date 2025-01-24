@@ -6,7 +6,7 @@ from .models import Order, OrderFile
 @shared_task
 def process_order(order_id):
     print("Processing order", order_id)
-    order = Order.objects.get(pk=order_id)
+
     # Получаем заказ и связанные данные из базы данных
     order = Order.objects.get(id=order_id)
     order_files = OrderFile.objects.filter(order=order)
