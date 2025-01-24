@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, Developer, ForumFile, Order, OrderFile
+from .models import ForumCustomer, Developer, ForumFile, Order, OrderFile
 
 class OrderSerializer(serializers.ModelSerializer):
     developer_id = serializers.IntegerField(write_only=True)
@@ -26,8 +26,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         validated_data = self.validated_data
-        print('CREATE METHOD STARTED')
-        print('VALIDATED DATA:', validated_data)
 
         developer_id = validated_data.pop('developer_id', None)
         developer_name = validated_data.pop('developer_name', '')
@@ -59,7 +57,7 @@ class OrderSerializer(serializers.ModelSerializer):
         )
 
         # Создание или обновление клиента
-        customer, _ = Customer.objects.update_or_create(
+        customer, _ = ForumCustomer.objects.update_or_create(
             id=customer_id,
             defaults={
                 'name': customer_name,
@@ -80,8 +78,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
         # Создание или обновление заказа
         order_id = validated_data.pop('id', None)
-        print('validated_data - ', validated_data)
-        print('======================order_id===================================================== ', order_id)
 
         # Убедитесь, что customer_id передается корректно
         validated_data['customer_id'] = customer.id

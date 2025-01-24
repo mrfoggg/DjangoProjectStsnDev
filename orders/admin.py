@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Developer, Extension, ForumFile, Order, OrderFile
+from .models import ForumCustomer, Developer, Extension, ForumFile, Order, OrderFile
 
 
 class OrderFileInline(admin.TabularInline):  # Можно заменить на StackedInline для другого отображения
@@ -15,7 +15,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderFileInline]
 
 
-@admin.register(Customer)
+@admin.register(ForumCustomer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'email']
 

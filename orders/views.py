@@ -17,8 +17,6 @@ class OrderWebhook(APIView):
     def post(self, request):
         data = request.data
 
-        print('DATA - ', data)
-
         # Проверка подписи
         hash_value = data.get('hash')
         order_id = str(data['order']['id'])
@@ -37,7 +35,6 @@ class OrderWebhook(APIView):
             return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
-            print('REQUEST TYPE - success')
             order_timestamp = int(data['order']['date'])  # Получаем timestamp
             order_date_obj = datetime.fromtimestamp(order_timestamp)  # Преобразуем в datetime объект
             formatted_order_date = order_date_obj.isoformat()  # Получаем строку в формате ISO 8601
@@ -74,18 +71,15 @@ class OrderWebhook(APIView):
                 serializer = OrderSerializer(data=order_data)
 
             if serializer.is_valid():
-                print('VALIDATED DATA___ - ', serializer.validated_data)
 
                 order = serializer.save()
 
                 # Проверяем статус заказа
                 if order.status == 'new':
-                    print('NEW')
                     # Устанавливаем статус "processing"
                     order.status = 'processing'
                     order.save()
 
-                    # print(f"Sending task for order {order.id} with countdown 3 seconds")
                     process_order.apply_async((order.id,), countdown=5)
             else:
                 print('serializer.errors - ', serializer.errors)

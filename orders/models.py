@@ -6,11 +6,15 @@ import hashlib
 from urllib.parse import urlparse
 
 
-class Customer(models.Model):
+class ForumCustomer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
+
+    class Meta:
+        verbose_name = 'Пользователь форума'
+        verbose_name_plural = 'Пользователь форума'
 
     def __str__(self):
         return f"{self.id} - {self.name}"
@@ -74,7 +78,7 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=15, decimal_places=2)
     commission = models.DecimalField(max_digits=15, decimal_places=2)
 
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE)
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
 
