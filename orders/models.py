@@ -8,8 +8,8 @@ from urllib.parse import urlparse
 
 class ForumCustomer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    name = models.CharField(max_length=255, verbose_name='Никнейм')
+    email = models.EmailField(verbose_name='Электронная почта')
     link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
 
     class Meta:
@@ -22,19 +22,19 @@ class ForumCustomer(models.Model):
 
 class Developer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    name = models.CharField(max_length=255, verbose_name='Никнейм')
+    email = models.EmailField(verbose_name='Электронная почта')
     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
-    credits = HStoreField(null=True, blank=True)
+    credits = HStoreField(null=True, blank=True, verbose_name='Баланс')
 
     def __str__(self):
         return f"{self.id} - {self.name}"
 
 
 class Extension(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='Название')
     file_id = models.PositiveIntegerField(null=True, blank=True)
-    secret_key = models.CharField(max_length=255)
+    secret_key = models.CharField(max_length=255, verbose_name='Секретный ключ')
 
     def __str__(self):
         return self.name
@@ -42,9 +42,9 @@ class Extension(models.Model):
 
 class ForumFile(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='Название')
     link = models.URLField(max_length=200, verbose_name="Расширение на форуме")
-    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name='Разработчик')
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files")
 
     def __str__(self):
         return f"{self.id} - {self.name} ({self.developer.name})"
@@ -74,9 +74,9 @@ class Order(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     date = models.DateTimeField()
 
-    currency = models.CharField(max_length=10)
-    total_amount = models.DecimalField(max_digits=15, decimal_places=2)
-    commission = models.DecimalField(max_digits=15, decimal_places=2)
+    currency = models.CharField(max_length=10, verbose_name='Валюта')
+    total_amount = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Итого')
+    commission = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Комиссия')
 
     customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE)
 
@@ -90,11 +90,11 @@ class OrderFile(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     file = models.ForeignKey(ForumFile, on_delete=models.CASCADE)
 
-    domain = models.CharField(max_length=255)
-    test_domain = models.CharField(max_length=255, blank=True, null=True)
+    domain = models.CharField(max_length=255, verbose_name='Домен')
+    test_domain = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тестовый домен')
 
-    domain_license = models.CharField(max_length=255, blank=True, null=True)
-    test_domain_license = models.CharField(max_length=255, blank=True, null=True)
+    domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name='Лицензионный ключ')
+    test_domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name='Лицензионный ключ для тестового домена')
 
     class Meta:
         unique_together = ('order', 'file', 'domain')
