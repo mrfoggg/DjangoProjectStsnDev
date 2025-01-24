@@ -14,7 +14,6 @@ class OrderWebhook(APIView):
 
     def post(self, request):
         data = request.data
-        print('DATA', data)
 
         # Проверка подписи
         hash_value = data.get('hash')
