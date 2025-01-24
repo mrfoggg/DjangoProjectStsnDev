@@ -87,7 +87,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
         # OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
         OrderFile.objects.get_or_create(
-            id=file.id,
+            file=file,
             domain=domain,
             order=order,
             defaults={
