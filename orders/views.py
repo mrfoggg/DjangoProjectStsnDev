@@ -1,19 +1,22 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rich import print
+from .models import Order, OrderFile
 from .serializers import OrderSerializer
 from .tasks import process_order
 import hmac
 import hashlib
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 class OrderWebhook(APIView):
     private_key = "11112222333442"
 
     def post(self, request):
         data = request.data
+        print('DATA', data)
 
         # Проверка подписи
         hash_value = data.get('hash')
@@ -59,9 +62,12 @@ class OrderWebhook(APIView):
                 'file_link': data['file']['link'],
             }
 
+            print('DATA - ', order_data)
+
             serializer = OrderSerializer(data=order_data)
 
             if serializer.is_valid():
+                print("VALID DATA:", serializer.validated_data)
                 order = serializer.save()
 
                 # Проверяем статус заказа
@@ -71,7 +77,7 @@ class OrderWebhook(APIView):
                     order.save()
 
                     # Вызываем задачу Celery для обработки заказа
-                    # process_order.delay(order.id)
+                    print(f"Sending task for order {order.id} with countdown 3 seconds")
                     process_order.apply_async((order.id,), countdown=3)
             else:
                 print('serializer.errors - ', serializer.errors)
