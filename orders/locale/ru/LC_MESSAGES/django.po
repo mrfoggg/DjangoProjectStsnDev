@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 22:35+0200\n"
+"POT-Creation-Date: 2025-01-24 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,3 +31,11 @@ msgstr "Электронная почта"
 #: orders/models.py:15
 msgid "user_link"
 msgstr "Ссылка на пользователяя"
+
+#: orders/models.py:19
+msgid "forum_user"
+msgstr "Пользователь форума_"
+
+#: orders/models.py:20
+msgid "forum_users"
+msgstr "Пользователи форума"

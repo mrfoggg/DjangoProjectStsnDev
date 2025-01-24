@@ -15,8 +15,8 @@ class ForumCustomer(models.Model):
     link = models.URLField(max_length=200, verbose_name=_("user_link"))
 
     class Meta:
-        verbose_name = 'Пользователь форума'
-        verbose_name_plural = 'Пользователи форума'
+        verbose_name = _("forum_user")
+        verbose_name_plural = _("forum_users")
 
     def __str__(self):
         return f"{self.id} - {self.name}"
