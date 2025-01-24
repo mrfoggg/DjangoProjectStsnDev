@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rich import print
+
+from .models import Order
 from .serializers import OrderSerializer
 from .tasks import process_order
 import hmac
@@ -61,7 +63,13 @@ class OrderWebhook(APIView):
                 'file_link': data['file']['link'],
             }
 
-            serializer = OrderSerializer(data=order_data)
+            order_id = data['order']['id']
+            existing_order = Order.objects.filter(id=order_id).first()
+
+            if existing_order:
+                serializer = OrderSerializer(existing_order, data=order_data, partial=True)
+            else:
+                serializer = OrderSerializer(data=order_data)
 
             if serializer.is_valid():
                 order = serializer.save()
