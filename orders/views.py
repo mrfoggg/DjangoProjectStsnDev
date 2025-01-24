@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,6 +9,7 @@ from .serializers import OrderSerializer
 from .tasks import process_order
 import hmac
 import hashlib
+
 
 class OrderWebhook(APIView):
     private_key = "11112222333442"
@@ -29,11 +30,11 @@ class OrderWebhook(APIView):
         ).hexdigest()
 
         if hash_value != expected_hash:
-            return Response({'detail': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED, headers={'State': 'Unauthorized'})
 
         request_type = data.get('status', '')
         if request_type == "auth":
-            return Response({'detail': 'Authorized'}, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
             print('REQUEST TYPE - success')
@@ -63,6 +64,7 @@ class OrderWebhook(APIView):
                 'file_link': data['file']['link'],
             }
 
+
             order_id = data['order']['id']
             existing_order = Order.objects.filter(id=order_id).first()
 
@@ -83,10 +85,8 @@ class OrderWebhook(APIView):
                     order.status = 'processing'
                     order.save()
 
+                    # print(f"Sending task for order {order.id} with countdown 3 seconds")
                     process_order.apply_async((order.id,), countdown=5)
-                return Response({'detail': 'Received'}, status=status.HTTP_200_OK)
             else:
                 print('serializer.errors - ', serializer.errors)
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'detail': 'Invalid request type'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
