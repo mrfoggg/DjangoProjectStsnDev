@@ -28,7 +28,7 @@ class ForumFileAdmin(admin.ModelAdmin):
 
 @admin.register(Extension)
 class ExtensionAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'file_id']
 
 
 @admin.register(Developer)
