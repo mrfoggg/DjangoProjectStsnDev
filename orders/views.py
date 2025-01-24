@@ -78,7 +78,8 @@ class OrderWebhook(APIView):
 
                     # Вызываем задачу Celery для обработки заказа
                     print(f"Sending task for order {order.id} with countdown 3 seconds")
-                    process_order.apply_async((order.id,), countdown=3)
+                    result = process_order.apply_async((order.id,), countdown=3)
+                    print(f"Task sent: {result.id}")
             else:
                 print('serializer.errors - ', serializer.errors)
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
