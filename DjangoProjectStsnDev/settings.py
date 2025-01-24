@@ -151,7 +151,7 @@ CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
 CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
 
 # SQLite  in-memory кэширование:
-CELERY_BROKER_TRANSPORT_OPTIONS = {'max_connections': 10}
+# CELERY_BROKER_TRANSPORT_OPTIONS = {'max_connections': 10}
 
 
 # CELERY_BROKER_URL = 'django://'
