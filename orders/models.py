@@ -28,8 +28,8 @@ class Developer(models.Model):
     credits = HStoreField(null=True, blank=True, verbose_name='Баланс')
 
     class Meta:
-        verbose_name = 'Разработчик'
-        verbose_name_plural = 'Разработчики'
+        verbose_name = 'Аккаунт разработчика'
+        verbose_name_plural = 'Аккаунты разработчика'
 
 
     def __str__(self):
