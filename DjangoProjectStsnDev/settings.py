@@ -151,6 +151,12 @@ EMAIL_HOST_USER = 'support@stsn-dev.kyiv.ua'
 DEFAULT_FROM_EMAIL = 'support@stsn-dev.kyiv.ua'
 EMAIL_HOST_PASSWORD = 'cJqnv}p8FkG,'
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}
+
 if not IS_LOCAL:
     LOGGING = {
         'version': 1,
