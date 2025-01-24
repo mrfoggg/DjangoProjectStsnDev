@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django.contrib.postgres',
-    # 'django_celery_results',
-    'django_json_widget',
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
 ]
@@ -144,6 +142,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Настройка Celery для использования memory pip install kombu
 CELERY_BROKER_URL = 'memory://'
 CELERY_RESULT_BACKEND = 'rpc://'
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_SEND_EVENTS = True
 
 # Настройка Celery для использования SQLAlchemy pip install sqlalchemy
 # CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
