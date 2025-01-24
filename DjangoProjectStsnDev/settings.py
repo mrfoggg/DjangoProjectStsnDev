@@ -140,15 +140,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Настройка Celery для использования memory pip install kombu
-CELERY_BROKER_URL = 'memory://'
-CELERY_RESULT_BACKEND = 'rpc://'
-
-CELERY_TASK_TRACK_STARTED = True
-CELERY_SEND_EVENTS = True
+# CELERY_BROKER_URL = 'memory://'
+# CELERY_RESULT_BACKEND = 'rpc://'
+#
+# CELERY_TASK_TRACK_STARTED = True
+# CELERY_SEND_EVENTS = True
 
 # Настройка Celery для использования SQLAlchemy pip install sqlalchemy
-# CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
-# CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
+CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+
+# SQLite  in-memory кэширование:
+CELERY_BROKER_TRANSPORT_OPTIONS = {'max_connections': 10}
+
 
 # CELERY_BROKER_URL = 'django://'
 # CELERY_RESULT_BACKEND = 'django-db'
