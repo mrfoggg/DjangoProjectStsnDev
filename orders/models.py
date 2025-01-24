@@ -24,14 +24,14 @@ class ForumCustomer(models.Model):
 
 class Developer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255, verbose_name='Никнейм')
-    email = models.EmailField(verbose_name='Электронная почта')
-    link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
-    credits = HStoreField(null=True, blank=True, verbose_name='Баланс')
+    name = models.CharField(max_length=255, verbose_name=_("nickname"))
+    email = models.EmailField(verbose_name=_("email"))
+    link = models.URLField(max_length=200, verbose_name=_("user_link"))
+    credits = HStoreField(null=True, blank=True, verbose_name=_("credits"))
 
     class Meta:
-        verbose_name = 'Аккаунт разработчика'
-        verbose_name_plural = 'Аккаунты разработчика'
+        verbose_name = _("developer_account")
+        verbose_name_plural = _("developer_accounts")
 
 
     def __str__(self):
