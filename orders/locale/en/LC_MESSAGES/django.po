@@ -17,34 +17,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: orders/models.py:13 orders/models.py:27
+
+
+#: orders/models.py:13
 msgid "nickname"
-msgstr ""
+msgstr "Nickname"
 
-#: orders/models.py:14 orders/models.py:28
+#: orders/models.py:14
 msgid "email"
-msgstr ""
+msgstr "Email"
 
-#: orders/models.py:15 orders/models.py:29
+#: orders/models.py:15
 msgid "user_link"
-msgstr ""
-
-#: orders/models.py:18
-msgid "forum_user"
-msgstr ""
+msgstr "User link"
 
 #: orders/models.py:19
+msgid "forum_user"
+msgstr "Forum profile"
+
+#: orders/models.py:20
 msgid "forum_users"
-msgstr ""
+msgstr "Forum profiles"
 
 #: orders/models.py:30
 msgid "credits"
-msgstr ""
+msgstr "Credits"
 
 #: orders/models.py:33
 msgid "developer_account"
-msgstr ""
+msgstr "Developer account"
 
 #: orders/models.py:34
 msgid "developer_accounts"
-msgstr ""
+msgstr "Developer accounts"
+
