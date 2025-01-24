@@ -27,6 +27,11 @@ class Developer(models.Model):
     link = models.URLField(max_length=200, verbose_name="Ссылка на профиль")
     credits = HStoreField(null=True, blank=True, verbose_name='Баланс')
 
+    class Meta:
+        verbose_name = 'Разработчик'
+        verbose_name_plural = 'Разработчики'
+
+
     def __str__(self):
         return f"{self.id} - {self.name}"
 
@@ -35,6 +40,10 @@ class Extension(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     file_id = models.PositiveIntegerField(null=True, blank=True)
     secret_key = models.CharField(max_length=255, verbose_name='Секретный ключ')
+
+    class Meta:
+        verbose_name = 'Расширение'
+        verbose_name_plural = 'Расширения'
 
     def __str__(self):
         return self.name
@@ -45,6 +54,10 @@ class ForumFile(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     link = models.URLField(max_length=200, verbose_name="Расширение на форуме")
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files")
+
+    class Meta:
+        verbose_name = 'Файл на форуме'
+        verbose_name_plural = 'Файлы на форуме'
 
     def __str__(self):
         return f"{self.id} - {self.name} ({self.developer.name})"
@@ -72,23 +85,24 @@ class Order(models.Model):
     ]
 
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    date = models.DateTimeField()
-
+    date = models.DateTimeField(verbose_name='Дата покупки')
     currency = models.CharField(max_length=10, verbose_name='Валюта')
     total_amount = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Итого')
     commission = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Комиссия')
+    customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE, verbose_name='Покупатель')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new', verbose_name='Статус заказа')
 
-    customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE)
-
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
     def __str__(self):
         return f"Order {self.id} - {self.customer.name}"
 
 
 class OrderFile(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    file = models.ForeignKey(ForumFile, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name = 'Заказ')
+    file = models.ForeignKey(ForumFile, on_delete=models.CASCADE, verbose_name = 'Файл на форуме')
 
     domain = models.CharField(max_length=255, verbose_name='Домен')
     test_domain = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тестовый домен')
@@ -98,6 +112,8 @@ class OrderFile(models.Model):
 
     class Meta:
         unique_together = ('order', 'file', 'domain')
+        verbose_name = 'Файл в заказе'
+        verbose_name_plural = 'Файлы в заказе'
 
     def __str__(self):
         return f"Order {self.order.id} - {self.file.name}"
