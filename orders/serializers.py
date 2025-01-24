@@ -28,13 +28,14 @@ class OrderSerializer(serializers.ModelSerializer):
         validated_data = self.validated_data
         print('CREATE METHOD STARTED')
         print('VALIDATED DATA:', validated_data)
+
         developer_id = validated_data.pop('developer_id', None)
         developer_name = validated_data.pop('developer_name', '')
         developer_email = validated_data.pop('developer_email', '')
         developer_link = validated_data.pop('developer_link', '')
         developer_credits = validated_data.pop('developer_credits', {})
 
-        customer_id = validated_data['customer_id']
+        customer_id = validated_data.pop('customer_id', None)
         customer_name = validated_data.pop('customer_name', '')
         customer_email = validated_data.pop('customer_email', '')
         customer_link = validated_data.pop('customer_link', '')
@@ -46,7 +47,7 @@ class OrderSerializer(serializers.ModelSerializer):
         domain = validated_data.pop('domain', '')
         test_domain = validated_data.pop('test_domain', '')
 
-
+        # Создание или обновление разработчика
         developer, _ = Developer.objects.update_or_create(
             id=developer_id,
             defaults={
@@ -57,7 +58,8 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        validated_data['customer'], _ = Customer.objects.update_or_create(
+        # Создание или обновление клиента
+        customer, _ = Customer.objects.update_or_create(
             id=customer_id,
             defaults={
                 'name': customer_name,
@@ -66,10 +68,7 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        print('FILE ID - ', file_id)
-        print('FILE NAME - ', file_name)
-        print('----------------------------------------')
-
+        # Создание или обновление файла
         file, _ = ForumFile.objects.get_or_create(
             id=file_id,
             defaults={
@@ -79,20 +78,17 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        # Сохранение Order
-        # order = Order.objects.create(**validated_data)
-
+        # Создание или обновление заказа
         order_id = validated_data.pop('id', None)
         print('validated_data - ', validated_data)
-        print(' ======================order_id ===================================================== ', order_id)
-        order, _ = Order.objects.update_or_create()
+        print('======================order_id===================================================== ', order_id)
+
         order, created = Order.objects.update_or_create(
             id=order_id,
-            defaults=validated_data,
-            create_defaults={'id': order_id, **validated_data}
+            defaults=validated_data
         )
 
-        # OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
+        # Создание или обновление связи заказа с файлом
         OrderFile.objects.get_or_create(
             file=file,
             domain=domain,
@@ -102,5 +98,4 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
-        return super().save(**kwargs)
-
+        return order
