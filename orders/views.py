@@ -71,7 +71,7 @@ class OrderWebhook(APIView):
                     order.save()
 
                     # print(f"Sending task for order {order.id} with countdown 3 seconds")
-                    process_order.apply_async((order.id,), countdown=7)
+                    process_order.apply_async((order.id,), countdown=5)
             else:
                 print('serializer.errors - ', serializer.errors)
             return Response(status=status.HTTP_200_OK, headers={'State': 'Received'})
