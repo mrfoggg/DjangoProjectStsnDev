@@ -91,7 +91,6 @@ class OrderSerializer(serializers.ModelSerializer):
             domain=domain,
             order=order,
             defaults={
-                'domain': domain,
                 'test_domain': test_domain,
             }
         )
