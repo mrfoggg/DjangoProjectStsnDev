@@ -37,6 +37,7 @@ class OrderWebhook(APIView):
             return Response(status=status.HTTP_200_OK, headers={'State': 'Authorized'})
 
         elif request_type == "success":
+            print('REQUEST TYPE - success')
             order_timestamp = int(data['order']['date'])  # Получаем timestamp
             order_date_obj = datetime.fromtimestamp(order_timestamp)  # Преобразуем в datetime объект
             formatted_order_date = order_date_obj.isoformat()  # Получаем строку в формате ISO 8601
