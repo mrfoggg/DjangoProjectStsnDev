@@ -78,6 +78,7 @@ class OrderWebhook(APIView):
 
                 # Проверяем статус заказа
                 if order.status == 'new':
+                    print('NEW')
                     # Устанавливаем статус "processing"
                     order.status = 'processing'
                     order.save()
