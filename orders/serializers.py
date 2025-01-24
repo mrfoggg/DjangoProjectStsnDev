@@ -90,6 +90,10 @@ class OrderSerializer(serializers.ModelSerializer):
             id=file.id,
             domain=domain,
             order=order,
+            defaults={
+                'domain': domain,
+                'test_domain': test_domain,
+            }
         )
 
         return super().save(**kwargs)
