@@ -84,6 +84,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
         order_id = validated_data.pop('id', None)
         print('validated_data - ', validated_data)
+        print(' ======================order_id ===================================================== ', order_id)
+        order, _ = Order.objects.update_or_create()
         order, created = Order.objects.update_or_create(
             id=order_id,
             defaults=validated_data,
