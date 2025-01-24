@@ -24,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         exclude = ['customer']
 
-    def create(self, validated_data):
+    def save(self, validated_data):
         print('CREATE METHOD STARTED')
         print('VALIDATED DATA:', validated_data)
         developer_id = validated_data.pop('developer_id', None)
