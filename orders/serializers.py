@@ -24,7 +24,8 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         exclude = ['customer']
 
-    def save(self, validated_data):
+    def save(self, **kwargs):
+        validated_data = self.validated_data
         print('CREATE METHOD STARTED')
         print('VALIDATED DATA:', validated_data)
         developer_id = validated_data.pop('developer_id', None)
@@ -86,5 +87,5 @@ class OrderSerializer(serializers.ModelSerializer):
 
         OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
 
-        return order
+        return super().save(**kwargs)
 
