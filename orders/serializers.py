@@ -63,6 +63,10 @@ class OrderSerializer(serializers.ModelSerializer):
             }
         )
 
+        print('FILE ID - ', file_id)
+        print('FILE NAME - ', file_name)
+        print('----------------------------------------')
+
         file, _ = ForumFile.objects.update_or_create(
             id=file_id,
             defaults={
