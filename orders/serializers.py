@@ -70,7 +70,7 @@ class OrderSerializer(serializers.ModelSerializer):
         print('FILE NAME - ', file_name)
         print('----------------------------------------')
 
-        file, _ = ForumFile.objects.update_or_create(
+        file, _ = ForumFile.objects.get_or_create(
             id=file_id,
             defaults={
                 'name': file_name,
@@ -86,14 +86,14 @@ class OrderSerializer(serializers.ModelSerializer):
         order, created = Order.objects.get_or_create(id=order_id, defaults=validated_data)
 
         # OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
-        OrderFile.objects.get_or_create(
-            id=file.id,
-            domain=domain,
-            order=order,
-            defaults={
-                'test_domain': test_domain,
-            }
-        )
+        # OrderFile.objects.get_or_create(
+        #     id=file.id,
+        #     domain=domain,
+        #     order=order,
+        #     defaults={
+        #         'test_domain': test_domain,
+        #     }
+        # )
 
         return super().save(**kwargs)
 
