@@ -2,15 +2,17 @@ from django.contrib.postgres.fields import HStoreField
 from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
+
 import hashlib
 from urllib.parse import urlparse
 
 
 class ForumCustomer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255, verbose_name='Никнейм')
-    email = models.EmailField(verbose_name='Электронная почта')
-    link = models.URLField(max_length=200, verbose_name="Ссылка на пользователя")
+    name = models.CharField(max_length=255, verbose_name=_("nickname"))
+    email = models.EmailField(verbose_name=_("email"))
+    link = models.URLField(max_length=200, verbose_name=_("user_link"))
 
     class Meta:
         verbose_name = 'Пользователь форума'
