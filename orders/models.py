@@ -92,6 +92,9 @@ class OrderFile(models.Model):
     domain_license = models.CharField(max_length=255, blank=True, null=True)
     test_domain_license = models.CharField(max_length=255, blank=True, null=True)
 
+    class Meta:
+        unique_together = ('order', 'file', 'domain')
+
     def __str__(self):
         return f"Order {self.order.id} - {self.file.name}"
 
