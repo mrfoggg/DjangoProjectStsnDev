@@ -77,11 +77,11 @@ class ForumFile(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('new', 'New'),
-        ('processing', 'Processing'),
-        ('processed', 'Processed'),
-        ('email_sent', 'Email Sent'),
-        ('email_failed', 'Email Failed'),
+        ('new', 'Новый'),
+        ('processing', 'В обработке'),
+        ('processed', 'Обработан'),
+        ('email_sent', 'Письмо отправлено'),
+        ('email_failed', 'Ошибка отправки письма'),
     ]
 
     id = models.PositiveIntegerField(unique=True, primary_key=True)
