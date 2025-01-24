@@ -85,7 +85,7 @@ class OrderSerializer(serializers.ModelSerializer):
         order_id = validated_data['id']
         order, created = Order.objects.get_or_create(id=order_id, defaults=validated_data)
 
-        OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
+        # OrderFile.objects.create(order=order, file=file, domain=domain, test_domain=test_domain)
         OrderFile.objects.get_or_create(
             id=file.id,
             domain=domain,
