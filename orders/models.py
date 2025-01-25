@@ -26,7 +26,7 @@ class Developer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
     name = models.CharField(max_length=255, verbose_name=_("nickname"))
     email = models.EmailField(verbose_name=_("email"))
-    link = models.URLField(max_length=200, verbose_name=_("user_link"))
+    link = models.URLField(max_length=200, verbose_name=_("developer_link"))
     credits = HStoreField(null=True, blank=True, verbose_name=_("credits"))
 
     class Meta:
