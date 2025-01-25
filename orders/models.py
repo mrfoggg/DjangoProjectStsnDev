@@ -99,7 +99,7 @@ class Order(models.Model):
         verbose_name_plural = _('orders')
 
     def __str__(self):
-        return f"Order {self.id} - {self.customer.name}"
+        return f"_('order') - {self.id} - {self.customer.name}"
 
 
 class OrderFile(models.Model):
