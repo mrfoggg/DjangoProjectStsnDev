@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-25 14:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: orders/models.py:13 orders/models.py:27
+msgid "nickname"
+msgstr ""
+
+#: orders/models.py:14 orders/models.py:28
+msgid "email"
+msgstr ""
+
+#: orders/models.py:15
+msgid "user_link"
+msgstr ""
+
+#: orders/models.py:18
+msgid "forum_user"
+msgstr ""
+
+#: orders/models.py:19
+msgid "forum_users"
+msgstr ""
+
+#: orders/models.py:29
+msgid "developer_link"
+msgstr ""
+
+#: orders/models.py:30
+msgid "credits"
+msgstr ""
+
+#: orders/models.py:33
+msgid "developer_account"
+msgstr ""
+
+#: orders/models.py:34
+msgid "developer_accounts"
+msgstr ""
+
+#: orders/models.py:42
+msgid "extension_name"
+msgstr ""
+
+#: orders/models.py:44
+msgid "secret_key"
+msgstr ""
+
+#: orders/models.py:47 orders/models.py:77
+msgid "extension"
+msgstr ""
+
+#: orders/models.py:48
+msgid "extensions"
+msgstr ""
+
+#: orders/models.py:56
+msgid "file_name"
+msgstr ""
+
+#: orders/models.py:57
+msgid "file_link"
+msgstr ""
+
+#: orders/models.py:58
+msgid "developer"
+msgstr ""
+
+#: orders/models.py:61 orders/models.py:107
+msgid "forum_file"
+msgstr ""
+
+#: orders/models.py:62
+msgid "forum_files"
+msgstr ""
+
+#: orders/models.py:75
+msgid "no_match"
+msgstr ""
+
+#: orders/models.py:82
+msgid "new"
+msgstr ""
+
+#: orders/models.py:83
+msgid "processing"
+msgstr ""
+
+#: orders/models.py:84
+msgid "processed"
+msgstr ""
+
+#: orders/models.py:85
+msgid "email_sent"
+msgstr ""
+
+#: orders/models.py:86
+msgid "email_failed"
+msgstr ""
+
+#: orders/models.py:90
+msgid "purchase_date"
+msgstr ""
+
+#: orders/models.py:91
+msgid "currency"
+msgstr ""
+
+#: orders/models.py:92
+msgid "total_amount"
+msgstr ""
+
+#: orders/models.py:93
+msgid "commission"
+msgstr ""
+
+#: orders/models.py:94
+msgid "customer"
+msgstr ""
+
+#: orders/models.py:95
+msgid "order_status"
+msgstr ""
+
+#: orders/models.py:98 orders/models.py:106
+msgid "order"
+msgstr ""
+
+#: orders/models.py:99
+msgid "orders"
+msgstr ""
+
+#: orders/models.py:109
+msgid "domain"
+msgstr ""
+
+#: orders/models.py:110
+msgid "test_domain"
+msgstr ""
+
+#: orders/models.py:112
+msgid "domain_license"
+msgstr ""
+
+#: orders/models.py:113
+msgid "test_domain_license"
+msgstr ""
+
+#: orders/models.py:117
+msgid "order_file"
+msgstr ""
+
+#: orders/models.py:118
+msgid "order_files"
+msgstr ""
