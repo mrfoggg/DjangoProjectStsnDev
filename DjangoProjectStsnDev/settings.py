@@ -147,6 +147,7 @@ LOCALE_PATHS = [
 
 STATIC_URL = 'stsn_dev/static/'
 STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "static_media"
