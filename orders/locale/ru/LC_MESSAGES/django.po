@@ -54,29 +54,29 @@ msgstr "Аккаунты разработчиков"
 
 #: orders/models.py:42
 msgid "extension_name"
-msgstr ""
+msgstr "Название расширения"
 
 #: orders/models.py:44
 msgid "secret_key"
-msgstr ""
+msgstr "Серетный ключ"
 
 #: orders/models.py:47 orders/models.py:77
 msgid "extension"
-msgstr ""
+msgstr "Расширение"
 
 #: orders/models.py:48
 msgid "extensions"
-msgstr ""
+msgstr "Расширения"
 
 #: orders/models.py:56
 msgid "file_name"
-msgstr ""
+msgstr "Название файла"
 
 #: orders/models.py:57
 #, fuzzy
 #| msgid "user_link"
 msgid "file_link"
-msgstr "Ссылка на пользователя"
+msgstr "Ссылка файл на форуме"
 
 #: orders/models.py:58
 #, fuzzy
@@ -88,13 +88,13 @@ msgstr "Аккаунт разработчика"
 #, fuzzy
 #| msgid "forum_user"
 msgid "forum_file"
-msgstr "Профиль покупателя"
+msgstr "Файл на форуме"
 
 #: orders/models.py:62
 #, fuzzy
 #| msgid "forum_users"
 msgid "forum_files"
-msgstr "Профили покупателей"
+msgstr "Файлы на форуме"
 
 #: orders/models.py:75
 msgid "no_match"

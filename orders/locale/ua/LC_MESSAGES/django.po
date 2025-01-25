@@ -17,85 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: orders/models.py:13
-msgid "nickname"
-msgstr "Нікнейм"
-
-#: orders/models.py:14 orders/models.py:28
-msgid "email"
-msgstr "Електронна пошта"
-
-#: orders/models.py:15 orders/models.py:29
-msgid "user_link"
-msgstr "Посилання на користувача"
-
-#: orders/models.py:18
-msgid "forum_user"
-msgstr "Профіль покупця"
-
-#: orders/models.py:19
-msgid "forum_users"
-msgstr "Профілі покупців"
-
-#: orders/models.py:30
-msgid "credits"
-msgstr "Баланс"
-
-#: orders/models.py:33
-msgid "developer_account"
-msgstr "Обліковий запис розробника"
-
-#: orders/models.py:34
-msgid "developer_accounts"
-msgstr "Облікові записи розробників"
-
-#: orders/models.py:42
-msgid "extension_name"
-msgstr "Назва розширення"
-
-#: orders/models.py:44
-msgid "secret_key"
-msgstr "Секретний ключ"
-
-#: orders/models.py:47 orders/models.py:77
-msgid "extension"
-msgstr "Розширення"
-
-#: orders/models.py:48
-msgid "extensions"
-msgstr "Розширення"
-
-#: orders/models.py:56
-msgid "file_name"
-msgstr "Назва файлу"
-
-#: orders/models.py:57
-#, fuzzy
-#| msgid "user_link"
-msgid "file_link"
-msgstr "Посилання на файл"
-
-#: orders/models.py:58
-#, fuzzy
-#| msgid "developer_account"
-msgid "developer"
-msgstr "Розробник"
-
 #: orders/models.py:61 orders/models.py:107
-#, fuzzy
-#| msgid "forum_user"
 msgid "forum_file"
-msgstr "Файл форуму"
+msgstr "Файл на форумі"
 
 #: orders/models.py:62
-#, fuzzy
-#| msgid "forum_users"
 msgid "forum_files"
-msgstr "Файли форуму"
+msgstr "Файли на форумі"
 
 #: orders/models.py:75
 msgid "no_match"
-msgstr "Немає відповідності"
+msgstr "немає відповідності"
 
 #: orders/models.py:82
 msgid "new"
@@ -103,15 +35,13 @@ msgstr "Новий"
 
 #: orders/models.py:83
 msgid "processing"
-msgstr "Обробляється"
+msgstr "Опрацьовується"
 
 #: orders/models.py:84
 msgid "processed"
-msgstr "Оброблено"
+msgstr "Опрацьовано"
 
 #: orders/models.py:85
-#, fuzzy
-#| msgid "email"
 msgid "email_sent"
 msgstr "Лист відправлено"
 
@@ -129,7 +59,7 @@ msgstr "Валюта"
 
 #: orders/models.py:92
 msgid "total_amount"
-msgstr "Разом"
+msgstr "Загалом"
 
 #: orders/models.py:93
 msgid "commission"
