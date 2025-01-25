@@ -104,4 +104,3 @@ msgstr "Файл"
 #: orders/models.py:118
 msgid "order_files"
 msgstr "Файли"
-

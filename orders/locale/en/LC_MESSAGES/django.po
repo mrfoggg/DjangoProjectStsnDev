@@ -105,4 +105,3 @@ msgstr "order_file"
 #: orders/models.py:118
 msgid "order_files"
 msgstr "order_files"
-
