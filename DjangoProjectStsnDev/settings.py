@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
+from DjangoProjectStsnDev import middleware
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -52,11 +54,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    # 'DjangoProjectStsnDev.middleware.CustomLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'DjangoProjectStsnDev.urls'
@@ -127,7 +131,7 @@ USE_TZ = True
 
 LANGUAGES = [
     ("ru", _("Russian")),
-    ("ua", _("Ukrainian")),
+    # ("ua", _("Ukrainian")),
     ("uk", _("Ukrainian")),
     ("en", _("English")),
 ]
