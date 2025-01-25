@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 23:19+0200\n"
+"POT-Creation-Date: 2025-01-25 10:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,23 +20,23 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: orders/models.py:13
+#: orders/models.py:13 orders/models.py:27
 msgid "nickname"
 msgstr "Никнейм"
 
-#: orders/models.py:14
+#: orders/models.py:14 orders/models.py:28
 msgid "email"
 msgstr "Электронная почта"
 
-#: orders/models.py:15
+#: orders/models.py:15 orders/models.py:29
 msgid "user_link"
 msgstr "Ссылка на пользователя"
 
-#: orders/models.py:19
+#: orders/models.py:18
 msgid "forum_user"
 msgstr "Профиль покупателя"
 
-#: orders/models.py:20
+#: orders/models.py:19
 msgid "forum_users"
 msgstr "Профили покупателей"
 
@@ -51,3 +51,129 @@ msgstr "Аккаунт разработчика"
 #: orders/models.py:34
 msgid "developer_accounts"
 msgstr "Аккаунты разработчиков"
+
+#: orders/models.py:42
+msgid "extension_name"
+msgstr ""
+
+#: orders/models.py:44
+msgid "secret_key"
+msgstr ""
+
+#: orders/models.py:47 orders/models.py:77
+msgid "extension"
+msgstr ""
+
+#: orders/models.py:48
+msgid "extensions"
+msgstr ""
+
+#: orders/models.py:56
+msgid "file_name"
+msgstr ""
+
+#: orders/models.py:57
+#, fuzzy
+#| msgid "user_link"
+msgid "file_link"
+msgstr "Ссылка на пользователя"
+
+#: orders/models.py:58
+#, fuzzy
+#| msgid "developer_account"
+msgid "developer"
+msgstr "Аккаунт разработчика"
+
+#: orders/models.py:61 orders/models.py:107
+#, fuzzy
+#| msgid "forum_user"
+msgid "forum_file"
+msgstr "Профиль покупателя"
+
+#: orders/models.py:62
+#, fuzzy
+#| msgid "forum_users"
+msgid "forum_files"
+msgstr "Профили покупателей"
+
+#: orders/models.py:75
+msgid "no_match"
+msgstr "нет соответствия"
+
+#: orders/models.py:82
+msgid "new"
+msgstr "Новый"
+
+#: orders/models.py:83
+msgid "processing"
+msgstr "Обрабатывается"
+
+#: orders/models.py:84
+msgid "processed"
+msgstr "Обработан"
+
+#: orders/models.py:85
+#, fuzzy
+#| msgid "email"
+msgid "email_sent"
+msgstr "Письмо отправлено"
+
+#: orders/models.py:86
+msgid "email_failed"
+msgstr "Ошибка отправки письма"
+
+#: orders/models.py:90
+msgid "purchase_date"
+msgstr "Дата покупки"
+
+#: orders/models.py:91
+msgid "currency"
+msgstr "Валюта"
+
+#: orders/models.py:92
+msgid "total_amount"
+msgstr "Итого"
+
+#: orders/models.py:93
+msgid "commission"
+msgstr "Комиссия"
+
+#: orders/models.py:94
+msgid "customer"
+msgstr "Покупатель"
+
+#: orders/models.py:95
+msgid "order_status"
+msgstr "Статус заказа"
+
+#: orders/models.py:98 orders/models.py:106
+msgid "order"
+msgstr "Заказ"
+
+#: orders/models.py:99
+msgid "orders"
+msgstr "Заказы"
+
+#: orders/models.py:109
+msgid "domain"
+msgstr "Домен"
+
+#: orders/models.py:110
+msgid "test_domain"
+msgstr "Тестовый домен"
+
+#: orders/models.py:112
+msgid "domain_license"
+msgstr "Лицензионный ключ"
+
+#: orders/models.py:113
+msgid "test_domain_license"
+msgstr "Лицензионный ключ на тестовый домен"
+
+#: orders/models.py:117
+msgid "order_file"
+msgstr "Файл"
+
+#: orders/models.py:118
+msgid "order_files"
+msgstr "Файлы"

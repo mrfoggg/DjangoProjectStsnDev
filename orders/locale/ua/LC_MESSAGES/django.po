@@ -21,19 +21,19 @@ msgstr ""
 msgid "nickname"
 msgstr "Нікнейм"
 
-#: orders/models.py:14
+#: orders/models.py:14 orders/models.py:28
 msgid "email"
 msgstr "Електронна пошта"
 
-#: orders/models.py:15
+#: orders/models.py:15 orders/models.py:29
 msgid "user_link"
 msgstr "Посилання на користувача"
 
-#: orders/models.py:19
+#: orders/models.py:18
 msgid "forum_user"
 msgstr "Профіль покупця"
 
-#: orders/models.py:20
+#: orders/models.py:19
 msgid "forum_users"
 msgstr "Профілі покупців"
 
@@ -48,4 +48,130 @@ msgstr "Обліковий запис розробника"
 #: orders/models.py:34
 msgid "developer_accounts"
 msgstr "Облікові записи розробників"
+
+#: orders/models.py:42
+msgid "extension_name"
+msgstr "Назва розширення"
+
+#: orders/models.py:44
+msgid "secret_key"
+msgstr "Секретний ключ"
+
+#: orders/models.py:47 orders/models.py:77
+msgid "extension"
+msgstr "Розширення"
+
+#: orders/models.py:48
+msgid "extensions"
+msgstr "Розширення"
+
+#: orders/models.py:56
+msgid "file_name"
+msgstr "Назва файлу"
+
+#: orders/models.py:57
+#, fuzzy
+#| msgid "user_link"
+msgid "file_link"
+msgstr "Посилання на файл"
+
+#: orders/models.py:58
+#, fuzzy
+#| msgid "developer_account"
+msgid "developer"
+msgstr "Розробник"
+
+#: orders/models.py:61 orders/models.py:107
+#, fuzzy
+#| msgid "forum_user"
+msgid "forum_file"
+msgstr "Файл форуму"
+
+#: orders/models.py:62
+#, fuzzy
+#| msgid "forum_users"
+msgid "forum_files"
+msgstr "Файли форуму"
+
+#: orders/models.py:75
+msgid "no_match"
+msgstr "Немає відповідності"
+
+#: orders/models.py:82
+msgid "new"
+msgstr "Новий"
+
+#: orders/models.py:83
+msgid "processing"
+msgstr "Обробляється"
+
+#: orders/models.py:84
+msgid "processed"
+msgstr "Оброблено"
+
+#: orders/models.py:85
+#, fuzzy
+#| msgid "email"
+msgid "email_sent"
+msgstr "Лист відправлено"
+
+#: orders/models.py:86
+msgid "email_failed"
+msgstr "Помилка відправлення листа"
+
+#: orders/models.py:90
+msgid "purchase_date"
+msgstr "Дата покупки"
+
+#: orders/models.py:91
+msgid "currency"
+msgstr "Валюта"
+
+#: orders/models.py:92
+msgid "total_amount"
+msgstr "Разом"
+
+#: orders/models.py:93
+msgid "commission"
+msgstr "Комісія"
+
+#: orders/models.py:94
+msgid "customer"
+msgstr "Покупець"
+
+#: orders/models.py:95
+msgid "order_status"
+msgstr "Статус замовлення"
+
+#: orders/models.py:98 orders/models.py:106
+msgid "order"
+msgstr "Замовлення"
+
+#: orders/models.py:99
+msgid "orders"
+msgstr "Замовлення"
+
+#: orders/models.py:109
+msgid "domain"
+msgstr "Домен"
+
+#: orders/models.py:110
+msgid "test_domain"
+msgstr "Тестовий домен"
+
+#: orders/models.py:112
+msgid "domain_license"
+msgstr "Ліцензійний ключ"
+
+#: orders/models.py:113
+msgid "test_domain_license"
+msgstr "Ліцензійний ключ для тестового домену"
+
+#: orders/models.py:117
+msgid "order_file"
+msgstr "Файл"
+
+#: orders/models.py:118
+msgid "order_files"
+msgstr "Файли"
 

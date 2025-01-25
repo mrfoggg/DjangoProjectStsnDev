@@ -23,21 +23,21 @@ msgstr ""
 msgid "nickname"
 msgstr "Nickname"
 
-#: orders/models.py:14
+#: orders/models.py:14 orders/models.py:28
 msgid "email"
 msgstr "Email"
 
-#: orders/models.py:15
+#: orders/models.py:15 orders/models.py:29
 msgid "user_link"
-msgstr "User link"
+msgstr "User Link"
+
+#: orders/models.py:18
+msgid "forum_user"
+msgstr "Forum User"
 
 #: orders/models.py:19
-msgid "forum_user"
-msgstr "Forum profile"
-
-#: orders/models.py:20
 msgid "forum_users"
-msgstr "Forum profiles"
+msgstr "Forum Users"
 
 #: orders/models.py:30
 msgid "credits"
@@ -45,9 +45,134 @@ msgstr "Credits"
 
 #: orders/models.py:33
 msgid "developer_account"
-msgstr "Developer account"
+msgstr "Developer Account"
 
 #: orders/models.py:34
 msgid "developer_accounts"
-msgstr "Developer accounts"
+msgstr "Developer Accounts"
 
+#: orders/models.py:42
+msgid "extension_name"
+msgstr "Extension Name"
+
+#: orders/models.py:44
+msgid "secret_key"
+msgstr "Secret Key"
+
+#: orders/models.py:47 orders/models.py:77
+msgid "extension"
+msgstr "Extension"
+
+#: orders/models.py:48
+msgid "extensions"
+msgstr "Extensions"
+
+#: orders/models.py:56
+msgid "file_name"
+msgstr "File Name"
+
+#: orders/models.py:57
+#, fuzzy
+#| msgid "user_link"
+msgid "file_link"
+msgstr "File Link"
+
+#: orders/models.py:58
+#, fuzzy
+#| msgid "developer_account"
+msgid "developer"
+msgstr "Developer"
+
+#: orders/models.py:61 orders/models.py:107
+#, fuzzy
+#| msgid "forum_user"
+msgid "forum_file"
+msgstr "Forum File"
+
+#: orders/models.py:62
+#, fuzzy
+#| msgid "forum_users"
+msgid "forum_files"
+msgstr "Forum Files"
+
+#: orders/models.py:75
+msgid "no_match"
+msgstr "No Match"
+
+#: orders/models.py:82
+msgid "new"
+msgstr "New"
+
+#: orders/models.py:83
+msgid "processing"
+msgstr "Processing"
+
+#: orders/models.py:84
+msgid "processed"
+msgstr "Processed"
+
+#: orders/models.py:85
+#, fuzzy
+#| msgid "email"
+msgid "email_sent"
+msgstr "Email Sent"
+
+#: orders/models.py:86
+msgid "email_failed"
+msgstr "Email Failed"
+
+#: orders/models.py:90
+msgid "purchase_date"
+msgstr "Purchase Date"
+
+#: orders/models.py:91
+msgid "currency"
+msgstr "Currency"
+
+#: orders/models.py:92
+msgid "total_amount"
+msgstr "Total Amount"
+
+#: orders/models.py:93
+msgid "commission"
+msgstr "Commission"
+
+#: orders/models.py:94
+msgid "customer"
+msgstr "Customer"
+
+#: orders/models.py:95
+msgid "order_status"
+msgstr "Order Status"
+
+#: orders/models.py:98 orders/models.py:106
+msgid "order"
+msgstr "Order"
+
+#: orders/models.py:99
+msgid "orders"
+msgstr "Orders"
+
+#: orders/models.py:109
+msgid "domain"
+msgstr "Domain"
+
+#: orders/models.py:110
+msgid "test_domain"
+msgstr "Test Domain"
+
+#: orders/models.py:112
+msgid "domain_license"
+msgstr "Domain License"
+
+#: orders/models.py:113
+msgid "test_domain_license"
+msgstr "Test Domain License"
+
+#: orders/models.py:117
+msgid "order_file"
+msgstr "Order File"
+
+#: orders/models.py:118
+msgid "order_files"
+msgstr "Order Files"

@@ -39,13 +39,13 @@ class Developer(models.Model):
 
 
 class Extension(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название')
+    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
     file_id = models.PositiveIntegerField(null=True, blank=True)
-    secret_key = models.CharField(max_length=255, verbose_name='Секретный ключ')
+    secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
 
     class Meta:
-        verbose_name = 'Расширение'
-        verbose_name_plural = 'Расширения'
+        verbose_name = _('extension')
+        verbose_name_plural = _('extensions')
 
     def __str__(self):
         return self.name
@@ -53,13 +53,13 @@ class Extension(models.Model):
 
 class ForumFile(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    name = models.CharField(max_length=255, verbose_name='Название')
-    link = models.URLField(max_length=200, verbose_name="Расширение на форуме")
-    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files")
+    name = models.CharField(max_length=255, verbose_name=_('file_name'))
+    link = models.URLField(max_length=200, verbose_name=_("file_link"))
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, related_name="files", verbose_name=_("developer"))
 
     class Meta:
-        verbose_name = 'Файл на форуме'
-        verbose_name_plural = 'Файлы на форуме'
+        verbose_name = _('forum_file')
+        verbose_name_plural = _('forum_files')
 
     def __str__(self):
         return f"{self.id} - {self.name} ({self.developer.name})"
@@ -72,50 +72,50 @@ class ForumFile(models.Model):
         if self.extension:
             admin_edit_url = reverse('admin:orders_extension_change', args=[self.extension.pk])
             return format_html('<a href="{}">{}</a>', admin_edit_url, self.extension.name)
-        return 'Нет соответствия'
+        return _('no_match')
 
-    extension_name.short_description = 'Расширение'
+    extension_name.short_description = _('extension')
 
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('new', 'Новый'),
-        ('processing', 'В обработке'),
-        ('processed', 'Обработан'),
-        ('email_sent', 'Письмо отправлено'),
-        ('email_failed', 'Ошибка отправки письма'),
+        ('new', _('new')),
+        ('processing', _('processing')),
+        ('processed', _('processed')),
+        ('email_sent', _('email_sent')),
+        ('email_failed', _('email_failed')),
     ]
 
     id = models.PositiveIntegerField(unique=True, primary_key=True)
-    date = models.DateTimeField(verbose_name='Дата покупки')
-    currency = models.CharField(max_length=10, verbose_name='Валюта')
-    total_amount = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Итого')
-    commission = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Комиссия')
-    customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE, verbose_name='Покупатель')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new', verbose_name='Статус заказа')
+    date = models.DateTimeField(verbose_name=_('purchase_date'))
+    currency = models.CharField(max_length=10, verbose_name=_('currency'))
+    total_amount = models.DecimalField(max_digits=15, decimal_places=2, verbose_name=_('total_amount'))
+    commission = models.DecimalField(max_digits=15, decimal_places=2, verbose_name=_('commission'))
+    customer = models.ForeignKey(ForumCustomer, on_delete=models.CASCADE, verbose_name=_('customer'))
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new', verbose_name=_('order_status'))
 
     class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        verbose_name = _('order')
+        verbose_name_plural = _('orders')
 
     def __str__(self):
         return f"Order {self.id} - {self.customer.name}"
 
 
 class OrderFile(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name = 'Заказ')
-    file = models.ForeignKey(ForumFile, on_delete=models.CASCADE, verbose_name = 'Файл на форуме')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name =  _('order'))
+    file = models.ForeignKey(ForumFile, on_delete=models.CASCADE, verbose_name = _('forum_file'))
 
-    domain = models.CharField(max_length=255, verbose_name='Домен')
-    test_domain = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тестовый домен')
+    domain = models.CharField(max_length=255, verbose_name=_('domain'))
+    test_domain = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('test_domain'))
 
-    domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name='Лицензионный ключ')
-    test_domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name='Лицензионный ключ для тестового домена')
+    domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('domain_license'))
+    test_domain_license = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('test_domain_license'))
 
     class Meta:
         unique_together = ('order', 'file', 'domain')
-        verbose_name = 'Файл в заказе'
-        verbose_name_plural = 'Файлы в заказе'
+        verbose_name = _('order_file')
+        verbose_name_plural = _('order_files')
 
     def __str__(self):
         return f"Order {self.order.id} - {self.file.name}"
