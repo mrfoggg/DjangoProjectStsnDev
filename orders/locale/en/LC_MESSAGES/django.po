@@ -18,90 +18,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: orders/models.py:61 orders/models.py:107
+msgid "nickname"
+msgstr "Nickname"
+
+msgid "email"
+msgstr "Email"
+
+msgid "user_link"
+msgstr "User link"
+
+msgid "forum_user"
+msgstr "Buyer profile"
+
+msgid "forum_users"
+msgstr "Buyer profiles"
+
+msgid "credits"
+msgstr "Balance"
+
+msgid "developer_account"
+msgstr "Developer account"
+
+msgid "developer_accounts"
+msgstr "Developer accounts"
+
+msgid "extension_name"
+msgstr "Extension name"
+
+msgid "secret_key"
+msgstr "Secret key"
+
+msgid "extension"
+msgstr "Extension"
+
+msgid "extensions"
+msgstr "Extensions"
+
+msgid "file_name"
+msgstr "File name"
+
+msgid "file_link"
+msgstr "File link on forum"
+
+msgid "developer"
+msgstr "Developer account"
+
 msgid "forum_file"
-msgstr "forum_file"
+msgstr "Forum file"
 
-#: orders/models.py:62
 msgid "forum_files"
-msgstr "forum_files"
+msgstr "Forum files"
 
-#: orders/models.py:75
 msgid "no_match"
-msgstr "no_match"
+msgstr "No match"
 
-#: orders/models.py:82
 msgid "new"
-msgstr "new"
+msgstr "New"
 
-#: orders/models.py:83
 msgid "processing"
-msgstr "processing"
+msgstr "Processing"
 
-#: orders/models.py:84
 msgid "processed"
-msgstr "processed"
+msgstr "Processed"
 
-#: orders/models.py:85
 msgid "email_sent"
-msgstr "email_sent"
+msgstr "Email sent"
 
-#: orders/models.py:86
 msgid "email_failed"
-msgstr "email_failed"
+msgstr "Email sending failed"
 
-#: orders/models.py:90
 msgid "purchase_date"
-msgstr "purchase_date"
+msgstr "Purchase date"
 
-#: orders/models.py:91
 msgid "currency"
-msgstr "currency"
+msgstr "Currency"
 
-#: orders/models.py:92
 msgid "total_amount"
-msgstr "total_amount"
+msgstr "Total amount"
 
-#: orders/models.py:93
 msgid "commission"
-msgstr "commission"
+msgstr "Commission"
 
-#: orders/models.py:94
 msgid "customer"
-msgstr "customer"
+msgstr "Customer"
 
-#: orders/models.py:95
 msgid "order_status"
-msgstr "order_status"
+msgstr "Order status"
 
-#: orders/models.py:98 orders/models.py:106
 msgid "order"
-msgstr "order"
+msgstr "Order"
 
-#: orders/models.py:99
 msgid "orders"
-msgstr "orders"
+msgstr "Orders"
 
-#: orders/models.py:109
 msgid "domain"
-msgstr "domain"
+msgstr "Domain"
 
-#: orders/models.py:110
 msgid "test_domain"
-msgstr "test_domain"
+msgstr "Test domain"
 
-#: orders/models.py:112
 msgid "domain_license"
-msgstr "domain_license"
+msgstr "License key"
 
-#: orders/models.py:113
 msgid "test_domain_license"
-msgstr "test_domain_license"
+msgstr "License key for test domain"
 
-#: orders/models.py:117
 msgid "order_file"
-msgstr "order_file"
+msgstr "File"
 
-#: orders/models.py:118
 msgid "order_files"
-msgstr "order_files"
+msgstr "Files"

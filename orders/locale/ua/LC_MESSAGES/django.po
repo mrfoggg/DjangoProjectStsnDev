@@ -17,90 +17,113 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: orders/models.py:61 orders/models.py:107
+msgid "nickname"
+msgstr "Нікнейм"
+
+msgid "email"
+msgstr "Електронна пошта"
+
+msgid "user_link"
+msgstr "Посилання на користувача"
+
+msgid "forum_user"
+msgstr "Профіль покупця"
+
+msgid "forum_users"
+msgstr "Профілі покупців"
+
+msgid "credits"
+msgstr "Баланс"
+
+msgid "developer_account"
+msgstr "Обліковий запис розробника"
+
+msgid "developer_accounts"
+msgstr "Облікові записи розробників"
+
+msgid "extension_name"
+msgstr "Назва розширення"
+
+msgid "secret_key"
+msgstr "Секретний ключ"
+
+msgid "extension"
+msgstr "Розширення"
+
+msgid "extensions"
+msgstr "Розширення"
+
+msgid "file_name"
+msgstr "Назва файлу"
+
+msgid "file_link"
+msgstr "Посилання на файл на форумі"
+
+msgid "developer"
+msgstr "Обліковий запис розробника"
+
 msgid "forum_file"
 msgstr "Файл на форумі"
 
-#: orders/models.py:62
 msgid "forum_files"
 msgstr "Файли на форумі"
 
-#: orders/models.py:75
 msgid "no_match"
-msgstr "немає відповідності"
+msgstr "Немає відповідності"
 
-#: orders/models.py:82
 msgid "new"
 msgstr "Новий"
 
-#: orders/models.py:83
 msgid "processing"
-msgstr "Опрацьовується"
+msgstr "Обробляється"
 
-#: orders/models.py:84
 msgid "processed"
-msgstr "Опрацьовано"
+msgstr "Оброблено"
 
-#: orders/models.py:85
 msgid "email_sent"
-msgstr "Лист відправлено"
+msgstr "Лист надіслано"
 
-#: orders/models.py:86
 msgid "email_failed"
-msgstr "Помилка відправлення листа"
+msgstr "Помилка відправки листа"
 
-#: orders/models.py:90
 msgid "purchase_date"
 msgstr "Дата покупки"
 
-#: orders/models.py:91
 msgid "currency"
 msgstr "Валюта"
 
-#: orders/models.py:92
 msgid "total_amount"
-msgstr "Загалом"
+msgstr "Загальна сума"
 
-#: orders/models.py:93
 msgid "commission"
 msgstr "Комісія"
 
-#: orders/models.py:94
 msgid "customer"
 msgstr "Покупець"
 
-#: orders/models.py:95
 msgid "order_status"
 msgstr "Статус замовлення"
 
-#: orders/models.py:98 orders/models.py:106
 msgid "order"
 msgstr "Замовлення"
 
-#: orders/models.py:99
 msgid "orders"
 msgstr "Замовлення"
 
-#: orders/models.py:109
 msgid "domain"
 msgstr "Домен"
 
-#: orders/models.py:110
 msgid "test_domain"
 msgstr "Тестовий домен"
 
-#: orders/models.py:112
 msgid "domain_license"
 msgstr "Ліцензійний ключ"
 
-#: orders/models.py:113
 msgid "test_domain_license"
 msgstr "Ліцензійний ключ для тестового домену"
 
-#: orders/models.py:117
 msgid "order_file"
 msgstr "Файл"
 
-#: orders/models.py:118
 msgid "order_files"
 msgstr "Файли"
