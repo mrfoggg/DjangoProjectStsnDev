@@ -10,3 +10,8 @@ class LoginForm(forms.Form):
         label='Password',
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Введите пароль'})
     )
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.get('request')  # Получаем объект request, если он передан
+        super().__init__(*args, **kwargs)
+        # Теперь можно использовать request, если нужно
