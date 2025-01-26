@@ -7,7 +7,7 @@
             <button type="submit" class="btn btn-primary">Выйти</button>
         </form>
     {% else %}
-        <form method="post">
+        <form method="post" action="{% url 'login' %}">  <!-- Указал action для формы входа -->
             {% csrf_token %}
 
             {% if form.errors %}
