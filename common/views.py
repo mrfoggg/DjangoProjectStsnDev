@@ -6,3 +6,8 @@ class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
     form_class = LoginForm
     # success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request  # Передаем объект request в форму
+        return kwargs
