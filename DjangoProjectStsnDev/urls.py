@@ -7,7 +7,6 @@ from django.views.i18n import set_language
 
 urlpatterns = [
     path('orders/', include('orders.urls')),
-    path('common/', include('common.urls')),
     path('', include('home.urls')),
 ]
 
