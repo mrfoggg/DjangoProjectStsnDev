@@ -4,7 +4,7 @@ from .forms import LoginForm
 
 class CustomLoginView(LoginView):
     template_name = 'registration/custom_login.html'
-    form_class = LoginForm
+    # form_class = LoginForm
     # success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
 
     def get_form_kwargs(self):
