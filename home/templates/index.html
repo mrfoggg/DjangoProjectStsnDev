@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if request.user.is_authenticated %}
-        <form method="post" action="{% url 'client_logout' %}">
+        <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Выйти</button>
         </form>
