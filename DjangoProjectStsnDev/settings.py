@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
+    'common',
 ]
 
 MIDDLEWARE = [
