@@ -1,11 +1,9 @@
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
-from .forms import CustomLoginForm
+from .forms import LoginForm
 
 class CustomLoginView(LoginView):
     template_name = 'registration/custom_login.html'
-    form_class = CustomLoginForm
-    # success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
+    form_class = LoginForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
