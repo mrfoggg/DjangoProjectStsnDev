@@ -11,6 +11,7 @@ class OrderFileInline(admin.TabularInline):  # Можно заменить на 
 class OrderAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Order._meta.get_fields()]
     list_display = ['id', 'date', 'customer', 'total_amount', 'status']
+    fields = [('id', 'customer'), 'date', ('currency', 'total_amount', 'commission'), 'status']
 
     inlines = [OrderFileInline]
 
