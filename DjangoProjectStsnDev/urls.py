@@ -19,6 +19,6 @@ urlpatterns += i18n_patterns(
 
 # Маршруты для аутентификации и кастомное представление логина
 urlpatterns += [
-    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html')),
+    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html'), name='logout'),
     path('accounts/login/', CustomLoginView.as_view(template_name='registration/custom_login.html'), name='client_login'),
 ]
