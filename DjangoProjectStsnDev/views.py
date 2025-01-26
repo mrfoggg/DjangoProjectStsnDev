@@ -1,7 +1,7 @@
 # login_views.py
 from django.contrib.auth.views import LoginView
-from .forms import LoginForm
+from .forms import CustomLoginForm
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
-    form_class = LoginForm
+    form_class = CustomLoginForm
