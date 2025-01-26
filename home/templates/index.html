@@ -8,5 +8,6 @@
         </form>
     {% else %}
         <h1>yвы не авторизованы</h1>
+        <a href="{% url 'login' %}">Войти</a>
     {% endif %}
 {% endblock %}
