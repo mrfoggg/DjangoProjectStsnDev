@@ -8,6 +8,6 @@
         </form>
     {% else %}
         <h1>yвы не авторизованы</h1>
-        <a href="{% url 'login' %}">Войти</a>
+        <a href="{% url 'common:login' %}">Войти</a>
     {% endif %}
 {% endblock %}
