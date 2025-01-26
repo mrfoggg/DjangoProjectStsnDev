@@ -17,5 +17,5 @@ urlpatterns += i18n_patterns(
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html'), name='logout'),
+    path('client/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html'), name='client_logout'),
 ]
