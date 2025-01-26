@@ -4,4 +4,4 @@ from .forms import LoginForm
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
-    form = LoginForm
+    form_class = LoginForm
