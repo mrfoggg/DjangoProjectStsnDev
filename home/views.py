@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from common.forms import LoginForm  # Импорт вашей формы
+from DjangoProjectStsnDev.forms import LoginForm  # Импорт вашей формы
 
 def index(request):
     if request.method == 'POST':

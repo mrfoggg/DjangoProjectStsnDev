@@ -1,3 +1,4 @@
+from .views import CustomLoginView
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -18,6 +19,7 @@ urlpatterns += i18n_patterns(
 )
 
 # Маршруты для аутентификации и кастомное представление логина
-# urlpatterns += [
-#
-# ]
+urlpatterns += [
+    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html')),
+    path('accounts/login/', CustomLoginView.as_view(template_name='registration/custom_login.html'), name='client_login'),
+]
