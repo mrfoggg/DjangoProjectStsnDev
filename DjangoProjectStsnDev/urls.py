@@ -18,7 +18,6 @@ urlpatterns += i18n_patterns(
 )
 
 # Маршруты для аутентификации и кастомное представление логина
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),  # Стандартные маршруты аутентификации
-    path('client/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html'), name='client_logout'),
-]
+# urlpatterns += [
+#
+# ]
