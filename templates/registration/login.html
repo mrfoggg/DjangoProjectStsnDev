@@ -2,39 +2,49 @@
 
 {% block content %}
 
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{#{% if next %}#}
+{#  {% if user.is_authenticated %}#}
+{#    <p>Your account doesn't have access to this page. To proceed,#}
+{#    please login with an account that has access.</p>#}
+{#  {% else %}#}
+{#    <p>Please login to see this page.</p>#}
+{#  {% endif %}#}
+{#{% endif %}#}
 
-{% if next %}
-  {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-  {% else %}
-    <p>Please login to see this page.</p>
-  {% endif %}
-{% endif %}
+    <form method="post" action="{% url 'login' %}">  <!-- Указал action для формы входа -->
+        {% csrf_token %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> Your username and password didn't match. Please try again.
+            </div>
+        {% endif %}
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</tr>
+        <div class="mb-3">
+            <label for="username" class="form-label">Логин</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-<tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</tr>
-</table>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
 
 {% endblock %}
