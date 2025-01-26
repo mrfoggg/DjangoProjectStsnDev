@@ -9,7 +9,7 @@ def index(request):
         if form.is_valid():
             # Если форма валидна, можно выполнять логику логина (например, аутентификацию)
             # Здесь вы можете добавить логику для авторизации пользователя
-            return HttpResponseRedirect(reverse('home:index'))  # Перенаправление на главную страницу
+            return HttpResponseRedirect(reverse('home'))  # Перенаправление на главную страницу
         else:
             # Если форма невалидна, она передается в шаблон с ошибками
             return render(request, 'index.html', {'form': form})
