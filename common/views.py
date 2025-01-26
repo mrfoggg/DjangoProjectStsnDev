@@ -5,4 +5,4 @@ from .forms import LoginForm
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
     form_class = LoginForm
-    success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
+    # success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
