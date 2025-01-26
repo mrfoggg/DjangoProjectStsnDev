@@ -11,9 +11,10 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('set_language/', set_language, name='set_language'),
+    path('accounts/', include('django.contrib.auth.urls')),
     prefix_default_language=False,
 )
 
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
+# urlpatterns += [
+#     path('accounts/', include('django.contrib.auth.urls')),
+# ]

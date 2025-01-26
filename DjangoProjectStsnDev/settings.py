@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 if not IS_LOCAL:
     LOGGING = {
