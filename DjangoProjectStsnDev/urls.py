@@ -13,3 +13,7 @@ urlpatterns += i18n_patterns(
     path('set_language/', set_language, name='set_language'),
     prefix_default_language=False,
 )
+
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]
