@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from .forms import LoginForm
 
 class CustomLoginView(LoginView):
-    template_name = 'registration/login.html'
+    template_name = 'registration/custom_login.html'
     form_class = LoginForm
     # success_url = reverse_lazy('home')  # Замените 'home' на ваш URL-паттерн
 
