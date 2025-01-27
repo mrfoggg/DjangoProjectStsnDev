@@ -6,6 +6,7 @@ from unfold.admin import ModelAdmin, TabularInline
 class OrderFileInline(TabularInline):  # Можно заменить на StackedInline для другого отображения
     model = OrderFile
     extra = 1  # Количество пустых строк для добавления новых записей
+    tab = True
 
 
 @admin.register(Order)

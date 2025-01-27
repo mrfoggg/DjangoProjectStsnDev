@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
-    'common',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -119,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -219,3 +220,6 @@ if not IS_LOCAL:
 
 PRIVATE_KEY = "11112222333442"
 
+UNFOLD = {
+    "SHOW_LANGUAGES": True,
+}
