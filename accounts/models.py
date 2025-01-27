@@ -30,5 +30,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'  # Используем email вместо username
     REQUIRED_FIELDS = []  # Поля, обязательные при создании superuser
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
     def __str__(self):
         return self.email
