@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Extension(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    version = models.CharField(max_length=50, blank=True, null=True, default='')
     file_id = models.PositiveIntegerField(null=True, blank=True)
     secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
 
