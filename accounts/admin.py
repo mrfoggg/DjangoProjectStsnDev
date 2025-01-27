@@ -9,7 +9,7 @@ from unfold.admin import ModelAdmin
 class CustomUserAdmin(BaseUserAdmin, ModelAdmin):
     model = CustomUser
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    readonly_fields = ('date_joined', )
+    readonly_fields = ('date_joined', 'last_login')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
 
@@ -17,7 +17,7 @@ class CustomUserAdmin(BaseUserAdmin, ModelAdmin):
         (None, {'fields': (('email', 'password'),)}),
         ('Personal Info', {'fields': (('first_name', 'last_name', 'ip_address'),)}),
         ('Permissions', {'fields': (('is_active', 'is_staff', 'is_superuser'), 'groups', 'user_permissions')}),
-        ('Important Dates', {'fields': ('last_login', 'date_joined')}),
+        ('Important Dates', {'fields': (('last_login', 'date_joined'),)}),
     )
 
     add_fieldsets = (
