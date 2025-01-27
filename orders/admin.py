@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ForumCustomer, Developer, Extension, ForumFile, Order, OrderFile
+from .models import ForumCustomer, Developer, ForumFile, Order, OrderFile
 from unfold.admin import ModelAdmin, TabularInline
 
 
@@ -27,11 +27,6 @@ class CustomerAdmin(ModelAdmin):
 class ForumFileAdmin(ModelAdmin):
     list_display = ['id', 'name', 'developer']
     readonly_fields = ['extension_name']
-
-
-@admin.register(Extension)
-class ExtensionAdmin(ModelAdmin):
-    list_display = ['name', 'file_id']
 
 
 @admin.register(Developer)

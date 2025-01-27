@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
+    'extensions.apps.ExtensionsConfig',
 ]
 
 MIDDLEWARE = [

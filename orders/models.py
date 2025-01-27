@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 import hashlib
 from urllib.parse import urlparse
 
+from extensions.models import Extension
+
 
 class ForumCustomer(models.Model):
     id = models.PositiveIntegerField(unique=True, primary_key=True)
@@ -36,19 +38,6 @@ class Developer(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.name}"
-
-
-class Extension(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
-    file_id = models.PositiveIntegerField(null=True, blank=True)
-    secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
-
-    class Meta:
-        verbose_name = _('extension')
-        verbose_name_plural = _('extensions')
-
-    def __str__(self):
-        return self.name
 
 
 class ForumFile(models.Model):
