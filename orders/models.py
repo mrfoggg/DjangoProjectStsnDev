@@ -59,7 +59,7 @@ class ForumFile(models.Model):
 
     def extension_name(self):
         if self.extension:
-            admin_edit_url = reverse('admin:orders_extension_change', args=[self.extension.pk])
+            admin_edit_url = reverse('admin:extensions_extension_change', args=[self.extension.pk])
             return format_html('<a href="{}">{}</a>', admin_edit_url, self.extension.name)
         return _('no_match')
 
