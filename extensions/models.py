@@ -6,6 +6,7 @@ class Extension(models.Model):
     version = models.CharField(max_length=50, blank=True, null=True, default='')
     file_id = models.PositiveIntegerField(null=True, blank=True)
     secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
+    file = models.FileField(upload_to='mod_files/', blank=True, null=True)
 
     class Meta:
         verbose_name = _('extension')
