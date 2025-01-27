@@ -7,6 +7,7 @@ class Extension(models.Model):
     file_id = models.PositiveIntegerField(null=True, blank=True)
     secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
     file = models.FileField(upload_to='mod_files/', blank=True, null=True)
+    trial_period_days = models.PositiveSmallIntegerField(default=30)
 
     class Meta:
         verbose_name = _('extension')
