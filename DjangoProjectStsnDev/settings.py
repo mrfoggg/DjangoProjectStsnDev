@@ -222,5 +222,6 @@ PRIVATE_KEY = "11112222333442"
 
 UNFOLD = {
     "SHOW_LANGUAGES": True,
-    'ADMIN_HEADER': 'Администрирование Stsn Dev'
+    'SITE_HEADER': 'Администрирование Stsn Dev',
+    'SITE_TITLE': 'Stsn Dev Админ',
 }
