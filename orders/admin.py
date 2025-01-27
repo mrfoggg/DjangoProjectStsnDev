@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import ForumCustomer, Developer, Extension, ForumFile, Order, OrderFile
+from unfold.admin import ModelAdmin
 
 
 class OrderFileInline(admin.TabularInline):  # Можно заменить на StackedInline для другого отображения
@@ -8,7 +9,7 @@ class OrderFileInline(admin.TabularInline):  # Можно заменить на 
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(ModelAdmin):
     # list_display = [field.name for field in Order._meta.get_fields()]
     list_display = ['id', 'date', 'customer', 'total_amount', 'status']
     fields = [('id', 'customer'), 'date', ('currency', 'total_amount', 'commission'), 'status']
@@ -17,22 +18,22 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(ForumCustomer)
-class CustomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(ModelAdmin):
     list_display = ['id', 'name', 'email']
 
 
 @admin.register(ForumFile)
-class ForumFileAdmin(admin.ModelAdmin):
+class ForumFileAdmin(ModelAdmin):
     list_display = ['id', 'name', 'developer']
     readonly_fields = ['extension_name']
 
 
 @admin.register(Extension)
-class ExtensionAdmin(admin.ModelAdmin):
+class ExtensionAdmin(ModelAdmin):
     list_display = ['name', 'file_id']
 
 
 @admin.register(Developer)
-class DeveloperAdmin(admin.ModelAdmin):
+class DeveloperAdmin(ModelAdmin):
     list_display = ['id', 'name', 'email']
     readonly_fields = ['credits']
