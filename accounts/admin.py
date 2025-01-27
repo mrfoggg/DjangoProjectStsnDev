@@ -15,7 +15,7 @@ class CustomUserAdmin(BaseUserAdmin, ModelAdmin):
 
     fieldsets = (
         (None, {'fields': (('email', 'password'),)}),
-        ('Personal Info', {'fields': (('first_name', 'last_name'), 'ip_address')}),
+        ('Personal Info', {'fields': (('first_name', 'last_name', 'ip_address'),)}),
         ('Permissions', {'fields': (('is_active', 'is_staff', 'is_superuser'), 'groups', 'user_permissions')}),
         ('Important Dates', {'fields': ('last_login', 'date_joined')}),
     )
