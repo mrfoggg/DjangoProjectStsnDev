@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import ForumCustomer, Developer, Extension, ForumFile, Order, OrderFile
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin, TabularInline
 
 
-class OrderFileInline(admin.TabularInline):  # Можно заменить на StackedInline для другого отображения
+class OrderFileInline(TabularInline):  # Можно заменить на StackedInline для другого отображения
     model = OrderFile
     extra = 1  # Количество пустых строк для добавления новых записей
 
