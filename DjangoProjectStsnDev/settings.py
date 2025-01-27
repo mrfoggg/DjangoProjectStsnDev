@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 from DjangoProjectStsnDev import middleware
@@ -225,4 +227,7 @@ UNFOLD = {
     "SHOW_LANGUAGES": True,
     'SITE_HEADER': 'Администрирование',
     'SITE_TITLE': 'Stsn Dev',
+    "STYLES": [
+            lambda request: static("admin/css/unfold.css"),
+        ],
 }
