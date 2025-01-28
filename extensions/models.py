@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+import logging
 
 class Extension(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('extension_name'))
@@ -14,5 +15,10 @@ class Extension(models.Model):
         verbose_name_plural = _('extensions')
 
     def __str__(self):
+        # Пример использования логирования
+        logger = logging.getLogger('django')
+
+        logger.info("This is an info message.")  # Это попадет в stdout
+        logger.error("This is an error message.")  # Это попадет в stderr
         print(f'extension: {self.name}')
         return self.name
