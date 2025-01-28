@@ -17,12 +17,6 @@ class OrderAdmin(ModelAdmin):
 
     inlines = [OrderFileInline]
 
-    # Display fields in changeform in compressed mode
-    compressed_fields = True  # Default: False
-
-    # Warn before leaving unsaved changes in changeform
-    warn_unsaved_form = True  # Default: False
-
 
 @admin.register(ForumCustomer)
 class CustomerAdmin(ModelAdmin):
