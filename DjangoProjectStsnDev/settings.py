@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-qw8agq#nes-i4+8iz7tn&x00=8z+ymg+^dbi(7oqqv(dve92h-
 DEBUG = True
 IS_LOCAL = False if BASE_DIR.parent.name == 'django_projects' else True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'stsn-dev.kyiv.ua']
+ALLOWED_HOSTS = ['127.0.0.1', 'stsn-dev.kyiv.ua', '185.237.207.91']
 
 # CSRF_TRUSTED_ORIGINS = [
 #     'https://djangoprojectstsndev.onrender.com'
@@ -157,12 +157,15 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'stsn_dev/static/'
-STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
+# STATIC_URL = 'stsn_dev/static/'
+# STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
+STATIC_URL = 'static/'
+STATIC_ROOT = '/var/www/html/DjangoProjectStsnDev/static'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/h68663c/public_html/stsn_dev/media'
+# MEDIA_ROOT = '/home/h68663c/public_html/stsn_dev/media'
+MEDIA_ROOT = '/var/www/html/DjangoProjectStsnDev/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
