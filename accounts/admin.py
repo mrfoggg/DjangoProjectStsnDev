@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin, GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import Group
 from .models import CustomUser
+from unfold.admin import ModelAdmin
 
 @admin.register(CustomUser)
-class CustomUserAdmin(BaseUserAdmin):
+class CustomUserAdmin(BaseUserAdmin, ModelAdmin):
     model = CustomUser
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
     readonly_fields = ('date_joined', 'last_login')
@@ -25,9 +26,8 @@ class CustomUserAdmin(BaseUserAdmin):
         ),
     )
 
-# Убираем регистрацию Group через unfold
 admin.site.unregister(Group)
 
 @admin.register(Group)
-class GroupAdmin(BaseGroupAdmin):
+class GroupAdmin(BaseGroupAdmin, ModelAdmin):
     pass

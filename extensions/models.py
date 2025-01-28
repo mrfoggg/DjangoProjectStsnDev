@@ -16,9 +16,4 @@ class Extension(models.Model):
 
     def __str__(self):
         print(f'extension: {self.name}')
-        # Пример использования логирования
-        # logger = logging.getLogger('django')
-        #
-        # logger.info("This is an info message.")  # Это попадет в stdout
-        # logger.error("This is an error message.")  # Это попадет в stderr
         return self.name
