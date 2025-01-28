@@ -1,4 +1,3 @@
-from .views import CustomLoginView
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -10,6 +9,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path('orders/', include('orders.urls')),
+    path('accounts/', include('accounts.urls')),  # Убедитесь, что добавили '/' в конце
     path('', include('home.urls')),
 ]
 
@@ -18,10 +18,4 @@ urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('set_language/', set_language, name='set_language'),
     prefix_default_language=False,
-)
-
-# Маршруты для аутентификации и кастомное представление логина
-urlpatterns += [
-    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='registration/client_logged_out.html'), name='logout'),
-    path('accounts/login/', CustomLoginView.as_view(template_name='registration/custom_login.html'), name='client_login'),
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
