@@ -15,10 +15,10 @@ class Extension(models.Model):
         verbose_name_plural = _('extensions')
 
     def __str__(self):
+        print(f'extension: {self.name}')
         # Пример использования логирования
         # logger = logging.getLogger('django')
         #
         # logger.info("This is an info message.")  # Это попадет в stdout
         # logger.error("This is an error message.")  # Это попадет в stderr
-        print(f'extension: {self.name}')
         return self.name
