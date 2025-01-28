@@ -1,6 +1,9 @@
 import sys
 import os
 
+print("Python version:")
+print(sys.version)
+
 # Укажите путь к проекту
 sys.path.append('/var/www/DjangoProjectStsnDev')
 
