@@ -5,8 +5,7 @@ import sys
 sys.path.insert(0, '/var/www/DjangoProjectStsnDev')
 
 # Укажите путь к виртуальному окружению
-activate_this = '/var/www/DjangoProjectStsnDev/venv/bin/activate_this.py'
-exec(open(activate_this).read(), dict(__file__=activate_this))
+sys.path.insert(0, '/var/www/DjangoProjectStsnDev/venv/lib/python3.13/site-packages')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'DjangoProjectStsnDev.settings'
 
