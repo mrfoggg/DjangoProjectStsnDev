@@ -193,7 +193,8 @@ LOGIN_REDIRECT_URL = '/'
 
 if not IS_LOCAL:
     import sys
-    # Настройка логирования
+
+    # Настройка логирования: перенаправление ошибок только в stderr
     LOGGING = {
         'version': 1,
         'handlers': {
