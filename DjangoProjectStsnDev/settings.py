@@ -192,40 +192,41 @@ LOGIN_REDIRECT_URL = '/'
 # LOGIN_URL = '/'
 
 if not IS_LOCAL:
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'verbose': {
-                'format': '{levelname} {asctime} {module} {message}',
-                'style': '{',
-            },
-            'simple': {
-                'format': '{levelname} {message}',
-                'style': '{',
-            },
-        },
-        'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'simple',
-            },
-            'file': {
-                'level': 'DEBUG',
-                'class': 'logging.FileHandler',
-                'filename': '/home/h68663c/django_projects/stsn_dev/debug.log',
-                'formatter': 'verbose',
-            },
-        },
-        'loggers': {
-            'django': {
-                'handlers': ['console', 'file'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
-        },
-    }
+    pass
+    # LOGGING = {
+    #     'version': 1,
+    #     'disable_existing_loggers': False,
+    #     'formatters': {
+    #         'verbose': {
+    #             'format': '{levelname} {asctime} {module} {message}',
+    #             'style': '{',
+    #         },
+    #         'simple': {
+    #             'format': '{levelname} {message}',
+    #             'style': '{',
+    #         },
+    #     },
+    #     'handlers': {
+    #         'console': {
+    #             'level': 'DEBUG',
+    #             'class': 'logging.StreamHandler',
+    #             'formatter': 'simple',
+    #         },
+    #         'file': {
+    #             'level': 'DEBUG',
+    #             'class': 'logging.FileHandler',
+    #             'filename': '/home/h68663c/django_projects/stsn_dev/debug.log',
+    #             'formatter': 'verbose',
+    #         },
+    #     },
+    #     'loggers': {
+    #         'django': {
+    #             'handlers': ['console', 'file'],
+    #             'level': 'DEBUG',
+    #             'propagate': True,
+    #         },
+    #     },
+    # }
 
 PRIVATE_KEY = "11112222333442"
 
