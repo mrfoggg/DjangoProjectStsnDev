@@ -39,3 +39,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def get_short_name(self):
+        # Возвращаем first_name, если оно есть, иначе email
+        return self.first_name if self.first_name else self.email
