@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+import uuid
 from django.utils.translation import gettext_lazy as _
 
 
@@ -43,3 +44,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         # Возвращаем first_name, если оно есть, иначе email
         return self.first_name if self.first_name else self.email
+
+
+class EmailVerification(models.Model):
+    email = models.EmailField(unique=True)
+    token = models.UUIDField(default=uuid.uuid4)  # Токен для подтверждения
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
