@@ -14,4 +14,5 @@ class Extension(models.Model):
         verbose_name_plural = _('extensions')
 
     def __str__(self):
+        print(f'extension: {self.name}')
         return self.name
