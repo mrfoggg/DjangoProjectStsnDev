@@ -159,7 +159,7 @@ LOCALE_PATHS = [
 
 # STATIC_URL = 'stsn_dev/static/'
 # STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
-STATIC_URL = 'DjangoProjectStsnDev/static/'
+STATIC_URL = '/DjangoProjectStsnDev/static/'
 STATIC_ROOT = '/var/www/html/DjangoProjectStsnDev/static'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
