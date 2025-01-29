@@ -1,14 +1,15 @@
-import sys
 import os
+import sys
+from django.core.wsgi import get_wsgi_application
 
-print("Python version:")
-print(sys.version)
+# Укажите путь к вашему проекту
+sys.path.insert(0, '/var/www/DjangoProjectStsnDev')
 
-# Укажите путь к проекту
-sys.path.append('/var/www/DjangoProjectStsnDev')
-
-# Укажите путь к виртуальной среде
+# Укажите путь к виртуальному окружению
 sys.path.insert(0, '/var/www/DjangoProjectStsnDev/venv/lib/python3.13/site-packages')
 
-from django.core.wsgi import get_wsgi_application
+# Установите переменную окружения для Django
+os.environ['DJANGO_SETTINGS_MODULE'] = 'DjangoProjectStsnDev.settings'
+
+# Импортируйте и создайте WSGI приложение
 application = get_wsgi_application()
