@@ -159,13 +159,13 @@ LOCALE_PATHS = [
 
 # STATIC_URL = 'stsn_dev/static/'
 # STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
-STATIC_URL = 'DjangoProjectStsnDev/static/'
-STATIC_ROOT = '/var/www/html/DjangoProjectStsnDev/static'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/home/h68663c/public_html/stsn_dev/media'
-MEDIA_ROOT = '/var/www/html/DjangoProjectStsnDev/media'
+MEDIA_ROOT = '/var/www/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
