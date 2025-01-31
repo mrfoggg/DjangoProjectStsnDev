@@ -109,6 +109,16 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Используем Redis на локальном хосте
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -173,8 +183,12 @@ MEDIA_ROOT = '/var/www/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Настройка Celery для использования SQLAlchemy pip install sqlalchemy
-CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
-CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+# CELERY_BROKER_URL = 'sqla+sqlite:///celerydb.sqlite'
+# CELERY_RESULT_BACKEND = 'db+sqlite:///celerydb.sqlite'
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # База данных 0 для Celery
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # База данных 0 для результатов
+
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
