@@ -68,7 +68,7 @@ def activate_account_view(request, email=None, token=None):
             return redirect('cabinet')  # Личный кабин
         else:
             messages.info(request, 'Ваш аккаунт активен, но вы еще не установили пароль.')
-            return redirect('set_password', email=user.email)  # Перенаправляем на форму установки пароля
+            return redirect('set_password')  # Перенаправляем на форму установки пароля
 
     except CustomUser.DoesNotExist:
         stored_token = redis_client.get(f"email_verification:{email}")
