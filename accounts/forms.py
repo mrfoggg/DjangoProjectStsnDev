@@ -12,7 +12,7 @@ class EmailRegistrationForm(forms.Form):
 
 
 class CustomLoginForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
         max_length=150, label='Почта',
         widget=forms.EmailInput(attrs={
             'class': 'form-control', 'placeholder': 'Введите адрес'
