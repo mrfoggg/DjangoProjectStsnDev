@@ -97,6 +97,8 @@ def activate_account_view(request, email=None, token=None):
 
 def set_password_view(request):
     # Проверяем, что пользователь ещё не установил пароль
+    print(f"DEBUG: request.user.password = {repr(request.user.password)}")
+    print(f"DEBUG: request.user.has_usable_password() = {request.user.has_usable_password()}", flush=True)
     if request.user.is_authenticated and not request.user.has_usable_password():
         if request.method == 'POST':
             form = SetPasswordFormWithConfirmation(user=request.user, data=request.POST)
