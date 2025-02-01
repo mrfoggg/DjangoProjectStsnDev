@@ -10,7 +10,7 @@ from .forms import EmailRegistrationForm, LoginForm
 
 
 class CustomLoginView(LoginView):
-    template_name = 'registration/custom_login.html'
+    template_name = 'registration/templates/custom_login.html'
     form_class = LoginForm
 
 
@@ -54,4 +54,4 @@ def registration_email_verification(request):
     else:
         form = EmailRegistrationForm()
 
-    return render(request, 'registration/email_registration.html', {'form': form})
+    return render(request, 'registration/templates/email_registration.html', {'form': form})
