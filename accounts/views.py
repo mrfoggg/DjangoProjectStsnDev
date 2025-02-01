@@ -63,7 +63,7 @@ def activate_account_view(request, email=None, token=None):
         user = CustomUser.objects.get(email=email)
         login(request, user)
 
-        if user.has_usable_password:
+        if user.has_usable_password and user.password != '':
             messages.info(request, 'Ваш аккаунт уже активирован и пароль установлен.')
             return redirect('cabinet')  # Личный кабин
         else:
