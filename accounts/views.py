@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -5,7 +6,12 @@ from django.urls import reverse
 from django.utils import timezone  # Импорт timezone
 import uuid  # Импорт uuid
 from .models import EmailVerification, CustomUser  # Импорт моделей
-from .forms import EmailRegistrationForm
+from .forms import EmailRegistrationForm, LoginForm
+
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/custom_login.html'
+    form_class = LoginForm
 
 
 def registration_email_verification(request):
