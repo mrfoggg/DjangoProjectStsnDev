@@ -101,6 +101,7 @@ def set_password_view(request):
     print('DEBUG - request.user.has_usable_password() -', request.user.has_usable_password())
     print('DEBUG - request.user.password -', repr(request.user.password))
     if request.user.is_authenticated and not request.user.has_usable_password() and request.user.password != '':
+        print('FORM')
         if request.method == 'POST':
             form = SetPasswordFormWithConfirmation(user=request.user, data=request.POST)
             if form.is_valid():
