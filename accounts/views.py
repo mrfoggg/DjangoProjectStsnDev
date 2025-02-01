@@ -77,7 +77,7 @@ def activate_account_view(request, email=None, token=None):
             messages.error(request, 'Ссылка для активации недействительна или срок ее действия истек.')
             return redirect('register')
 
-        if stored_token.decode() == token:
+        if stored_token == token:
             # Создаем пользователя
             user = CustomUser.objects.create(email=email)
             user.save()
