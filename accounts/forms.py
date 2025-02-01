@@ -45,14 +45,14 @@ class CustomLoginForm(AuthenticationForm):
 class SetPasswordFormWithConfirmation(forms.Form):
     new_password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Введите пароль'}),
         required=True,
         min_length=8,
         help_text="Пароль должен содержать не менее 8 символов."
     )
     confirm_password = forms.CharField(
         label="Подтвердите пароль",
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтвердите пароль'}),
         required=True,
         help_text="Введите тот же пароль еще раз."
     )
