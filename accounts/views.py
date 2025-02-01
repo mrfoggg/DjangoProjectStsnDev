@@ -58,7 +58,7 @@ def cabinet_view(request):
     return render(request, 'cabinet.html')
 
 
-def activate_account_view(request, uidb64=None, email=None, token=None):
+def activate_account_view(request, email=None, token=None):
     try:
         user = CustomUser.objects.get(email=email)
         login(request, user)
