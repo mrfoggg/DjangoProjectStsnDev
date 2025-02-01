@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+    Авторизация
+{% endblock %}
+
 {% block content %}
     <h2>Login2</h2>
     <form method="post" action="{% url 'client_login' %}">
@@ -35,6 +39,6 @@
             {% endif %}
         </div>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">Подтвердить вход</button>
     </form>
 {% endblock %}
