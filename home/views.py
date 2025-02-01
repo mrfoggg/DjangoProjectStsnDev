@@ -1,7 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from DjangoProjectStsnDev.forms import LoginForm  # Импорт вашей формы
 import sys
 
 def index(request):
