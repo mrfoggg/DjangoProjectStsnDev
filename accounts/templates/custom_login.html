@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Login</h2>
+    <h2>Login2</h2>
     <form method="post" action="{% url 'client_login' %}">
         {% csrf_token %}
 
@@ -12,7 +12,7 @@
         {% endif %}
 
         <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="username" class="form-label">{{ form.username.label }}</label>
             {{ form.username }}
             {% if form.username.errors %}
                 <div class="alert alert-danger" role="alert">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">{{ form.password.label }}</label>
             {{ form.password }}
             {% if form.password.errors %}
                 <div class="alert alert-danger" role="alert">
