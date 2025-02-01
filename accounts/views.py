@@ -97,9 +97,7 @@ def activate_account_view(request, email=None, token=None):
 
 def set_password_view(request):
     # Проверяем, что пользователь ещё не установил пароль
-    print(f"DEBUG: request.user.password = {repr(request.user.password)}")
-    print(f"DEBUG: request.user.has_usable_password() = {request.user.has_usable_password()}", flush=True)
-    if request.user.is_authenticated and not request.user.has_usable_password():
+    if request.user.is_authenticated and not request.user.has_usable_password() and request.user.password != '':
         if request.method == 'POST':
             form = SetPasswordFormWithConfirmation(user=request.user, data=request.POST)
             if form.is_valid():
@@ -108,7 +106,7 @@ def set_password_view(request):
                 request.user.set_password(password)
                 request.user.save()
                 messages.success(request, 'Пароль успешно установлен!')
-                return redirect('cabinet')  # Перенаправляем на страницу входа
+                return redirect('cabinet')  # Перенаправляем на страницу профиля
         else:
             form = SetPasswordFormWithConfirmation(user=request.user)
 
@@ -117,4 +115,5 @@ def set_password_view(request):
     # Если пользователь уже установил пароль
     messages.info(request, 'Вы уже установили пароль. Перейдите в личный кабинет.')
     return redirect('cabinet')  # Перенаправляем на страницу профиля или кабинет
+
 
