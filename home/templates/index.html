@@ -9,5 +9,6 @@
     {% else %}
         <h1>yвы не авторизованы</h1>
         <a href="{% url 'client_login' %}">Войти</a>
+        <a href="{% url 'registration_get_email' %}">Зарегистрироваться</a>
     {% endif %}
 {% endblock %}

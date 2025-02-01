@@ -14,7 +14,7 @@ class CustomLoginView(LoginView):
     form_class = LoginForm
 
 
-def registration_email_verification(request):
+def registration_get_email(request):
     if request.method == 'POST':
         form = EmailRegistrationForm(request.POST)
         if form.is_valid():
@@ -54,4 +54,4 @@ def registration_email_verification(request):
     else:
         form = EmailRegistrationForm()
 
-    return render(request, 'registration/templates/email_registration.html', {'form': form})
+    return render(request, 'email_registration.html', {'form': form})
