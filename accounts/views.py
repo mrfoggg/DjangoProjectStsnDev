@@ -54,9 +54,12 @@ def registration_get_email(request):
                 messages.error(request, 'Ошибка при отправке письма. Попробуйте снова.')
                 return redirect('register')
 
-            return redirect('email_verification_sent')
+            return redirect('email_verification_sent_success')
     else:
         form = EmailRegistrationForm()
 
     return render(request, 'email_registration.html', {'form': form})
+
+def email_verification_sent_success(request):
+    return render(request, 'email_verification_sent_success.html')
 
