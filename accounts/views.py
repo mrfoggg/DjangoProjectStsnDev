@@ -8,7 +8,7 @@ from django.urls import reverse
 import uuid
 import redis
 
-from .forms import EmailVerificationForm, CustomLoginForm, SetPasswordFormWithConfirmation
+from .forms import EmailVerificationForm, CustomLoginForm
 from .models import CustomUser
 
 
