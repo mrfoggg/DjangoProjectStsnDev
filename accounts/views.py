@@ -6,12 +6,12 @@ from django.urls import reverse
 from django.utils import timezone  # Импорт timezone
 import uuid  # Импорт uuid
 from .models import EmailVerification, CustomUser  # Импорт моделей
-from .forms import EmailRegistrationForm, LoginForm
+from .forms import EmailRegistrationForm, CustomLoginForm
 
 
 class CustomLoginView(LoginView):
     template_name = 'custom_login.html'
-    form_class = LoginForm
+    form_class = CustomLoginForm
 
 
 def registration_get_email(request):
