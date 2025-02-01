@@ -108,7 +108,8 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = 'default'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -118,6 +119,10 @@ CACHES = {
         }
     }
 }
+
+# Дополнительные настройки для сессий
+SESSION_COOKIE_AGE = 10 * 24 * 60 * 60  # 10 дней в секундах
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Сессия не будет удаляться при закрытии браузера
 
 
 # Password validation
