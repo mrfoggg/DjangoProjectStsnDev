@@ -20,7 +20,7 @@ class CustomLoginView(LoginView):
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
 
-def send_email_verification(request):
+def send_email_verification_view(request):
     if request.method == 'POST':
         form = EmailVerificationForm(request.POST)
         if form.is_valid():
@@ -51,14 +51,14 @@ def send_email_verification(request):
 
     return render(request, 'email_registration.html', {'form': form})
 
-def email_verification_sent_success(request):
+def email_verification_sent_success_view(request):
     return render(request, 'email_verification_sent_success.html')
 
-def cabinet(request):
+def cabinet_view(request):
     return render(request, 'cabinet.html')
 
 
-def activate_account(request, uidb64=None, email=None, token=None):
+def activate_account_view(request, uidb64=None, email=None, token=None):
     try:
         user = CustomUser.objects.get(email=email)
         login(request, user)
