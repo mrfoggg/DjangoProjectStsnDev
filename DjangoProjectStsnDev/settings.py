@@ -119,7 +119,7 @@ CACHES = {
     }
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = 'default'
+# SESSION_CACHE_ALIAS = 'default'
 
 # Дополнительные настройки для сессий
 SESSION_COOKIE_AGE = 10 * 24 * 60 * 60  # 10 дней в секундах
