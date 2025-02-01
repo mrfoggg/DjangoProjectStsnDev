@@ -107,8 +107,6 @@ def set_password_view(request):
             form = SetPasswordFormWithConfirmation(user=request.user, data=request.POST)
             if form.is_valid():
                 # Сохраняем новый пароль
-                password = form.cleaned_data["new_password"]
-                request.user.set_password(password)
                 request.user.save()
                 messages.success(request, 'Пароль успешно установлен!')
                 return redirect('cabinet')  # Перенаправляем на страницу профиля

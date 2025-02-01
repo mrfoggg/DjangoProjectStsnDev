@@ -42,33 +42,14 @@ class CustomLoginForm(AuthenticationForm):
         label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Введите пароль'}))
 
 
-class SetPasswordFormWithConfirmation(forms.Form):
-    new_password = forms.CharField(
-        label="Пароль",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Введите пароль'}),
-        required=True,
-        min_length=8,
-        help_text="Пароль должен содержать не менее 8 символов."
-    )
-    confirm_password = forms.CharField(
-        label="Подтвердите пароль",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтвердите пароль'}),
-        required=True,
-        help_text="Введите тот же пароль еще раз."
-    )
-
-    def __init__(self, user, *args, **kwargs):
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.user = user
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("new_password")
-        confirm_password = cleaned_data.get("confirm_password")
+        # Добавляем класс для полей пароля
+        self.fields['new_password1'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': 'Введите новый пароль'})
+        self.fields['new_password2'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': 'Подтвердите новый пароль'})
 
-        if password and confirm_password:
-            if password != confirm_password:
-                raise forms.ValidationError("Пароли не совпадают.")
-
-        return cleaned_data
 
