@@ -88,7 +88,7 @@ def activate_account_view(request, email=None, token=None):
 
             # Перенаправляем на страницу установки пароля
             messages.info(request, 'Вы успешно подтвердили почту, но еще не установили пароль.')
-            return redirect('set_password', email=email)
+            return redirect('set_password')
 
         else:
             messages.error(request, 'Ссылка для активации недействительна.')
