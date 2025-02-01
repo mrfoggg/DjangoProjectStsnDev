@@ -8,7 +8,7 @@ from django.urls import reverse
 import uuid
 import redis
 
-from .forms import EmailVerificationForm, CustomLoginForm
+from .forms import EmailVerificationForm, CustomLoginForm, CustomSetPasswordForm
 from .models import CustomUser
 
 
@@ -104,14 +104,14 @@ def set_password_view(request):
     if request.user.is_authenticated and request.user.password == '':
         print('FORM')
         if request.method == 'POST':
-            form = SetPasswordFormWithConfirmation(user=request.user, data=request.POST)
+            form = CustomSetPasswordForm(user=request.user, data=request.POST)
             if form.is_valid():
                 # Сохраняем новый пароль
                 request.user.save()
                 messages.success(request, 'Пароль успешно установлен!')
                 return redirect('cabinet')  # Перенаправляем на страницу профиля
         else:
-            form = SetPasswordFormWithConfirmation(user=request.user)
+            form = CustomSetPasswordForm(user=request.user)
 
         return render(request, 'custom_set_password.html', {'form': form})
 
