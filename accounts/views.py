@@ -35,9 +35,11 @@ def registration_get_email(request):
             redis_client.setex(f"email_verification:{email}", 600, token)
 
             # Генерируем ссылку для активации
-            activation_url = request.build_absolute_uri(
-                reverse('activate_account', kwargs={'token': token})
-            )
+            # activation_url = request.build_absolute_uri(
+            #     reverse('activate_account', kwargs={'token': token})
+            # )
+
+            activation_url = 'activation_url'
 
             # Отправляем письмо
             try:
