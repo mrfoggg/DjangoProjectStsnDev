@@ -10,7 +10,7 @@ from .forms import EmailRegistrationForm, LoginForm
 
 
 class CustomLoginView(LoginView):
-    template_name = 'registration/templates/custom_login.html'
+    template_name = 'custom_login.html'
     form_class = LoginForm
 
 
