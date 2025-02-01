@@ -63,7 +63,7 @@ def activate_account_view(request, email=None, token=None):
         user = CustomUser.objects.get(email=email)
         login(request, user)
 
-        if user.password:
+        if user.has_usable_password:
             messages.info(request, 'Ваш аккаунт уже активирован и пароль установлен.')
             return redirect('cabinet')  # Личный кабин
         else:
@@ -106,7 +106,7 @@ def set_password_view(request):
                 request.user.set_password(password)
                 request.user.save()
                 messages.success(request, 'Пароль успешно установлен!')
-                return redirect('login')  # Перенаправляем на страницу входа
+                return redirect('cabinet')  # Перенаправляем на страницу входа
         else:
             form = SetPasswordFormWithConfirmation(user=request.user)
 
