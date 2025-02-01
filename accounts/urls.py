@@ -1,7 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from DjangoProjectStsnDev.views import CustomLoginView  # Убедитесь, что импорт правильно настроен
-from .views import registration_email_verification
+from .views import registration_email_verification, CustomLoginView
 
 urlpatterns = [
     path('register/', registration_email_verification, name='register'),
