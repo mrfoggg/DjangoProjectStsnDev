@@ -27,21 +27,78 @@
 {#              <span class="fw-light">ua</span>#}
 {#              <span class="fw-bold text-decoration-underline">ru</span>#}
 {#              <span class="fw-light">en</span>#}
-                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <form action="{% url 'set_language' %}" method="post" id="language-form">{% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
-                    <select name="language">
+                    <div class="language-selector">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
-                        {% for language in languages %}
-                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                                {{ language.name_local }} ({{ language.code }})
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Go">
+                        <ul>
+                            {% for language in languages %}
+                                <li>
+                                    <a href="#" class="language-option" data-language="{{ language.code }}">
+                                        {{ language.name_local }} ({{ language.code }})
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="submit" style="display:none" id="submit-button">
                 </form>
             </div>
         </div>
     </div>
 </header>
+
+<style>
+    .language-selector ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .language-selector li {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .language-option {
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .language-option:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Получаем все элементы языка
+        const languageOptions = document.querySelectorAll('.language-option');
+        const languageForm = document.getElementById('language-form');
+        const submitButton = document.getElementById('submit-button');
+
+        // Для каждого элемента языка добавляем обработчик клика
+        languageOptions.forEach(function(option) {
+            option.addEventListener('click', function(event) {
+                event.preventDefault();  // Предотвращаем стандартное поведение ссылки
+
+                // Получаем выбранный язык из атрибута data-language
+                const selectedLanguage = option.getAttribute('data-language');
+
+                // Создаем скрытое поле для выбранного языка и добавляем в форму
+                let languageInput = document.createElement('input');
+                languageInput.type = 'hidden';
+                languageInput.name = 'language';
+                languageInput.value = selectedLanguage;
+                languageForm.appendChild(languageInput);
+
+                // Отправляем форму
+                languageForm.submit();
+            });
+        });
+    });
+</script>
