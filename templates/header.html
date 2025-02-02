@@ -26,12 +26,20 @@
 {#              <span class="fw-light">ua</span>#}
 {#              <span class="fw-bold text-decoration-underline">ru</span>#}
 {#              <span class="fw-light">en</span>#}
-{#                <li><a href="/uk{{ request.path|slice:':3' }}">UA</a></li>#}
-{#                <li><a href="{{ request.path|slice:':3' }}">RU</a></li>#}
-{#                <li><a href="/en{{ request.path|slice:':3' }}">EN</a></li>#}
-                <li><a href="/uk{{ request.path }}">UA</a></li>
-                <li><a href="/ru{{ request.path }}">RU</a></li>
-                <li><a href="/en{{ request.path }}">EN</a></li>
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Go">
+                </form>
             </div>
         </div>
     </div>
