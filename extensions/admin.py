@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import Extension, ExtensionTranslation, ExtensionProxy
+from unfold.admin import ModelAdmin, TabularInline
 
 class ExtensionTranslationInline(admin.TabularInline):
     model = ExtensionTranslation
     extra = 1
     fields = ('language_code', 'name', 'description', 'short_description', 'title', 'meta_description')
 
-class ExtensionAdmin(admin.ModelAdmin):
+class ExtensionAdmin(ModelAdmin):
     list_display = ('name', 'version', 'secret_key', 'trial_period_days')
     inlines = [ExtensionTranslationInline]
     search_fields = ('name', 'version', 'secret_key')
