@@ -13,7 +13,7 @@ from .models import Extension, ExtensionTranslation
 from .forms import ExtensionAdminForm
 from rich import print
 
-class ExtensionAdmin(ModelAdmin):
+class ExtensionAdmin(admin.ModelAdmin):
     """
     Кастомный ModelAdmin для Extension с редактированием языковых полей.
     """
