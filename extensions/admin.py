@@ -13,22 +13,24 @@ class ExtensionAdminForm(forms.Form):
     trial_period_days = forms.IntegerField(label=_('Trial Period (days)'), initial=30)
 
     def __init__(self, *args, **kwargs):
-        self.extension = None  # Будет установлено позже
+        # Получаем объект из параметров
+        self.extension = kwargs.pop('extension', None)
         super().__init__(*args, **kwargs)
-        self._init_fields()
 
-    def _init_fields(self):
+        # Инициализация полей
         if self.extension:
             self._init_existing_fields()
             self._add_translation_fields()
 
     def _init_existing_fields(self):
+        # Заполняем значения из существующего объекта
         self.fields['name'].initial = self.extension.name
         self.fields['version'].initial = self.extension.version
         self.fields['secret_key'].initial = self.extension.secret_key
         self.fields['trial_period_days'].initial = self.extension.trial_period_days
 
     def _add_translation_fields(self):
+        # Добавляем поля переводов
         for lang_code, lang_name in settings.LANGUAGES:
             translation = self._get_translation(lang_code)
             for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
@@ -53,6 +55,7 @@ class ExtensionAdminForm(forms.Form):
         )
 
     def save(self):
+        # Сохраняем основную модель
         extension = self.extension or Extension()
         extension.name = self.cleaned_data['name']
         extension.version = self.cleaned_data['version']
@@ -60,24 +63,24 @@ class ExtensionAdminForm(forms.Form):
         extension.trial_period_days = self.cleaned_data['trial_period_days']
         extension.save()
 
-        for lang_code, _ in settings.LANGUAGES:
-            self._save_translation(extension, lang_code)
-
+        # Сохраняем переводы
+        self._save_translations(extension)
         return extension
 
-    def _save_translation(self, extension, lang_code):
-        trans_data = {
-            'name': self.cleaned_data.get(f'name_{lang_code}', ''),
-            'title': self.cleaned_data.get(f'title_{lang_code}', ''),
-            'short_description': self.cleaned_data.get(f'short_description_{lang_code}', ''),
-            'description': self.cleaned_data.get(f'description_{lang_code}', ''),
-            'meta_description': self.cleaned_data.get(f'meta_description_{lang_code}', '')
-        }
-        ExtensionTranslation.objects.update_or_create(
-            extension=extension,
-            language_code=lang_code,
-            defaults=trans_data
-        )
+    def _save_translations(self, extension):
+        for lang_code, _ in settings.LANGUAGES:
+            trans_data = {
+                'name': self.cleaned_data.get(f'name_{lang_code}', ''),
+                'title': self.cleaned_data.get(f'title_{lang_code}', ''),
+                'short_description': self.cleaned_data.get(f'short_description_{lang_code}', ''),
+                'description': self.cleaned_data.get(f'description_{lang_code}', ''),
+                'meta_description': self.cleaned_data.get(f'meta_description_{lang_code}', '')
+            }
+            ExtensionTranslation.objects.update_or_create(
+                extension=extension,
+                language_code=lang_code,
+                defaults=trans_data
+            )
 
 
 @admin.register(Extension)
@@ -86,15 +89,19 @@ class ExtensionAdmin(admin.ModelAdmin):
     list_display = ('name', 'version', 'secret_key')
 
     def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        form.extension = obj  # Устанавливаем объект после создания формы
-        form._init_fields(self)  # Вызываем инициализацию полей
-        return form
+        # Передаем объект через параметры формы
+        kwargs['extension'] = obj
+        return super().get_form(request, obj, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = [
             (None, {
-                'fields': ['name', 'version', 'secret_key', 'trial_period_days']
+                'fields': [
+                    'name',
+                    'version',
+                    'secret_key',
+                    'trial_period_days'
+                ]
             }),
         ]
 
@@ -109,7 +116,10 @@ class ExtensionAdmin(admin.ModelAdmin):
                 ]
                 fieldsets.append((
                     f"{lang_name} Translation",
-                    {'fields': lang_fields, 'classes': ('collapse',)}
+                    {
+                        'fields': lang_fields,
+                        'classes': ('collapse',)
+                    }
                 ))
 
         return fieldsets
