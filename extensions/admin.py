@@ -1,20 +1,8 @@
 from django.contrib import admin
-from .models import Extension, ExtensionTranslation, ExtensionProxy
+from .models import Extension, ExtensionProxy
 
 
-class ExtensionTranslationInline(admin.TabularInline):
-    model = ExtensionTranslation
-    extra = 1
-    fields = ('language_code', 'name', 'description', 'short_description', 'title', 'meta_description')
-
-
-class ExtensionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'version', 'secret_key', 'trial_period_days')
-    inlines = [ExtensionTranslationInline]
-    search_fields = ('name', 'version', 'secret_key')
-
-
-class ExtensionProxyAdmin(ExtensionAdmin):
+class ExtensionProxyAdmin(admin.ModelAdmin):
     list_display = (
         'name_all_languages',
         'description_all_languages',
@@ -22,6 +10,7 @@ class ExtensionProxyAdmin(ExtensionAdmin):
         'title_all_languages',
         'meta_description_all_languages',
     )
+
     search_fields = ('name', 'description', 'short_description', 'title', 'meta_description')
 
     fieldsets = (
@@ -73,5 +62,4 @@ class ExtensionProxyAdmin(ExtensionAdmin):
     meta_description_all_languages.short_description = 'Meta Description'
 
 
-admin.site.register(Extension, ExtensionAdmin)
 admin.site.register(ExtensionProxy, ExtensionProxyAdmin)
