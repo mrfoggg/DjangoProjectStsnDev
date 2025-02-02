@@ -9,13 +9,14 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path('orders/', include('orders.urls')),
-    path('accounts/', include('accounts.urls')),  # Убедитесь, что добавили '/' в конце
-    path('', include('home.urls')),
+
 ]
 
 # Локализация
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('', include('home.urls')),
     path('set_language/', set_language, name='set_language'),
     prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
