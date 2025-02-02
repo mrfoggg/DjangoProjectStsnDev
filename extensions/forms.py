@@ -17,7 +17,7 @@ class ExtensionProxyForm(forms.ModelForm):
     name_ru = forms.CharField(
         label="Название (RU)",
         required=False,
-        widget=TextInput(attrs={'class': 'custom-unfold'})
+        widget=UnfoldAdminTextInputWidget
     )
     description_ru = forms.CharField(
         label="Описание (RU)",
