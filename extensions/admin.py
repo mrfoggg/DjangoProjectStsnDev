@@ -18,7 +18,7 @@ class ExtensionAdmin(ModelAdmin):
     Кастомный ModelAdmin для Extension с редактированием языковых полей.
     """
     form = ExtensionAdminForm
-    fields = [field.name for field in ExtensionTranslation._meta.fields] + ['short_description_uk', ]
+    fields = [field.name for field in ExtensionTranslation._meta.fields]
     list_display = ('name', 'version', 'secret_key')
 
     def get_form(self, request, obj=None, **kwargs):
