@@ -7,9 +7,10 @@ from DjangoProjectStsnDev import settings
 
 class ExtensionAdminForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        self.obj = kwargs.pop('obj', None)  # Получаем объект через кастомный параметр
+        self.obj = kwargs.pop('obj', None)  # Основной объект
         super().__init__(*args, **kwargs)
         self._create_fields()
+        self.instance = self.obj  # Эмулируем поведение ModelForm
 
     def _create_fields(self):
         # Основные поля
@@ -31,12 +32,12 @@ class ExtensionAdminForm(forms.Form):
             initial=self.obj.trial_period_days if self.obj else 30
         )
 
-        # Поля переводов
+        # Поля переводов (только для существующих объектов)
         if self.obj and self.obj.pk:
             for lang_code, lang_name in settings.LANGUAGES:
-                self._create_translation_fields(lang_code, lang_name)
+                self._add_translation_fields(lang_code, lang_name)
 
-    def _create_translation_fields(self, lang_code, lang_name):
+    def _add_translation_fields(self, lang_code, lang_name):
         try:
             translation = self.obj.translations.get(language_code=lang_code)
         except ExtensionTranslation.DoesNotExist:
@@ -58,16 +59,15 @@ class ExtensionAdminForm(forms.Form):
         )
 
     def save(self):
-        # Сохраняем/создаем основную модель
+        # Сохраняем основную модель
         if self.obj:
-            obj = self.obj
-            obj.name = self.cleaned_data['name']
-            obj.version = self.cleaned_data['version']
-            obj.secret_key = self.cleaned_data['secret_key']
-            obj.trial_period_days = self.cleaned_data['trial_period_days']
-            obj.save()
+            self.obj.name = self.cleaned_data['name']
+            self.obj.version = self.cleaned_data['version']
+            self.obj.secret_key = self.cleaned_data['secret_key']
+            self.obj.trial_period_days = self.cleaned_data['trial_period_days']
+            self.obj.save()
         else:
-            obj = Extension.objects.create(
+            self.obj = Extension.objects.create(
                 name=self.cleaned_data['name'],
                 version=self.cleaned_data['version'],
                 secret_key=self.cleaned_data['secret_key'],
@@ -75,10 +75,10 @@ class ExtensionAdminForm(forms.Form):
             )
 
         # Сохраняем переводы
-        self._save_translations(obj)
-        return obj
+        self._save_translations()
+        return self.obj
 
-    def _save_translations(self, obj):
+    def _save_translations(self):
         for lang_code, _ in settings.LANGUAGES:
             trans_data = {}
             for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
@@ -86,7 +86,7 @@ class ExtensionAdminForm(forms.Form):
                 trans_data[field] = self.cleaned_data.get(field_id, '')
 
             ExtensionTranslation.objects.update_or_create(
-                extension=obj,
+                extension=self.obj,
                 language_code=lang_code,
                 defaults=trans_data
             )
@@ -99,7 +99,7 @@ class ExtensionAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.obj = obj  # Передаем объект через кастомный атрибут
+        form.obj = obj  # Передаем объект в форму
         return form
 
     def get_fieldsets(self, request, obj=None):
@@ -134,5 +134,6 @@ class ExtensionAdmin(admin.ModelAdmin):
         return fieldsets
 
     def save_model(self, request, obj, form, change):
-        # Сохранение полностью делегируем форме
-        form.save()
+        # Обновляем объект из формы
+        obj = form.save()
+        return obj
