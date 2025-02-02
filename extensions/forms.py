@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import Extension, ExtensionTranslation
+from rich import print
 
 class ExtensionAdminForm(forms.ModelForm):
     """
@@ -12,7 +13,7 @@ class ExtensionAdminForm(forms.ModelForm):
 
         if self.instance.pk:  # Только если это не новая запись
             translations = ExtensionTranslation.objects.filter(extension=self.instance)
-            print('DEBUG translations', translations)
+            print('DEBUG translations -', translations)
             existing_langs = {t.language_code for t in translations}
 
             from DjangoProjectStsnDev import settings  # Получаем список доступных языков
@@ -61,7 +62,7 @@ class ExtensionAdminForm(forms.ModelForm):
                     widget=forms.Textarea,
                     required=False
                 )
-
+            print('DEBUG fields - ', self.fields)
     class Meta:
         model = Extension
         fields = '__all__'

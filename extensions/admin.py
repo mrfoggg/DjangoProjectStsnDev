@@ -12,6 +12,7 @@ from django.contrib import admin
 from .models import Extension, ExtensionTranslation
 from .forms import ExtensionAdminForm
 
+
 class ExtensionAdmin(ModelAdmin):
     """
     Кастомный ModelAdmin для Extension с редактированием языковых полей.
