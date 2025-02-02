@@ -26,9 +26,12 @@
 {#              <span class="fw-light">ua</span>#}
 {#              <span class="fw-bold text-decoration-underline">ru</span>#}
 {#              <span class="fw-light">en</span>#}
-                <li><a href="/uk{{ request.path|slice:':3' }}">UA</a></li>
-                <li><a href="{{ request.path|slice:':3' }}">RU</a></li>
-                <li><a href="/en{{ request.path|slice:':3' }}">EN</a></li>
+{#                <li><a href="/uk{{ request.path|slice:':3' }}">UA</a></li>#}
+{#                <li><a href="{{ request.path|slice:':3' }}">RU</a></li>#}
+{#                <li><a href="/en{{ request.path|slice:':3' }}">EN</a></li>#}
+                <li><a href="/uk{{ request.path }}">UA</a></li>
+                <li><a href="/ru{{ request.path }}">RU</a></li>
+                <li><a href="/en{{ request.path }}">EN</a></li>
             </div>
         </div>
     </div>
