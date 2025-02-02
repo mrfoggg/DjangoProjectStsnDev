@@ -1,28 +1,27 @@
 from django import forms
+from django.forms import TextInput, Textarea
 from .models import ExtensionProxy
 
 class ExtensionProxyForm(forms.ModelForm):
-    """Форма для работы с виртуальными полями в ExtensionProxy"""
-
     name_en = forms.CharField(
         label="Название (EN)",
         required=False,
-        widget=forms.TextInput()
+        widget=TextInput(attrs={'class': 'custom-unfold'})
     )
     description_en = forms.CharField(
         label="Описание (EN)",
         required=False,
-        widget=forms.Textarea()
+        widget=Textarea(attrs={'class': 'custom-unfold'})
     )
     name_ru = forms.CharField(
         label="Название (RU)",
         required=False,
-        widget=forms.TextInput()
+        widget=TextInput(attrs={'class': 'custom-unfold'})
     )
     description_ru = forms.CharField(
         label="Описание (RU)",
         required=False,
-        widget=forms.Textarea()
+        widget=Textarea(attrs={'class': 'custom-unfold'})
     )
 
     class Meta:
@@ -30,22 +29,20 @@ class ExtensionProxyForm(forms.ModelForm):
         fields = ['name', 'version', 'secret_key', 'trial_period_days']
 
     def __init__(self, *args, **kwargs):
-        """Заполняем форму данными из модели"""
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         if instance:
-            self.fields['name_en'].initial = instance.name_en
-            self.fields['description_en'].initial = instance.description_en
-            self.fields['name_ru'].initial = instance.name_ru
-            self.fields['description_ru'].initial = instance.description_ru
+            self.fields['name_en'].initial = instance.get_translation('en').name if instance.get_translation('en') else ''
+            self.fields['description_en'].initial = instance.get_translation('en').description if instance.get_translation('en') else ''
+            self.fields['name_ru'].initial = instance.get_translation('ru').name if instance.get_translation('ru') else ''
+            self.fields['description_ru'].initial = instance.get_translation('ru').description if instance.get_translation('ru') else ''
 
     def save(self, commit=True):
-        """Сохраняем данные виртуальных полей"""
         instance = super().save(commit=False)
-        instance.name_en = self.cleaned_data['name_en']
-        instance.description_en = self.cleaned_data['description_en']
-        instance.name_ru = self.cleaned_data['name_ru']
-        instance.description_ru = self.cleaned_data['description_ru']
+        instance.set_translation('en', 'name', self.cleaned_data['name_en'])
+        instance.set_translation('en', 'description', self.cleaned_data['description_en'])
+        instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
+        instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
         if commit:
             instance.save()
         return instance

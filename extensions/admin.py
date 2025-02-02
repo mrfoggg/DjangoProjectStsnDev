@@ -7,7 +7,6 @@ from .forms import ExtensionProxyForm
 class ExtensionProxyAdmin(ModelAdmin):
     form = ExtensionProxyForm
     list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
-
     fieldsets = (
         ("Основная информация", {
             'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
