@@ -18,5 +18,5 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('accounts.urls')),
     path('', include('home.urls')),
     path('set_language/', set_language, name='set_language'),
-    prefix_default_language=True,
+    prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
