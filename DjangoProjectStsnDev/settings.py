@@ -250,7 +250,7 @@ UNFOLD = {
             lambda request: static("admin/css/unfold.css"),
         ],
     "SITE_ICON": {
-        "light": lambda request: static("admin/stsn-icon.svg"),  # light mode
-        "dark": lambda request: static("admin/stsn-icon.svg"),  # dark mode
+        "light": lambda request: static("admin/icons/stsn-icon.svg"),  # light mode
+        "dark": lambda request: static("admin/icons/stsn-icon.svg"),  # dark mode
     },
 }
