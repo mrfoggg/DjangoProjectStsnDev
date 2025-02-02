@@ -1,76 +1,58 @@
 from django.contrib import admin
-from django import forms
 from .models import Extension, ExtensionTranslation, ExtensionProxy
-from unfold.admin import ModelAdmin, TabularInline
+from unfold.admin import ModelAdmin
+from django import forms
 
 
-class ExtensionTranslationInline(admin.TabularInline):
-    model = ExtensionTranslation
-    extra = 1
-    fields = ('language_code', 'name', 'description', 'short_description', 'title', 'meta_description')
+@admin.register(ExtensionTranslation)
+class ExtensionTranslationAdmin(ModelAdmin):
+    list_display = ('extension', 'language_code', 'name')
 
 
 class ExtensionProxyForm(forms.ModelForm):
-    """Форма для отображения виртуальных полей в админке"""
+    """Форма для работы с виртуальными полями в ExtensionProxy"""
 
     name_en = forms.CharField(label="Название (EN)", required=False)
-    name_ru = forms.CharField(label="Название (RU)", required=False)
     description_en = forms.CharField(label="Описание (EN)", widget=forms.Textarea, required=False)
+    name_ru = forms.CharField(label="Название (RU)", required=False)
     description_ru = forms.CharField(label="Описание (RU)", widget=forms.Textarea, required=False)
 
     class Meta:
         model = ExtensionProxy
-        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'name_en', 'name_ru', 'description_en', 'description_ru']
+        fields = ['name', 'version', 'secret_key', 'trial_period_days']
 
     def __init__(self, *args, **kwargs):
-        """Заполняем поля перевода текущими значениями"""
+        """Заполняем форму данными из модели"""
         super().__init__(*args, **kwargs)
-        if self.instance:
-            self.fields['name_en'].initial = self.instance.get_translation('en').name if self.instance.get_translation('en') else ''
-            self.fields['name_ru'].initial = self.instance.get_translation('ru').name if self.instance.get_translation('ru') else ''
-            self.fields['description_en'].initial = self.instance.get_translation('en').description if self.instance.get_translation('en') else ''
-            self.fields['description_ru'].initial = self.instance.get_translation('ru').description if self.instance.get_translation('ru') else ''
+        instance = kwargs.get('instance')
+        if instance:
+            self.fields['name_en'].initial = instance.name_en
+            self.fields['description_en'].initial = instance.description_en
+            self.fields['name_ru'].initial = instance.name_ru
+            self.fields['description_ru'].initial = instance.description_ru
 
     def save(self, commit=True):
-        """Сохраняем переводные поля"""
+        """Сохраняем данные виртуальных полей"""
         instance = super().save(commit=False)
-        instance.set_translation('en', 'name', self.cleaned_data['name_en'])
-        instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
-        instance.set_translation('en', 'description', self.cleaned_data['description_en'])
-        instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
+        instance.name_en = self.cleaned_data['name_en']
+        instance.description_en = self.cleaned_data['description_en']
+        instance.name_ru = self.cleaned_data['name_ru']
+        instance.description_ru = self.cleaned_data['description_ru']
         if commit:
             instance.save()
         return instance
 
 
-@admin.register(Extension)
-class ExtensionAdmin(ModelAdmin):
-    list_display = ('name', 'version', 'secret_key', 'trial_period_days')
-    inlines = [ExtensionTranslationInline]
-    search_fields = ('name', 'version', 'secret_key')
-
-
 @admin.register(ExtensionProxy)
 class ExtensionProxyAdmin(ModelAdmin):
-    form = ExtensionProxyForm  # Указываем кастомную форму
+    form = ExtensionProxyForm
     list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
+
     fieldsets = (
-        ('Основная информация', {'fields': ('name', 'version', 'secret_key', 'trial_period_days')}),
-        ('Переводы', {'fields': ('name_en', 'name_ru', 'description_en', 'description_ru')}),
+        ("Основная информация", {
+            'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
+        }),
+        ("Переводы", {
+            'fields': ('name_en', 'description_en', 'name_ru', 'description_ru'),
+        }),
     )
-
-    @admin.display(description="Название (EN)")
-    def name_en(self, obj):
-        return obj.get_translation('en').name if obj.get_translation('en') else "-"
-
-    @admin.display(description="Название (RU)")
-    def name_ru(self, obj):
-        return obj.get_translation('ru').name if obj.get_translation('ru') else "-"
-
-    @admin.display(description="Описание (EN)")
-    def description_en(self, obj):
-        return obj.get_translation('en').description if obj.get_translation('en') else "-"
-
-    @admin.display(description="Описание (RU)")
-    def description_ru(self, obj):
-        return obj.get_translation('ru').description if obj.get_translation('ru') else "-"
