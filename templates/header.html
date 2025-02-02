@@ -26,9 +26,9 @@
 {#              <span class="fw-light">ua</span>#}
 {#              <span class="fw-bold text-decoration-underline">ru</span>#}
 {#              <span class="fw-light">en</span>#}
-                <li><a href="{% language 'ua' %}{{ request.path }}{% endlanguage %}">UA</a></li>
-                <li><a href="{% language 'ru' %}{{ request.path }}{% endlanguage %}">RU</a></li>
-                <li><a href="{% language 'en' %}{{ request.path }}{% endlanguage %}">EN</a></li>
+                <li><a href="/ua{{ request.path|slice:3 }}">UA</a></li>
+                <li><a href="/ru{{ request.path|slice:3 }}">RU</a></li>
+                <li><a href="/en{{ request.path|slice:3 }}">EN</a></li>
             </div>
         </div>
     </div>
