@@ -2,12 +2,12 @@ from django import forms
 from django.forms import TextInput, Textarea
 from .models import ExtensionProxy
 from unfold.contrib.forms.widgets import WysiwygWidget
-
+from unfold.widgets import UnfoldAdminTextInputWidget
 class ExtensionProxyForm(forms.ModelForm):
     name_en = forms.CharField(
         label="Название (EN)",
         required=False,
-        widget=TextInput(attrs={'class': 'custom-unfold'})
+        widget=UnfoldAdminTextInputWidget
     )
     description_en = forms.CharField(
         label="Описание (EN)",
