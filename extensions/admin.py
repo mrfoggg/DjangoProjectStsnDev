@@ -14,46 +14,33 @@ from .forms import ExtensionAdminForm
 from rich import print
 
 class ExtensionAdmin(admin.ModelAdmin):
-    """
-    Кастомный ModelAdmin для Extension с редактированием языковых полей.
-    """
     form = ExtensionAdminForm
-    # fields = [field.name for field in ExtensionTranslation._meta.fields]
-    list_display = ('name', 'version', 'secret_key')
-    # print('DEBUG filelds - ', )
 
-    def get_fields(self, request, obj=None):
+    def get_fieldsets(self, request, obj=None):
         """
-        Переопределение get_fields для добавления динамических полей переводов.
+        Переопределение get_fieldsets для добавления динамических полей переводов.
         """
-        fields = super().get_fields(request, obj)
+        fieldsets = super().get_fieldsets(request, obj) or []
+        dynamic_fields = []
 
         if obj:  # Только если это не новая запись
-            # Получаем переводы для данного объекта
             translations = ExtensionTranslation.objects.filter(extension=obj)
-            existing_langs = {t.language_code for t in translations}
-
-            from DjangoProjectStsnDev import settings  # Получаем список доступных языков
-            dynamic_fields = []
-
             for lang_code, lang_name in settings.LANGUAGES:
                 # Если перевода нет — создаем пустую запись
-                if lang_code not in existing_langs:
+                if lang_code not in {t.language_code for t in translations}:
                     ExtensionTranslation.objects.create(extension=obj, language_code=lang_code)
 
-                # Добавляем динамические поля переводов
                 dynamic_fields += [
                     f'name_{lang_code}',
                     f'description_{lang_code}',
                     f'short_description_{lang_code}',
                     f'title_{lang_code}',
-                    f'meta_description_{lang_code}'
+                    f'meta_description_{lang_code}',
                 ]
 
-            # Добавляем поля переводов к основным полям модели
-            fields += dynamic_fields
+        return fieldsets + [(None, {'fields': dynamic_fields})]
 
-        return fields
+admin.site.register(Extension, ExtensionAdmin)
 
     # def get_form(self, request, obj=None, **kwargs):
     #     """
