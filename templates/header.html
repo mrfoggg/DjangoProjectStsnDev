@@ -33,15 +33,13 @@
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
-                        <ul>
+                        <div class="btn-group-vertical" role="group" aria-label="Language selection">
                             {% for language in languages %}
-                                <li>
-                                    <a href="#" class="language-option" data-language="{{ language.code }}">
-                                        {{ language.name_local }} ({{ language.code }})
-                                    </a>
-                                </li>
+                                <button type="button" class="btn btn-outline-primary language-option" data-language="{{ language.code }}">
+                                    {{ language.name_local }} ({{ language.code }})
+                                </button>
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
                     <input type="submit" style="display:none" id="submit-button">
                 </form>
@@ -49,30 +47,6 @@
         </div>
     </div>
 </header>
-
-<style>
-    .language-selector ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .language-selector li {
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    .language-option {
-        cursor: pointer;
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .language-option:hover {
-        background-color: #f0f0f0;
-    }
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -84,7 +58,7 @@
         // Для каждого элемента языка добавляем обработчик клика
         languageOptions.forEach(function(option) {
             option.addEventListener('click', function(event) {
-                event.preventDefault();  // Предотвращаем стандартное поведение ссылки
+                event.preventDefault();  // Предотвращаем стандартное поведение кнопки
 
                 // Получаем выбранный язык из атрибута data-language
                 const selectedLanguage = option.getAttribute('data-language');
