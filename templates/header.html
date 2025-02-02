@@ -23,9 +23,9 @@
                 <img src="{% static user.is_authenticated|yesno:'icons/user.svg,icons/register.svg' %}" class="border-start border-end px-3" alt="{{ user.is_authenticated|yesno:'user,login or register' }}" height="40">
             </a>
             <div style="display: flex; flex-direction: column;">
-              <span>ua</span>
+              <span class="fw-light">ua</span>
               <span class="fw-bold text-decoration-underline">ru</span>
-              <span>en</span>
+              <span class="fw-light">en</span>
             </div>
         </div>
     </div>
