@@ -64,6 +64,8 @@ class ExtensionProxy(Extension):
     def description_en(self):
         return self.get_translation('en').description if self.get_translation('en') else None
 
+
+
     @property
     def name_ru(self):
         return self.get_translation('ru').name if self.get_translation('ru') else None
@@ -72,9 +74,14 @@ class ExtensionProxy(Extension):
     def description_ru(self):
         return self.get_translation('ru').description if self.get_translation('ru') else None
 
+
+
+
     def get_translation(self, language_code):
         """Возвращает перевод для заданного языка, если он существует."""
         return self.translations.filter(language_code=language_code).first()
+
+
 
     # Методы для обновления данных через прокси-модель
     @name_en.setter
@@ -92,6 +99,9 @@ class ExtensionProxy(Extension):
     @description_ru.setter
     def description_ru(self, value):
         self.set_translation('ru', 'description', value)
+
+
+
 
     def set_translation(self, language_code, field, value):
         """Устанавливает перевод для указанного поля и языка."""
