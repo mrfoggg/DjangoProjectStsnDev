@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.template.context import Context
-from extensions.models import Extension
+from extensions.models import Extension, ExtensionTranslation
 from unfold.admin import ModelAdmin
 
 # @admin.register(Extension)
@@ -41,4 +41,8 @@ class ExtensionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Extension, ExtensionAdmin)
+
+@admin.register(ExtensionTranslation)
+class ExtensionTranslationAdmin(admin.ModelAdmin):
+    pass
 
