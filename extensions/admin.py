@@ -12,7 +12,7 @@ from django.contrib import admin
 from .models import Extension, ExtensionTranslation
 from .forms import ExtensionAdminForm
 
-class ExtensionAdmin(admin.ModelAdmin):
+class ExtensionAdmin(ModelAdmin):
     """
     Кастомный ModelAdmin для Extension с редактированием языковых полей.
     """
@@ -42,7 +42,12 @@ class ExtensionAdmin(admin.ModelAdmin):
 
 admin.site.register(Extension, ExtensionAdmin)
 
-@admin.register(ExtensionTranslation)
-class ExtensionTranslationAdmin(admin.ModelAdmin):
-    pass
+class ExtensionTranslationAdmin(ModelAdmin):
+    """
+    Отображает все поля модели ExtensionTranslation в админке.
+    """
+    list_display = [field.name for field in ExtensionTranslation._meta.fields]  # Вывод всех полей
+    list_filter = ('language_code',)
+    search_fields = ('name', 'title', 'extension__name')
 
+admin.site.register(ExtensionTranslation, ExtensionTranslationAdmin)
