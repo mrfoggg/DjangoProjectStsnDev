@@ -19,7 +19,7 @@
                 </svg>
                 <a href="https://t.me/stsn_dev" class="text-decoration-none text-dark">@stsn_dev</a>
             </div>
-            <a href="{% url 'cabinet' %}" class="ms-4">
+            <a href="{% url 'cabinet' %}" class="mh-4">
                 <img src="{% static user.is_authenticated|yesno:'icons/user.svg,icons/register.svg' %}" class="border-start border-end ph-3" alt="{{ user.is_authenticated|yesno:'user,login or register' }}" height="40">
             </a>
             <div style="display: flex; flex-direction: column;">
