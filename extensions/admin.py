@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.template.context import Context
+
+from DjangoProjectStsnDev import settings
 from extensions.models import Extension, ExtensionTranslation
 from unfold.admin import ModelAdmin
 
