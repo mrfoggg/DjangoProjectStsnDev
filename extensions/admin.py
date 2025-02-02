@@ -5,31 +5,25 @@ from .models import Extension, ExtensionTranslation
 from DjangoProjectStsnDev import settings
 
 
-class ExtensionForm(forms.Form):
-    # Основные поля модели
+class ExtensionAdminForm(forms.Form):
+    # Основные поля
     name = forms.CharField(label=_('Name'), max_length=255)
     version = forms.CharField(label=_('Version'), max_length=50, required=False)
     secret_key = forms.CharField(label=_('Secret Key'), max_length=255)
     trial_period_days = forms.IntegerField(label=_('Trial Period (days)'), initial=30)
 
     def __init__(self, *args, **kwargs):
-        self.extension = None
+        # Получаем объект из параметров
+        self.extension = kwargs.pop('extension', None)
         super().__init__(*args, **kwargs)
 
-        # Инициализация полей после создания формы
-        if hasattr(self, 'extension') and self.extension:
-            self._init_existing_fields()
-            self._add_translation_fields()
-
-    def prepare_for_extension(self, extension):
-        """Метод для подготовки формы к работе с конкретным объектом"""
-        self.extension = extension
-        if self.extension and self.extension.pk:
+        # Инициализация полей
+        if self.extension:
             self._init_existing_fields()
             self._add_translation_fields()
 
     def _init_existing_fields(self):
-        """Инициализация полей основного объекта"""
+        """Инициализация основных полей"""
         self.fields['name'].initial = self.extension.name
         self.fields['version'].initial = self.extension.version
         self.fields['secret_key'].initial = self.extension.secret_key
@@ -95,15 +89,13 @@ class ExtensionForm(forms.Form):
 
 @admin.register(Extension)
 class ExtensionAdmin(admin.ModelAdmin):
-    form = ExtensionForm
+    form = ExtensionAdminForm
     list_display = ('name', 'version', 'secret_key')
 
     def get_form(self, request, obj=None, **kwargs):
         """Переопределение метода получения формы"""
-        form = super().get_form(request, obj, **kwargs)
-        if obj:
-            form.prepare_for_extension(obj)
-        return form
+        kwargs['extension'] = obj  # Передаем объект через параметры формы
+        return super().get_form(request, obj, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
         """Формирование структуры полей"""

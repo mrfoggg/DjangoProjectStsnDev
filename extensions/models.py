@@ -1,134 +1,105 @@
-from django import forms
-from django.contrib import admin
+from django.db import models
 from django.utils.translation import gettext_lazy as _
-from .models import Extension, ExtensionTranslation
 from DjangoProjectStsnDev import settings
 
 
-class ExtensionAdminForm(forms.Form):
-    # Основные поля
-    name = forms.CharField(label=_('Name'), max_length=255)
-    version = forms.CharField(label=_('Version'), max_length=50, required=False)
-    secret_key = forms.CharField(label=_('Secret Key'), max_length=255)
-    trial_period_days = forms.IntegerField(label=_('Trial Period (days)'), initial=30)
+class Extension(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    version = models.CharField(max_length=50, blank=True, null=True, default='')
+    file_id = models.PositiveIntegerField(null=True, blank=True)
+    secret_key = models.CharField(max_length=255, verbose_name=_('secret_key'))
+    file = models.FileField(upload_to='mod_files/', blank=True, null=True)
+    trial_period_days = models.PositiveSmallIntegerField(default=30)
 
-    def __init__(self, *args, **kwargs):
-        # Получаем объект из параметров
-        self.extension = kwargs.pop('extension', None)
-        super().__init__(*args, **kwargs)
+    class Meta:
+        verbose_name = _('extension')
+        verbose_name_plural = _('extensions')
 
-        # Инициализация полей
-        if self.extension:
-            self._init_existing_fields()
-            self._add_translation_fields()
+    def __str__(self):
+        return self.name
 
-    def _init_existing_fields(self):
-        """Инициализация основных полей"""
-        self.fields['name'].initial = self.extension.name
-        self.fields['version'].initial = self.extension.version
-        self.fields['secret_key'].initial = self.extension.secret_key
-        self.fields['trial_period_days'].initial = self.extension.trial_period_days
+class ExtensionTranslation(models.Model):
+    LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
+    extension = models.ForeignKey(
+        Extension,
+        on_delete=models.CASCADE,
+        related_name='translations',
+        verbose_name=_('extension')
+    )
+    language_code = models.CharField(
+        max_length=10,
+        choices=LANGUAGE_CHOICES,
+        verbose_name=_('language_code')
+    )
+    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    description = models.TextField(blank=True, null=True)
+    short_description = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    title = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    meta_description = models.TextField(blank=True, null=True)
 
-    def _add_translation_fields(self):
-        """Добавление полей переводов"""
-        for lang_code, lang_name in settings.LANGUAGES:
-            translation = self._get_translation(lang_code)
-            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
-                self._add_translation_field(field, lang_code, lang_name, translation)
+    class Meta:
+        verbose_name = 'Языковый перевод'
+        verbose_name_plural = 'Языковые переводы'
 
-    def _get_translation(self, lang_code):
-        """Получение или создание перевода"""
-        try:
-            return self.extension.translations.get(language_code=lang_code)
-        except ExtensionTranslation.DoesNotExist:
-            return ExtensionTranslation(
-                extension=self.extension,
-                language_code=lang_code
-            )
+    def __str__(self):
+        return self.name
 
-    def _add_translation_field(self, field_name, lang_code, lang_name, translation):
-        """Создание поля для перевода"""
-        field_id = f"{field_name}_{lang_code}"
-        self.fields[field_id] = forms.CharField(
-            label=f"{ExtensionTranslation._meta.get_field(field_name).verbose_name} ({lang_name})",
-            initial=getattr(translation, field_name, ''),
-            required=False,
-            widget=forms.Textarea if field_name == 'description' else forms.TextInput
-        )
+    @classmethod
+    def get_translatable_fields(cls):
+        return ['name', 'title', 'short_description', 'description', 'meta_description']
 
-    def save(self):
-        """Сохранение основной модели и переводов"""
-        extension = self.extension or Extension()
-        extension.name = self.cleaned_data['name']
-        extension.version = self.cleaned_data['version']
-        extension.secret_key = self.cleaned_data['secret_key']
-        extension.trial_period_days = self.cleaned_data['trial_period_days']
-        extension.save()
+class ExtensionProxy(Extension):
+    class Meta:
+        proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
 
-        if extension.pk:
-            self._save_translations(extension)
+    # Виртуальные поля для каждого языка
+    @property
+    def name_en(self):
+        return self.get_translation('en').name if self.get_translation('en') else None
 
-        return extension
+    @property
+    def description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
 
-    def _save_translations(self, extension):
-        """Сохранение переводов для всех языков"""
-        for lang_code, _ in settings.LANGUAGES:
-            trans_data = {
-                'name': self.cleaned_data.get(f'name_{lang_code}', ''),
-                'title': self.cleaned_data.get(f'title_{lang_code}', ''),
-                'short_description': self.cleaned_data.get(f'short_description_{lang_code}', ''),
-                'description': self.cleaned_data.get(f'description_{lang_code}', ''),
-                'meta_description': self.cleaned_data.get(f'meta_description_{lang_code}', '')
-            }
-            ExtensionTranslation.objects.update_or_create(
-                extension=extension,
-                language_code=lang_code,
-                defaults=trans_data
-            )
+    @property
+    def name_ru(self):
+        return self.get_translation('ru').name if self.get_translation('ru') else None
+
+    @property
+    def description_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
+
+    def get_translation(self, language_code):
+        """Возвращает перевод для заданного языка, если он существует."""
+        return self.translations.filter(language_code=language_code).first()
+
+    # Методы для обновления данных через прокси-модель
+    @name_en.setter
+    def name_en(self, value):
+        self.set_translation('en', 'name', value)
+
+    @description_en.setter
+    def description_en(self, value):
+        self.set_translation('en', 'description', value)
+
+    @name_ru.setter
+    def name_ru(self, value):
+        self.set_translation('ru', 'name', value)
+
+    @description_ru.setter
+    def description_ru(self, value):
+        self.set_translation('ru', 'description', value)
+
+    def set_translation(self, language_code, field, value):
+        """Устанавливает перевод для указанного поля и языка."""
+        translation = self.get_translation(language_code)
+        if translation:
+            setattr(translation, field, value)
+            translation.save()
+        else:
+            # Если перевода нет, создаем новый
+            translation = self.translations.create(language_code=language_code)
+            setattr(translation, field, value)
+            translation.save()
 
 
-@admin.register(Extension)
-class ExtensionAdmin(admin.ModelAdmin):
-    form = ExtensionAdminForm
-    list_display = ('name', 'version', 'secret_key')
-
-    def get_form(self, request, obj=None, **kwargs):
-        """Переопределение метода получения формы"""
-        kwargs['extension'] = obj  # Передаем объект через параметры формы
-        return super().get_form(request, obj, **kwargs)
-
-    def get_fieldsets(self, request, obj=None):
-        """Формирование структуры полей"""
-        fieldsets = [
-            (None, {
-                'fields': [
-                    'name',
-                    'version',
-                    'secret_key',
-                    'trial_period_days'
-                ]
-            }),
-        ]
-
-        if obj:
-            for lang_code, lang_name in settings.LANGUAGES:
-                lang_fields = [
-                    f"name_{lang_code}",
-                    f"title_{lang_code}",
-                    f"short_description_{lang_code}",
-                    f"description_{lang_code}",
-                    f"meta_description_{lang_code}"
-                ]
-                fieldsets.append((
-                    f"{lang_name} Translation",
-                    {
-                        'fields': lang_fields,
-                        'classes': ('collapse',)
-                    }
-                ))
-
-        return fieldsets
-
-    def save_model(self, request, obj, form, change):
-        """Сохранение модели через форму"""
-        form.save()
