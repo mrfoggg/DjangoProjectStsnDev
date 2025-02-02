@@ -15,7 +15,7 @@ class ExtensionAdminForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.extension = None  # Будет установлено позже
         super().__init__(*args, **kwargs)
-        self._init_fields(self)
+        self._init_fields()
 
     def _init_fields(self):
         if self.extension:
@@ -88,7 +88,7 @@ class ExtensionAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         form.extension = obj  # Устанавливаем объект после создания формы
-        form._init_fields()  # Вызываем инициализацию полей
+        form._init_fields(self)  # Вызываем инициализацию полей
         return form
 
     def get_fieldsets(self, request, obj=None):
