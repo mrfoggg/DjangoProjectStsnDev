@@ -16,16 +16,24 @@ class ExtensionAdmin(ModelAdmin):
 
 
 class ExtensionProxyAdmin(ModelAdmin):
-    list_display = ('name', 'get_name_en', 'get_name_ru', 'get_description_en', 'get_description_ru')
+    list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
 
-    def _get_translated_field(field):
-        def getter(self, obj):
-            return getattr(obj, field, "-") or "-"
-        getter.short_description = field.replace("_", " ").title()
-        return getter
+    @admin.display(description="Название (EN)")
+    def name_en(self, obj):
+        return obj.get_name('en') or "-"
 
-    for field in ['name_en', 'name_ru', 'description_en', 'description_ru']:
-        locals()[f'get_{field}'] = _get_translated_field(field)
+    @admin.display(description="Название (RU)")
+    def name_ru(self, obj):
+        return obj.get_name('ru') or "-"
+
+    @admin.display(description="Описание (EN)")
+    def description_en(self, obj):
+        return obj.get_description('en') or "-"
+
+    @admin.display(description="Описание (RU)")
+    def description_ru(self, obj):
+        return obj.get_description('ru') or "-"
+
 
 admin.site.register(Extension, ExtensionAdmin)
 admin.site.register(ExtensionProxy, ExtensionProxyAdmin)

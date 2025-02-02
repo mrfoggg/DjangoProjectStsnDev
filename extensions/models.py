@@ -56,36 +56,17 @@ class ExtensionProxy(Extension):
         proxy = True  # Прокси-модель, не создающая новую таблицу
 
     def get_translation(self, language_code):
-        """Кешируем переводы, чтобы не делать лишние запросы"""
+        """Принудительно загружаем переводы, чтобы избежать пустых значений"""
         if not hasattr(self, '_translation_cache'):
             self._translation_cache = {t.language_code: t for t in self.translations.all()}
         return self._translation_cache.get(language_code)
 
-    # Динамические свойства для переведенных полей
-    def _get_translation_property(field):
-        def getter(self, lang):
-            translation = self.get_translation(lang)
-            return getattr(translation, field, None) if translation else None
+    # Явные методы вместо @property
+    def get_name(self, lang):
+        translation = self.get_translation(lang)
+        return translation.name if translation else None
 
-        def setter(self, lang, value):
-            self.set_translation(lang, field, value)
-
-        return property(lambda self, lang=field.split('_')[-1]: getter(self, lang),
-                        lambda self, value, lang=field.split('_')[-1]: setter(self, lang, value))
-
-    for field in ExtensionTranslation.get_translatable_fields():
-        for lang_code, _ in settings.LANGUAGES:
-            prop_name = f"{field}_{lang_code}"
-            locals()[prop_name] = _get_translation_property(field)
-
-    def set_translation(self, language_code, field, value):
-        """Устанавливает перевод для указанного поля и языка."""
-        translation = self.get_translation(language_code)
-        if translation:
-            setattr(translation, field, value)
-        else:
-            translation = self.translations.create(extension=self, language_code=language_code, **{field: value})
-        translation.save()
-
-
+    def get_description(self, lang):
+        translation = self.get_translation(lang)
+        return translation.description if translation else None
 
