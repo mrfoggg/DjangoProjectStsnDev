@@ -40,7 +40,7 @@ class ExtensionAdmin(admin.ModelAdmin):
 
         return fieldsets + [(None, {'fields': dynamic_fields})]
 
-admin.site.register(Extension, ExtensionAdmin)
+# admin.site.register(Extension, ExtensionAdmin)
 
     # def get_form(self, request, obj=None, **kwargs):
     #     """
