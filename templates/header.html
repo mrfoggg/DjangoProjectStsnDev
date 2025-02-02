@@ -33,11 +33,11 @@
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
-                        <div class="btn-group-vertical" role="group" aria-label="Language selection">
+                        <div class="d-flex flex-column">
                             {% for language in languages %}
-                                <button type="button" class="btn btn-outline-primary language-option" data-language="{{ language.code }}">
-                                    {{ language.name_local }} ({{ language.code }})
-                                </button>
+                                <span class="language-option {% if language.code == LANGUAGE_CODE %}fw-bold text-decoration-underline{% else %}fw-light{% endif %}" data-language="{{ language.code }}">
+                                    {{ language.code }}
+                                </span>
                             {% endfor %}
                         </div>
                     </div>
@@ -47,6 +47,18 @@
         </div>
     </div>
 </header>
+
+<style>
+    .language-option {
+        cursor: pointer;
+        padding: 5px 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .language-option:hover {
+        background-color: #f0f0f0;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -58,7 +70,7 @@
         // Для каждого элемента языка добавляем обработчик клика
         languageOptions.forEach(function(option) {
             option.addEventListener('click', function(event) {
-                event.preventDefault();  // Предотвращаем стандартное поведение кнопки
+                event.preventDefault();  // Предотвращаем стандартное поведение ссылки
 
                 // Получаем выбранный язык из атрибута data-language
                 const selectedLanguage = option.getAttribute('data-language');
