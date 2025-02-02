@@ -53,20 +53,39 @@ class ExtensionTranslation(models.Model):
 
 class ExtensionProxy(Extension):
     class Meta:
-        proxy = True  # Прокси-модель, не создающая новую таблицу
+        proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
+
+    # Виртуальные поля для каждого языка
+    @property
+    def name_en(self):
+        return self.get_translation('en').name if self.get_translation('en') else None
+
+    @property
+    def description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def name_ru(self):
+        return self.get_translation('ru').name if self.get_translation('ru') else None
+
+    @property
+    def description_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
 
     def get_translation(self, language_code):
-        """Принудительно загружаем переводы, чтобы избежать пустых значений"""
-        if not hasattr(self, '_translation_cache'):
-            self._translation_cache = {t.language_code: t for t in self.translations.all()}
-        return self._translation_cache.get(language_code)
+        """Возвращает перевод для заданного языка, если он существует."""
+        return self.translations.filter(language_code=language_code).first()
 
-    # Явные методы вместо @property
-    def get_name(self, lang):
-        translation = self.get_translation(lang)
-        return translation.name if translation else None
+    def set_translation(self, language_code, field, value):
+        """Добавляем метод для сохранения переводов"""
+        translation = self.get_translation(language_code)
+        if translation:
+            setattr(translation, field, value)
+            translation.save()
+        else:
+            # Если перевода нет, создаем новый
+            translation = self.translations.create(language_code=language_code)
+            setattr(translation, field, value)
+            translation.save()
 
-    def get_description(self, lang):
-        translation = self.get_translation(lang)
-        return translation.description if translation else None
 
