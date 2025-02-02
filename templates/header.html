@@ -20,7 +20,7 @@
                 <a href="https://t.me/stsn_dev" class="text-decoration-none text-dark">@stsn_dev</a>
             </div>
             <a href="{% url 'cabinet' %}" class="ms-4">
-                <img src="{% static user.is_authenticated|yesno:'icons/user.svg,icons/register.svg' %}" class="border-start ps-3" alt="{{ user.is_authenticated|yesno:'user,login or register' }}" height="70">
+                <img src="{% static user.is_authenticated|yesno:'icons/user.svg,icons/register.svg' %}" class="border-start ps-3" alt="{{ user.is_authenticated|yesno:'user,login or register' }}" height="40">
             </a>
         </div>
     </div>
