@@ -25,7 +25,7 @@ class ExtensionAdmin(ModelAdmin):
         Переопределяем get_form для использования нашей кастомной формы.
         """
         form = super().get_form(request, obj, **kwargs)
-        print('DEBUG filelds - ', self.get_fields())
+        print('DEBUG filelds - ', self.get_fields(request))
         return form
 
     def save_model(self, request, obj, form, change):
