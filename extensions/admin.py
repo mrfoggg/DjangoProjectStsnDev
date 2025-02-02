@@ -42,7 +42,8 @@ class ExtensionAdmin(admin.ModelAdmin):
                 ]
 
         # Возвращаем стандартные поля без переводных
-        return fieldsets + [(None, {'fields': dynamic_fields})]
+        # return fieldsets + [(None, {'fields': dynamic_fields})]
+        return fieldsets
 
 
 admin.site.register(Extension, ExtensionAdmin)
