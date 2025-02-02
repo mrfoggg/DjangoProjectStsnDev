@@ -48,3 +48,58 @@ class ExtensionTranslation(models.Model):
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
+class ExtensionProxy(Extension):
+    class Meta:
+        proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
+
+    # Виртуальные поля для каждого языка
+    @property
+    def name_en(self):
+        return self.get_translation('en').name if self.get_translation('en') else None
+
+    @property
+    def description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def name_ru(self):
+        return self.get_translation('ru').name if self.get_translation('ru') else None
+
+    @property
+    def description_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
+
+    def get_translation(self, language_code):
+        """Возвращает перевод для заданного языка, если он существует."""
+        return self.translations.filter(language_code=language_code).first()
+
+    # Методы для обновления данных через прокси-модель
+    @name_en.setter
+    def name_en(self, value):
+        self.set_translation('en', 'name', value)
+
+    @description_en.setter
+    def description_en(self, value):
+        self.set_translation('en', 'description', value)
+
+    @name_ru.setter
+    def name_ru(self, value):
+        self.set_translation('ru', 'name', value)
+
+    @description_ru.setter
+    def description_ru(self, value):
+        self.set_translation('ru', 'description', value)
+
+    def set_translation(self, language_code, field, value):
+        """Устанавливает перевод для указанного поля и языка."""
+        translation = self.get_translation(language_code)
+        if translation:
+            setattr(translation, field, value)
+            translation.save()
+        else:
+            # Если перевода нет, создаем новый
+            translation = self.translations.create(language_code=language_code)
+            setattr(translation, field, value)
+            translation.save()
+
+
