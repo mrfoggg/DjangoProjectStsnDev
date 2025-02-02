@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-import logging
+from DjangoProjectStsnDev import settings
+
 
 class Extension(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('extension_name'))
@@ -15,5 +16,30 @@ class Extension(models.Model):
         verbose_name_plural = _('extensions')
 
     def __str__(self):
-        print(f'extension: {self.name}')
+        return self.name
+
+class ExtensionTranslation(models.Model):
+    LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
+    extension = models.ForeignKey(
+        Extension,
+        on_delete=models.CASCADE,
+        related_name='translations',
+        verbose_name=_('extension')
+    )
+    language_code = models.CharField(
+        max_length=10,
+        choices=LANGUAGE_CHOICES,
+        verbose_name=_('language_code')
+    )
+    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    description = models.TextField(blank=True, null=True)
+    short_description = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    title = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    meta_description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Языковый перевод'
+        verbose_name_plural = 'Языковые переводы'
+
+    def __str__(self):
         return self.name
