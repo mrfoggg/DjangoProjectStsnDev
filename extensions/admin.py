@@ -11,7 +11,7 @@ from unfold.admin import ModelAdmin
 from django.contrib import admin
 from .models import Extension, ExtensionTranslation
 from .forms import ExtensionAdminForm
-
+from rich import print
 
 class ExtensionAdmin(ModelAdmin):
     """
@@ -19,6 +19,13 @@ class ExtensionAdmin(ModelAdmin):
     """
     form = ExtensionAdminForm
     list_display = ('name', 'version', 'secret_key')
+
+    def get_form(self, request, obj=None, **kwargs):
+        """
+        Переопределяем get_form для использования нашей кастомной формы.
+        """
+        form = super().get_form(request, obj, **kwargs)
+        return form
 
     def save_model(self, request, obj, form, change):
         """
