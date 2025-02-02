@@ -1,7 +1,5 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from DjangoProjectStsnDev import settings
 from .models import Extension, ExtensionTranslation
 from rich import print
 
@@ -65,19 +63,7 @@ class ExtensionAdminForm(forms.ModelForm):
                     required=False
                 )
             # print('DEBUG fields - ', self.fields)
-    # class Meta:
-    #     model = Extension
-    #     fields = '__all__'
     class Meta:
         model = Extension
-        fields = [field.name for field in Extension._meta.fields] + [
-            f'name_{lang_code}' for lang_code, _ in settings.LANGUAGES
-        ] + [
-            f'description_{lang_code}' for lang_code, _ in settings.LANGUAGES
-        ] + [
-            f'short_description_{lang_code}' for lang_code, _ in settings.LANGUAGES
-        ] + [
-            f'title_{lang_code}' for lang_code, _ in settings.LANGUAGES
-        ] + [
-            f'meta_description_{lang_code}' for lang_code, _ in settings.LANGUAGES
-        ]
+        # fields = '__all__'
+        fields = [field.name for field in Extension._meta.fields]
