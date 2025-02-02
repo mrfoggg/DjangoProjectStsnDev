@@ -35,7 +35,7 @@
                         {% get_language_info_list for LANGUAGES as languages %}
                         <div class="d-flex flex-column">
                             {% for language in languages %}
-                                <span class="language-option {% if language.code == LANGUAGE_CODE %}fw-bold text-decoration-underline{% else %}fw-light{% endif %}" data-language="{{ language.code }}">
+                                <span class="language-option lh-sm {% if language.code == LANGUAGE_CODE %}fw-bold text-decoration-underline{% else %}fw-light{% endif %}" data-language="{{ language.code }}">
                                     {{ language.code }}
                                 </span>
                             {% endfor %}
