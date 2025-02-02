@@ -47,3 +47,4 @@ class ExtensionTranslation(models.Model):
     @classmethod
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
+
