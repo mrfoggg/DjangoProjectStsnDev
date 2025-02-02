@@ -102,21 +102,20 @@ def set_password_view(request):
     print('DEBUG - request.user.password -', repr(request.user.password))
     print('DEBUG - request.user.password is ""', 'yes' if (request.user.password == '') else 'no')
     if request.user.is_authenticated and request.user.password == '':
-        print('FORM')
         if request.method == 'POST':
             form = CustomSetPasswordForm(user=request.user, data=request.POST)
             if form.is_valid():
                 # Сохраняем новый пароль
-                request.user.save()
+                form.save()
                 messages.success(request, 'Пароль успешно установлен!')
                 return redirect('cabinet')  # Перенаправляем на страницу профиля
         else:
             form = CustomSetPasswordForm(user=request.user)
 
         return render(request, 'custom_set_password.html', {'form': form})
-
-    # Если пользователь уже установил пароль
-    messages.info(request, 'Вы успешно установили пароль.')
+    else:
+        # Если пользователь уже установил пароль
+        messages.info(request, 'Пароль уже был установден')
     return redirect('cabinet')  # Перенаправляем на страницу профиля или кабинет
 
 
