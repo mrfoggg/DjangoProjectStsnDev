@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import Extension, ExtensionTranslation
 from DjangoProjectStsnDev import settings
 
@@ -58,3 +59,4 @@ class ExtensionAdminForm(forms.ModelForm):
     class Meta:
         model = Extension
         fields = '__all__'
+

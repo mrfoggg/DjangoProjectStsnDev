@@ -40,9 +40,9 @@ class ExtensionAdmin(admin.ModelAdmin):
                     f'meta_description_{lang_code}',
                 ]
 
+        # Возвращаем поле переводов динамически
         return fieldsets + [(None, {'fields': dynamic_fields})]
 
-# admin.site.register(Extension, ExtensionAdmin)
 
     # def get_form(self, request, obj=None, **kwargs):
     #     """
