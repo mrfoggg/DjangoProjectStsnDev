@@ -31,10 +31,10 @@ class ExtensionTranslation(models.Model):
         choices=LANGUAGE_CHOICES,
         verbose_name=_('language_code')
     )
-    name = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    short_description = models.CharField(max_length=255, verbose_name=_('extension_name'))
-    title = models.CharField(max_length=255, verbose_name=_('extension_name'))
+    short_description = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     meta_description = models.TextField(blank=True, null=True)
 
     class Meta:
