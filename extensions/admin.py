@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from .models import Extension, ExtensionTranslation
 from DjangoProjectStsnDev import settings
 
@@ -11,43 +12,45 @@ class ExtensionAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._create_translation_fields()
 
-        # Создаем поля для всех языков и всех переводимых полей
-        for lang_code, lang_name in settings.LANGUAGES:
-            for field in ExtensionTranslation.get_translatable_fields():
-                self.add_translation_field(lang_code, lang_name, field)
+    def _create_translation_fields(self):
+        if self.instance and self.instance.pk:
+            for lang_code, lang_name in settings.LANGUAGES:
+                translation = self._get_or_create_translation(lang_code)
+                for field in ExtensionTranslation.get_translatable_fields():
+                    self._add_translation_field(lang_code, lang_name, field, translation)
 
-    def add_translation_field(self, lang_code, lang_name, field_name):
-        field_key = f"{field_name}_{lang_code}"
-        translation = self.get_translation(lang_code)
-        initial_value = getattr(translation, field_name, '') if translation else ''
+    def _get_or_create_translation(self, lang_code):
+        try:
+            return self.instance.translations.get(language_code=lang_code)
+        except ExtensionTranslation.DoesNotExist:
+            return ExtensionTranslation(
+                extension=self.instance,
+                language_code=lang_code
+            )
 
-        self.fields[field_key] = forms.CharField(
+    def _add_translation_field(self, lang_code, lang_name, field_name, translation):
+        field_id = f"{field_name}_{lang_code}"
+        self.fields[field_id] = forms.CharField(
             label=f"{ExtensionTranslation._meta.get_field(field_name).verbose_name} ({lang_name})",
-            initial=initial_value,
+            initial=getattr(translation, field_name, ''),
             required=False,
             widget=forms.Textarea if field_name == 'description' else forms.TextInput
         )
-
-    def get_translation(self, lang_code):
-        if self.instance.pk:
-            try:
-                return self.instance.translations.get(language_code=lang_code)
-            except ExtensionTranslation.DoesNotExist:
-                return None
-        return None
+        self.fields[field_id].translation_field = True  # Помечаем как поле перевода
 
     def save(self, commit=True):
         instance = super().save(commit=commit)
-        self.save_translations(instance)
+        self._save_translations(instance)
         return instance
 
-    def save_translations(self, instance):
+    def _save_translations(self, instance):
         for lang_code, _ in settings.LANGUAGES:
             trans_data = {}
             for field in ExtensionTranslation.get_translatable_fields():
-                field_key = f"{field}_{lang_code}"
-                trans_data[field] = self.cleaned_data.get(field_key, '')
+                field_id = f"{field}_{lang_code}"
+                trans_data[field] = self.cleaned_data.get(field_id, '')
 
             ExtensionTranslation.objects.update_or_create(
                 extension=instance,
@@ -66,30 +69,32 @@ class ExtensionAdmin(admin.ModelAdmin):
         return ['name', 'version', 'file', 'secret_key', 'trial_period_days']
 
     def get_fieldsets(self, request, obj=None):
-        # Основные поля
         fieldsets = [
             (None, {
                 'fields': self.get_fields(request, obj)
             }),
         ]
 
-        # Добавляем секции для переводов
-        for lang_code, lang_name in settings.LANGUAGES:
-            fieldsets.append(
-                (f"{lang_name} Translation", {
-                    'fields': [
-                        f"name_{lang_code}",
-                        f"title_{lang_code}",
-                        f"short_description_{lang_code}",
-                        f"description_{lang_code}",
-                        f"meta_description_{lang_code}"
-                    ],
-                    'classes': ('collapse',)
-                })
-            )
+        if obj and obj.pk:
+            for lang_code, lang_name in settings.LANGUAGES:
+                lang_fields = [
+                    f"{field}_{lang_code}"
+                    for field in ExtensionTranslation.get_translatable_fields()
+                ]
+
+                fieldsets.append((
+                    f"{lang_name} Translation",
+                    {
+                        'fields': lang_fields,
+                        'classes': ('collapse',)
+                    }
+                ))
 
         return fieldsets
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('translations')
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if obj and obj.pk:
+            form.base_fields.update(form.declared_fields)
+        return form
 
