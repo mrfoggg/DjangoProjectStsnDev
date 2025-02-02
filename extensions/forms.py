@@ -5,22 +5,22 @@ from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
 class ExtensionProxyForm(forms.ModelForm):
     name_en = forms.CharField(
-        label="Название (EN)",
+        label="EN",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
     description_en = forms.CharField(
-        label="Описание (EN)",
+        label="EN",
         required=False,
         widget=WysiwygWidget
     )
     name_ru = forms.CharField(
-        label="Название (RU)",
+        label="RU",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
     description_ru = forms.CharField(
-        label="Описание (RU)",
+        label="RU",
         required=False,
         widget=WysiwygWidget
     )

@@ -50,7 +50,6 @@ class ExtensionTranslation(models.Model):
 
 
 
-
 class ExtensionProxy(Extension):
     class Meta:
         proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
