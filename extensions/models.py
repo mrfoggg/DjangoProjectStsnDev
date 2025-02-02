@@ -48,6 +48,9 @@ class ExtensionTranslation(models.Model):
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
+
+
+
 class ExtensionProxy(Extension):
     class Meta:
         proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
@@ -101,5 +104,6 @@ class ExtensionProxy(Extension):
             translation = self.translations.create(language_code=language_code)
             setattr(translation, field, value)
             translation.save()
+
 
 
