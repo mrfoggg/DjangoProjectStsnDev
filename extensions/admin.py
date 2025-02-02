@@ -18,13 +18,14 @@ class ExtensionAdmin(ModelAdmin):
     Кастомный ModelAdmin для Extension с редактированием языковых полей.
     """
     form = ExtensionAdminForm
+    fields = '__all__'
     list_display = ('name', 'version', 'secret_key')
 
     def get_form(self, request, obj=None, **kwargs):
         """
         Переопределяем get_form для использования нашей кастомной формы.
         """
-        print('DEBUG filelds - ', self.get_fields(request))
+        # print('DEBUG filelds - ', self.get_fields(request))
         form = super().get_form(request, obj, **kwargs)
 
         return form
