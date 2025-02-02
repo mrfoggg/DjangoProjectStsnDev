@@ -15,7 +15,7 @@ class ExtensionAdminForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.extension = None  # Будет установлено позже
         super().__init__(*args, **kwargs)
-        self._init_fields()
+        self._init_fields(self)
 
     def _init_fields(self):
         if self.extension:
