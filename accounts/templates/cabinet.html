@@ -7,7 +7,12 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h2>Кабинет пользователя {{ user.email }}</h2>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Выйти</button>
+        </form>
     {% else %}
-        <h3>Вы не авторизованы</h3>
+        <a href="{% url 'client_login' %}">Войти</a>
+        <a href="{% url 'send_email_verification_for_register' %}">Зарегистрироваться</a>
     {% endif %}
 {% endblock %}

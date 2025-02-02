@@ -1,14 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Выйти</button>
-</form>
-{% else %}
-<h1>yвы не авторизованы</h1>
-<a href="{% url 'client_login' %}">Войти</a>
-<a href="{% url 'send_email_verification_for_register' %}">Зарегистрироваться</a>
-{% endif %}
+    <h2>Главная страница</h2>
 {% endblock %}
