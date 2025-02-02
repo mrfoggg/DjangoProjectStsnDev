@@ -12,7 +12,7 @@ class ExtensionAdmin(ModelAdmin):
     inlines = [ExtensionTranslationInline]
     search_fields = ('name', 'version', 'secret_key')
 
-class ExtensionProxyAdmin(ExtensionAdmin):
+class ExtensionProxyAdmin(ModelAdmin):
     list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
 
 admin.site.register(Extension, ExtensionAdmin)
