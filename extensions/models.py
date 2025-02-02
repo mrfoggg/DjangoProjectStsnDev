@@ -53,67 +53,39 @@ class ExtensionTranslation(models.Model):
 
 class ExtensionProxy(Extension):
     class Meta:
-        proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
-
-    # Виртуальные поля для каждого языка
-    @property
-    def name_en(self):
-        return self.get_translation('en').name if self.get_translation('en') else None
-
-    @property
-    def description_en(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-
-
-    @property
-    def name_ru(self):
-        return self.get_translation('ru').name if self.get_translation('ru') else None
-
-    @property
-    def description_ru(self):
-        return self.get_translation('ru').description if self.get_translation('ru') else None
-
-
-
+        proxy = True  # Прокси-модель, не создающая новую таблицу
 
     def get_translation(self, language_code):
-        """Возвращает перевод для заданного языка, если он существует."""
-        return self.translations.filter(language_code=language_code).first()
+        """Кешируем переводы, чтобы не делать лишние запросы"""
+        if not hasattr(self, '_translation_cache'):
+            self._translation_cache = {t.language_code: t for t in self.translations.all()}
+        return self._translation_cache.get(language_code)
 
+    # Динамические свойства для переведенных полей
+    def _get_translation_property(field):
+        def getter(self, lang):
+            translation = self.get_translation(lang)
+            return getattr(translation, field, None) if translation else None
 
+        def setter(self, lang, value):
+            self.set_translation(lang, field, value)
 
-    # Методы для обновления данных через прокси-модель
-    @name_en.setter
-    def name_en(self, value):
-        self.set_translation('en', 'name', value)
+        return property(lambda self, lang=field.split('_')[-1]: getter(self, lang),
+                        lambda self, value, lang=field.split('_')[-1]: setter(self, lang, value))
 
-    @description_en.setter
-    def description_en(self, value):
-        self.set_translation('en', 'description', value)
-
-    @name_ru.setter
-    def name_ru(self, value):
-        self.set_translation('ru', 'name', value)
-
-    @description_ru.setter
-    def description_ru(self, value):
-        self.set_translation('ru', 'description', value)
-
-
-
+    for field in ExtensionTranslation.get_translatable_fields():
+        for lang_code, _ in settings.LANGUAGES:
+            prop_name = f"{field}_{lang_code}"
+            locals()[prop_name] = _get_translation_property(field)
 
     def set_translation(self, language_code, field, value):
         """Устанавливает перевод для указанного поля и языка."""
         translation = self.get_translation(language_code)
         if translation:
             setattr(translation, field, value)
-            translation.save()
         else:
-            # Если перевода нет, создаем новый
-            translation = self.translations.create(language_code=language_code)
-            setattr(translation, field, value)
-            translation.save()
+            translation = self.translations.create(extension=self, language_code=language_code, **{field: value})
+        translation.save()
 
 
 
