@@ -10,7 +10,7 @@ class ExtensionProxyFormMeta(type(forms.ModelForm)):
     def __new__(cls, name, bases, attrs):
         new_class = super().__new__(cls, name, bases, attrs)
         for model_filed in ExtensionTranslation._meta.fields:
-            if isinstance(model_filed, (CharField, TextField)):
+            if isinstance(model_filed, (CharField, TextField)) and not hasattr(model_filed, 'choices'):
                 form_field = model_filed.formfield()
                 form_field_kwargs = form_field.__dict__.copy()
                 for lang_code in [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]:
