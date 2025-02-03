@@ -14,10 +14,11 @@ class ExtensionProxyAdmin(ModelAdmin):
         ("Название", {
             'fields': ('name_en', 'name_ru', 'name_ua'),
         }),
-        ("Описание", {
-            'fields': ('description_en', 'description_ru', 'description_ua'),
-        }),
         ("Title", {
             'fields': ('title_en', 'title_ru', 'title_ua'),
         }),
+        ("Описание", {
+            'fields': ('description_en', 'description_ru', 'description_ua'),
+        }),
+
     )
