@@ -10,21 +10,21 @@ class ExtensionProxyFormMeta(type(forms.ModelForm)):
     def __new__(cls, name, bases, attrs):
         new_class = super().__new__(cls, name, bases, attrs)
 
-        # Сначала собираем новые поля
+        # Собираем новые поля, добавляем для каждого перевода
         additional_fields = {}
-        for model_filed in ExtensionTranslation._meta.fields:
-            if isinstance(model_filed, (CharField, TextField)) and not hasattr(model_filed, 'choices'):
-                form_field = model_filed.formfield()
+        for model_field in ExtensionTranslation._meta.fields:
+            if isinstance(model_field, (CharField, TextField)) and not hasattr(model_field, 'choices'):
+                form_field = model_field.formfield()
                 form_field_kwargs = form_field.__dict__.copy()
                 for lang_code in [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]:
                     new_form_field = form_field.__class__(**form_field_kwargs)
-                    field_name = f"{model_filed.name}_{lang_code}"
+                    field_name = f"{model_field.name}_{lang_code}"
                     additional_fields[field_name] = new_form_field
 
-        # Добавляем новые поля в attrs (класс формы)
+        # Добавляем динамические поля в attrs
         attrs.update(additional_fields)
 
-        # Обновляем Meta.fields с учётом новых динамически добавленных полей
+        # Обновляем Meta.fields с учётом новых полей
         if 'Meta' in attrs:
             if hasattr(attrs['Meta'], 'fields'):
                 attrs['Meta'].fields.extend(additional_fields.keys())
@@ -35,7 +35,6 @@ class ExtensionProxyFormMeta(type(forms.ModelForm)):
 
 
 class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
-# class ExtensionProxyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
@@ -66,4 +65,3 @@ class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
                     instance.set_translation(lang_code, field, value)
 
         return instance
-
