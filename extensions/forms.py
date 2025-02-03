@@ -7,6 +7,7 @@ from DjangoProjectStsnDev import settings
 from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
+from rich import print
 
 
 class ExtensionProxyFormMeta(forms.models.ModelFormMetaclass):
@@ -41,6 +42,7 @@ class ExtensionProxyFormMeta(forms.models.ModelFormMetaclass):
 class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        print('DEBUF - self.fields - ', self.fields)
         instance = kwargs.get('instance')
         if instance:
             translatable_fields = ExtensionTranslation.get_translatable_fields()
