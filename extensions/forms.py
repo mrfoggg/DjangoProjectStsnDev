@@ -1,7 +1,6 @@
 from django import forms
 from django.db.models import CharField
 from django.db.models.fields import TextField
-from django.forms import TextInput, Textarea
 from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
