@@ -56,41 +56,40 @@ class ExtensionProxy(Extension):
     class Meta:
         proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
 
-    # Список языков и полей
+    # Список языков и атрибутов модели
     languages = ['en', 'ru', 'fr']
-    fields = ['name', 'description']  # Пример полей
+    attributes = ['name', 'description']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Динамически создаем свойства для каждого поля и языка
-        for field in self.fields:
-            for lang in self.languages:
-                # Используем partial для создания геттеров и сеттеров
-                getter = partial(self.get_translation_field, lang, field)
-                setter = partial(self.set_translation_field, lang, field)
+        # Создаем динамические свойства для каждого языка и каждого атрибута
+        for lang in self.languages:
+            for attr in self.attributes:
+                # Создаем и добавляем геттер и сеттер для каждого языка и атрибута
+                def getter(self, lang=lang, attr=attr):
+                    translation = self.get_translation(lang)
+                    if translation:
+                        return getattr(translation, attr, None)
+                    return None
 
-                # Добавляем свойство с геттером и сеттером
-                setattr(self.__class__, f"{field}_{lang}", property(getter, setter))
+                def setter(self, value, lang=lang, attr=attr):
+                    translation = self.get_translation(lang)
+                    if translation:
+                        setattr(translation, attr, value)
+                        translation.save()
+                    else:
+                        # Создаем новый перевод, если его нет
+                        translation = self.translations.create(language_code=lang, **{attr: value})
+                        translation.save()
+
+                # Добавляем свойства в класс для каждого языка и атрибута
+                setattr(self.__class__, f'{attr}_{lang}', property(lambda self, lang=lang, attr=attr: getter(self, lang, attr), lambda self, value, lang=lang, attr=attr: setter(self, value, lang, attr)))
 
     def get_translation(self, language_code):
         """Возвращает перевод для заданного языка, если он существует."""
         return self.translations.filter(language_code=language_code).first()
 
-    def get_translation_field(self, lang, field):
-        """Геттер для перевода поля."""
-        translation = self.get_translation(lang)
-        return getattr(translation, field) if translation else None
-
-    def set_translation_field(self, lang, field, value):
-        """Сеттер для перевода поля."""
-        translation = self.get_translation(lang)
-        if translation:
-            setattr(translation, field, value)
-            translation.save()
-        else:
-            translation = self.translations.create(language_code=lang, **{field: value})
-            translation.save()
 
 
 

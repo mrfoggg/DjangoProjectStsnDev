@@ -8,43 +8,38 @@ from unfold.widgets import UnfoldAdminTextInputWidget
 class ExtensionProxyForm(forms.ModelForm):
     class Meta:
         model = ExtensionProxy
-        fields = ['name', 'version', 'secret_key', 'trial_period_days']
+        fields = ['version', 'secret_key', 'trial_period_days']  # Основные поля модели без переводов
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
 
-        # Динамически добавляем поля для всех языков
+        # Динамически добавляем поля для каждого языка и атрибута
         for lang in self.Meta.model.languages:
-            name_field = f'name_{lang}'
-            description_field = f'description_{lang}'
+            for attr in self.Meta.model.attributes:
+                field_name = f'{attr}_{lang}'
 
-            # Добавляем поля формы с начальными значениями
-            self.fields[name_field] = forms.CharField(
-                label=lang.upper(),
-                required=False,
-                widget=UnfoldAdminTextInputWidget if lang == 'en' else UnfoldAdminTextInputWidget
-            )
-            self.fields[description_field] = forms.CharField(
-                label=lang.upper(),
-                required=False,
-                widget=WysiwygWidget if lang == 'en' else WysiwygWidget
-            )
+                # Добавляем поля формы с начальными значениями
+                self.fields[field_name] = forms.CharField(
+                    label=lang.upper(),
+                    required=False,
+                    widget=WysiwygWidget if attr == 'description' else UnfoldAdminTextInputWidget
+                )
 
-            # Инициализация полей для существующего экземпляра
-            if instance:
-                translation = instance.get_translation(lang)
-                if translation:
-                    self.fields[name_field].initial = getattr(translation, 'name', '')
-                    self.fields[description_field].initial = getattr(translation, 'description', '')
+                # Инициализация полей для существующего экземпляра
+                if instance:
+                    initial_value = getattr(instance, f'{attr}_{lang}', '')
+                    self.fields[field_name].initial = initial_value
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        # Динамически сохраняем переводы для каждого языка и поля
+        # Динамически сохраняем переводы для каждого языка и атрибута
         for lang in self.Meta.model.languages:
-            instance.set_translation(lang, 'name', self.cleaned_data.get(f'name_{lang}'))
-            instance.set_translation(lang, 'description', self.cleaned_data.get(f'description_{lang}'))
+            for attr in self.Meta.model.attributes:
+                value = self.cleaned_data.get(f'{attr}_{lang}')
+                # Устанавливаем значения для каждого языка и атрибута
+                instance.set_translation(lang, attr, value)
 
         if commit:
             instance.save()
