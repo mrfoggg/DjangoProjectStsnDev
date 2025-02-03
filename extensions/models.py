@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import ModelBase
 from django.utils.translation import gettext_lazy as _
 from DjangoProjectStsnDev import settings
 from django.utils.translation import get_language
@@ -50,7 +51,7 @@ class ExtensionTranslation(models.Model):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
 
-class ExtensionProxyMeta(type):
+class ExtensionProxyMeta(ModelBase):
     def __new__(cls, name, bases, attrs):
         new_class = super().__new__(cls, name, bases, attrs)
         translatable_fields = ExtensionTranslation.get_translatable_fields()
