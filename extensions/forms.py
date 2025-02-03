@@ -43,8 +43,8 @@ class ExtensionProxyForm(forms.ModelForm):
         instance = super().save(commit=False)
 
         # Сохраняем основную модель, если commit=True
-        if commit:
-            instance.save()
+        # if commit:
+        instance.save()
 
         # Теперь выполняем сохранение переводов
         instance.set_translation('en', 'name', self.cleaned_data['name_en'])
