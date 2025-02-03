@@ -49,35 +49,3 @@ class ExtensionTranslation(models.Model):
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
-
-class ExtensionProxy(Extension):
-    class Meta:
-        proxy = True
-        verbose_name = _('Extension with translations')
-        verbose_name_plural = _('Extensions with translations')
-
-    def __get_translation(self, language_code):
-        return self.translations.filter(language_code=language_code).first()
-
-    def __create_translation_property(field_name):
-        def getter(self):
-            for lang_code, _ in settings.LANGUAGES:
-                if translation := self.__get_translation(lang_code):
-                    return getattr(translation, field_name, '')
-            return ''
-
-        def setter(self, value):
-            for lang_code, _ in settings.LANGUAGES:
-                translation = self.__get_translation(lang_code) or ExtensionTranslation(
-                    extension=self,
-                    language_code=lang_code
-                )
-                setattr(translation, field_name, value)
-                translation.save()
-
-        return property(getter, setter)
-
-    # Динамическое создание свойств для всех полей переводов
-    for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
-        for lang_code, lang_name in settings.LANGUAGES:
-            locals()[f'{field}_{lang_code}'] = __create_translation_property(field)
