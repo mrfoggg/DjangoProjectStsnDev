@@ -1,5 +1,5 @@
-from django import forms
 from django.contrib import admin
+from django import forms
 from unfold.admin import ModelAdmin
 from .models import ExtensionProxy, ExtensionTranslation
 from .forms import ExtensionProxyForm
@@ -22,23 +22,44 @@ class ExtensionProxyAdmin(ModelAdmin):
 
         return form
 
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
+
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                field_name = f"{field}_{lang_code}"
+                if field == 'name':
+                    fieldsets[1][1]['fields'] += (field_name,)
+                elif field == 'title':
+                    fieldsets[2][1]['fields'] += (field_name,)
+                elif field == 'short_description':
+                    fieldsets[3][1]['fields'] += (field_name,)
+                elif field == 'description':
+                    fieldsets[4][1]['fields'] += (field_name,)
+                elif field == 'meta_description':
+                    fieldsets[5][1]['fields'] += (field_name,)
+
+        return fieldsets
+
     fieldsets = (
         ("Основная информация", {
             'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
         }),
         ("Название", {
-            'fields': ('name_en', 'name_ru', 'name_uk'),
+            'fields': tuple(),
         }),
         ("Заголовок", {
-            'fields': ('title_en', 'title_ru', 'title_uk'),
+            'fields': tuple(),
         }),
         ("Краткое описание", {
-            'fields': ('short_description_en', 'short_description_ru', 'short_description_uk'),
+            'fields': tuple(),
         }),
         ("Полное описание", {
-            'fields': ('description_en', 'description_ru', 'description_uk'),
+            'fields': tuple(),
         }),
         ("Поисковое описание", {
-            'fields': ('meta_description_en', 'meta_description_ru', 'meta_description_uk'),
+            'fields': tuple(),
         }),
     )
