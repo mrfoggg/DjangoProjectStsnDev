@@ -104,7 +104,7 @@ class ExtensionProxyForm(forms.ModelForm):
             self.fields['name_uk'].initial = instance.get_translation('uk').name if instance.get_translation('uk') else ''
             self.fields['description_uk'].initial = instance.get_translation('uk').description if instance.get_translation('uk') else ''
             self.fields['short_description_uk'].initial = instance.get_translation('uk').short_description if instance.get_translation('uk') else ''
-            self.fields['title_ua'].initial = instance.get_translation('ua').title if instance.get_translation('uk') else ''
+            self.fields['title_uk'].initial = instance.get_translation('ua').title if instance.get_translation('uk') else ''
             self.fields['meta_description_uk'].initial = instance.get_translation('uk').meta_description if instance.get_translation('uk') else ''
 
     def save(self, commit=True):
