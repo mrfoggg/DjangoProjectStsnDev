@@ -91,8 +91,21 @@ class ExtensionProxyForm(forms.ModelForm):
         if instance:
             self.fields['name_en'].initial = instance.get_translation('en').name if instance.get_translation('en') else ''
             self.fields['description_en'].initial = instance.get_translation('en').description if instance.get_translation('en') else ''
+            self.fields['short_description_en'].initial = instance.get_translation('en').short_description if instance.get_translation('en') else ''
+            self.fields['title_en'].initial = instance.get_translation('en').title if instance.get_translation('en') else ''
+            self.fields['meta_description_en'].initial = instance.get_translation('en').meta_description if instance.get_translation('en') else ''
+
             self.fields['name_ru'].initial = instance.get_translation('ru').name if instance.get_translation('ru') else ''
             self.fields['description_ru'].initial = instance.get_translation('ru').description if instance.get_translation('ru') else ''
+            self.fields['short_description_ru'].initial = instance.get_translation('ru').short_description if instance.get_translation('ru') else ''
+            self.fields['title_ru'].initial = instance.get_translation('ru').title if instance.get_translation('ru') else ''
+            self.fields['meta_description_ru'].initial = instance.get_translation('ru').meta_description if instance.get_translation('ru') else ''
+
+            self.fields['name_ua'].initial = instance.get_translation('ua').name if instance.get_translation('ua') else ''
+            self.fields['description_ua'].initial = instance.get_translation('ua').description if instance.get_translation('ua') else ''
+            self.fields['short_description_ua'].initial = instance.get_translation('ua').short_description if instance.get_translation('ua') else ''
+            self.fields['title_ua'].initial = instance.get_translation('ua').title if instance.get_translation('ua') else ''
+            self.fields['meta_description_ua'].initial = instance.get_translation('ua').meta_description if instance.get_translation('ua') else ''
 
     def save(self, commit=True):
         # Сначала сохраняем основную модель Extension
