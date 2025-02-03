@@ -3,30 +3,33 @@ from django.db.models import CharField
 from django.db.models.fields import TextField
 from django.forms.models import ModelFormMetaclass
 
+from DjangoProjectStsnDev import settings
 from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
 
 
-class ExtensionProxyFormMeta(ModelFormMetaclass):
+class ExtensionProxyFormMeta(forms.models.ModelFormMetaclass):
     def __new__(cls, name, bases, attrs):
+        # Создаем класс формы с использованием метакласса
         new_class = super().__new__(cls, name, bases, attrs)
 
-        # Собираем новые поля, добавляем для каждого перевода
+        # Сначала собираем дополнительные поля для перевода
         additional_fields = {}
-        for model_field in ExtensionTranslation._meta.fields:
-            if isinstance(model_field, (CharField, TextField)) and not hasattr(model_field, 'choices'):
-                form_field = model_field.formfield()
-                form_field_kwargs = form_field.__dict__.copy()
-                for lang_code in [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]:
-                    new_form_field = form_field.__class__(**form_field_kwargs)
-                    field_name = f"{model_field.name}_{lang_code}"
-                    additional_fields[field_name] = new_form_field
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in settings.LANGUAGES]
 
-        # Добавляем динамические поля в attrs
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                # Динамически создаем поле для каждого языка
+                field_name = f"{field}_{lang_code}"
+                field_instance = forms.CharField(label=field_name, required=False)
+                additional_fields[field_name] = field_instance
+
+        # Добавляем новые поля в attrs формы
         attrs.update(additional_fields)
 
-        # Обновляем Meta.fields с учётом новых полей
+        # Обновляем Meta.fields с учетом новых полей
         if 'Meta' in attrs:
             if hasattr(attrs['Meta'], 'fields'):
                 attrs['Meta'].fields.extend(additional_fields.keys())
@@ -34,7 +37,6 @@ class ExtensionProxyFormMeta(ModelFormMetaclass):
                 attrs['Meta'].fields = list(additional_fields.keys())
 
         return new_class
-
 
 class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
     def __init__(self, *args, **kwargs):
