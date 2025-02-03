@@ -1,9 +1,42 @@
 from django import forms
+from django.db.models import CharField
+from django.db.models.fields import TextField
 from django.forms import TextInput, Textarea
-from .models import ExtensionProxy
+from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
-class ExtensionProxyForm(forms.ModelForm):
+
+
+class ExtensionProxyFormMeta(type(forms.ModelForm)):
+    def __new__(cls, name, bases, attrs):
+        new_class = super().__new__(cls, name, bases, attrs)
+
+        # Сначала собираем новые поля
+        additional_fields = {}
+        for model_filed in ExtensionTranslation._meta.fields:
+            if isinstance(model_filed, (CharField, TextField)) and not hasattr(model_filed, 'choices'):
+                form_field = model_filed.formfield()
+                form_field_kwargs = form_field.__dict__.copy()
+                for lang_code in [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]:
+                    new_form_field = form_field.__class__(**form_field_kwargs)
+                    field_name = f"{model_filed.name}_{lang_code}"
+                    additional_fields[field_name] = new_form_field
+
+        # Добавляем новые поля в attrs (класс формы)
+        attrs.update(additional_fields)
+
+        # Обновляем Meta.fields с учётом новых динамически добавленных полей
+        if 'Meta' in attrs:
+            if hasattr(attrs['Meta'], 'fields'):
+                attrs['Meta'].fields.extend(additional_fields.keys())
+            else:
+                attrs['Meta'].fields = list(additional_fields.keys())
+
+        return new_class
+
+
+class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
+# class ExtensionProxyForm(forms.ModelForm):
     name_en = forms.CharField(
         label="EN",
         required=False,
@@ -89,36 +122,30 @@ class ExtensionProxyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         if instance:
-            self.fields['name_en'].initial = instance.get_translation('en').name if instance.get_translation('en') else ''
-            self.fields['description_en'].initial = instance.get_translation('en').description if instance.get_translation('en') else ''
-            self.fields['short_description_en'].initial = instance.get_translation('en').short_description if instance.get_translation('en') else ''
-            self.fields['title_en'].initial = instance.get_translation('en').title if instance.get_translation('en') else ''
-            self.fields['meta_description_en'].initial = instance.get_translation('en').meta_description if instance.get_translation('en') else ''
+            translatable_fields = ExtensionTranslation.get_translatable_fields()
+            language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
-            self.fields['name_ru'].initial = instance.get_translation('ru').name if instance.get_translation('ru') else ''
-            self.fields['description_ru'].initial = instance.get_translation('ru').description if instance.get_translation('ru') else ''
-            self.fields['short_description_ru'].initial = instance.get_translation('ru').short_description if instance.get_translation('ru') else ''
-            self.fields['title_ru'].initial = instance.get_translation('ru').title if instance.get_translation('ru') else ''
-            self.fields['meta_description_ru'].initial = instance.get_translation('ru').meta_description if instance.get_translation('ru') else ''
-
-            self.fields['name_uk'].initial = instance.get_translation('uk').name if instance.get_translation('uk') else ''
-            self.fields['description_uk'].initial = instance.get_translation('uk').description if instance.get_translation('uk') else ''
-            self.fields['short_description_uk'].initial = instance.get_translation('uk').short_description if instance.get_translation('uk') else ''
-            self.fields['title_uk'].initial = instance.get_translation('ua').title if instance.get_translation('uk') else ''
-            self.fields['meta_description_uk'].initial = instance.get_translation('uk').meta_description if instance.get_translation('uk') else ''
+            for field in translatable_fields:
+                for lang_code in language_codes:
+                    field_name = f"{field}_{lang_code}"
+                    translation = instance.get_translation(lang_code)
+                    if translation:
+                        self.fields[field_name].initial = getattr(translation, field)
 
     def save(self, commit=True):
-        # Сначала сохраняем основную модель Extension
         instance = super().save(commit=False)
+        if commit:
+            instance.save()
 
-        # Сохраняем основную модель, если commit=True
-        # if commit:
-        instance.save()
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
-        # Теперь выполняем сохранение переводов
-        instance.set_translation('en', 'name', self.cleaned_data['name_en'])
-        instance.set_translation('en', 'description', self.cleaned_data['description_en'])
-        instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
-        instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                field_name = f"{field}_{lang_code}"
+                value = self.cleaned_data.get(field_name)
+                if value:
+                    instance.set_translation(lang_code, field, value)
 
         return instance
+
