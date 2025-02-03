@@ -14,6 +14,21 @@ class ExtensionProxyForm(forms.ModelForm):
         required=False,
         widget=WysiwygWidget
     )
+    short_description_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
     name_ru = forms.CharField(
         label="RU",
         required=False,
@@ -24,7 +39,46 @@ class ExtensionProxyForm(forms.ModelForm):
         required=False,
         widget=WysiwygWidget
     )
-
+    short_description_ru = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_ru = forms.CharField(
+        label="EN",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_ru = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    name_ua = forms.CharField(
+        label="RU",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    description_ua = forms.CharField(
+        label="RU",
+        required=False,
+        widget=WysiwygWidget
+    )
+    short_description_ua = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_ua = forms.CharField(
+        label="EN",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_ua = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
     class Meta:
         model = ExtensionProxy
         fields = ['name', 'version', 'secret_key', 'trial_period_days']

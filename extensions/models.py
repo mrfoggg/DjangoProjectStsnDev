@@ -65,12 +65,59 @@ class ExtensionProxy(Extension):
         return self.get_translation('en').description if self.get_translation('en') else None
 
     @property
+    def short_description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def title_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def meta_description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+
+
+    @property
     def name_ru(self):
         return self.get_translation('ru').name if self.get_translation('ru') else None
 
     @property
     def description_ru(self):
         return self.get_translation('ru').description if self.get_translation('ru') else None
+
+    @property
+    def short_description_ru(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def title_ru(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def meta_description_ru(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+
+    @property
+    def name_ua(self):
+        return self.get_translation('ru').name if self.get_translation('ru') else None
+
+    @property
+    def description_ua(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
+
+    @property
+    def short_description_ua(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def title_ua(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
+
+    @property
+    def meta_description_ua(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
 
     @property
     def description_current_language(self):
