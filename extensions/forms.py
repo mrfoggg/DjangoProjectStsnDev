@@ -134,8 +134,8 @@ class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        if commit:
-            instance.save()
+        # if commit:
+        instance.save()
 
         translatable_fields = ExtensionTranslation.get_translatable_fields()
         language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
