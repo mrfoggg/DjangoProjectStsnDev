@@ -1,44 +1,52 @@
 # admin.py
 from django import forms
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
+from django.utils.module_loading import import_string
 from unfold.admin import ModelAdmin
 
 from DjangoProjectStsnDev import settings
 from .models import Extension, ExtensionTranslation
 
-class ExtensionAdminForm(forms.ModelForm):
-    class Meta:
-        model = Extension
-        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
 
+class TranslationFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._create_translation_fields()
-        self._init_translation_values()
+        self._add_translation_fields()
 
-    def _create_translation_fields(self):
+    def _add_translation_fields(self):
         for lang_code, lang_name in settings.LANGUAGES:
             for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
                 self._add_translation_field(lang_code, field)
 
     def _add_translation_field(self, lang_code, field_name):
-        field_key = f"{field_name}_{lang_code}"
-        self.fields[field_key] = forms.CharField(
+        widget_class = import_string(self.Meta.widgets.get(field_name, 'django.forms.TextInput'))
+        self.fields[f'{field_name}_{lang_code}'] = forms.CharField(
             label=f"{ExtensionTranslation._meta.get_field(field_name).verbose_name} ({lang_code.upper()})",
             required=False,
-            widget=self._get_widget(field_name)
+            widget=widget_class()
         )
 
-    def _get_widget(self, field_name):
-        from unfold.contrib.forms.widgets import WysiwygWidget
-        return WysiwygWidget() if field_name in ['description', 'meta_description'] else forms.TextInput()
 
-    def _init_translation_values(self):
-        if self.instance and self.instance.pk:
-            for translation in self.instance.translations.all():
-                for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
-                    self.fields[f"{field}_{translation.language_code}"].initial = getattr(translation, field)
+class ExtensionAdminForm(TranslationFormMixin, forms.ModelForm):
+    class Meta:
+        model = Extension
+        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
+        widgets = {
+            'description': 'django.forms.Textarea',
+            'meta_description': 'unfold.contrib.forms.widgets.WysiwygWidget'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self._init_translations()
+
+    def _init_translations(self):
+        translations = {t.language_code: t for t in self.instance.translations.all()}
+        for lang_code, _ in settings.LANGUAGES:
+            translation = translations.get(lang_code)
+            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
+                self.fields[f'{field}_{lang_code}'].initial = getattr(translation, field, '') if translation else ''
 
     def save(self, commit=True):
         instance = super().save(commit=commit)
@@ -48,15 +56,16 @@ class ExtensionAdminForm(forms.ModelForm):
 
     def _save_translations(self, instance):
         for lang_code, _ in settings.LANGUAGES:
-            trans_data = {
-                field: self.cleaned_data.get(f"{field}_{lang_code}", "")
-                for field in ['name', 'title', 'short_description', 'description', 'meta_description']
-            }
+            trans_data = {}
+            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
+                trans_data[field] = self.cleaned_data.get(f'{field}_{lang_code}', '')
+
             ExtensionTranslation.objects.update_or_create(
                 extension=instance,
                 language_code=lang_code,
                 defaults=trans_data
             )
+
 
 @admin.register(Extension)
 class ExtensionAdmin(ModelAdmin):
@@ -70,20 +79,24 @@ class ExtensionAdmin(ModelAdmin):
             }),
         ]
 
-        translation_groups = {
-            _('Name'): ['name'],
-            _('Title'): ['title'],
-            _('Short Description'): ['short_description'],
-            _('Description'): ['description'],
-            _('Meta Description'): ['meta_description']
-        }
-
-        for group_name, fields in translation_groups.items():
+        # Динамически создаем секции для переводов
+        for field_group in [
+            ('Название', 'name'),
+            ('Заголовок', 'title'),
+            ('Краткое описание', 'short_description'),
+            ('Полное описание', 'description'),
+            ('Мета описание', 'meta_description')
+        ]:
+            section = []
             for lang_code, lang_name in settings.LANGUAGES:
-                lang_fields = [f"{field}_{lang_code}" for field in fields]
-                fieldsets.append((
-                    f"{group_name} ({lang_code.upper()})",
-                    {'fields': lang_fields, 'classes': ('collapse',)}
-                ))
+                section.append(f'{field_group[1]}_{lang_code}')
+
+            fieldsets.append((
+                field_group[0],
+                {
+                    'fields': section,
+                    'classes': ('collapse',)
+                }
+            ))
 
         return fieldsets
