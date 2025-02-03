@@ -26,15 +26,17 @@ class ExtensionProxyFormMeta(ModelFormMetaclass):
         # Обновляем Meta.fields с учётом новых динамически добавленных полей
         if 'Meta' in attrs:
             if hasattr(attrs['Meta'], 'fields'):
-                attrs['Meta'].fields.extend(additional_fields.keys())
+                attrs['Meta'].fields = list(attrs['Meta'].fields) + list(additional_fields.keys())
             else:
                 attrs['Meta'].fields = list(additional_fields.keys())
 
         return new_class
+
+
 class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
     class Meta:
         model = ExtensionProxy
-        fields = ['name', 'version', 'secret_key', 'trial_period_days']
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
