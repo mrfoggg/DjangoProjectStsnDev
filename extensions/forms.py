@@ -10,6 +10,7 @@ from unfold.widgets import UnfoldAdminTextInputWidget
 from rich import print
 
 
+# class ExtensionProxyFormMeta(forms.models.ModelFormMetaclass):
 class ExtensionProxyFormMeta(forms.models.ModelFormMetaclass):
     def __new__(cls, name, bases, attrs):
         # Создаем форму через метакласс
