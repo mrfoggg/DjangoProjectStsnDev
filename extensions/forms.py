@@ -4,85 +4,27 @@ from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
 
-class ExtensionProxyForm(forms.ModelForm):
-    name_en = forms.CharField(
-        label="EN",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    description_en = forms.CharField(
-        label="EN",
-        required=False,
-        widget=WysiwygWidget
-    )
-    short_description_en = forms.CharField(
-        label="EN",
-        required=False,
-        widget=WysiwygWidget
-    )
-    title_en = forms.CharField(
-        label="EN",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    meta_description_en = forms.CharField(
-        label="EN",
-        required=False,
-        widget=WysiwygWidget
-    )
+class ExtensionProxyFormMeta(type(forms.ModelForm)):
+    def __new__(cls, name, bases, attrs):
+        new_class = super().__new__(cls, name, bases, attrs)
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
-    name_ru = forms.CharField(
-        label="RU",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    description_ru = forms.CharField(
-        label="RU",
-        required=False,
-        widget=WysiwygWidget
-    )
-    short_description_ru = forms.CharField(
-        label="RU",
-        required=False,
-        widget=WysiwygWidget
-    )
-    title_ru = forms.CharField(
-        label="RU",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    meta_description_ru = forms.CharField(
-        label="RU",
-        required=False,
-        widget=WysiwygWidget
-    )
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                field_name = f"{field}_{lang_code}"
+                label = lang_code.upper()
+                widget = WysiwygWidget if field in ['description', 'short_description', 'meta_description'] else UnfoldAdminTextInputWidget
 
-    name_uk = forms.CharField(
-        label="UA",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    description_uk = forms.CharField(
-        label="UA",
-        required=False,
-        widget=WysiwygWidget
-    )
-    short_description_uk = forms.CharField(
-        label="UA",
-        required=False,
-        widget=WysiwygWidget
-    )
-    title_uk = forms.CharField(
-        label="UA",
-        required=False,
-        widget=UnfoldAdminTextInputWidget
-    )
-    meta_description_uk = forms.CharField(
-        label="UA",
-        required=False,
-        widget=WysiwygWidget
-    )
+                new_class.base_fields[field_name] = forms.CharField(
+                    label=label,
+                    required=False,
+                    widget=widget
+                )
 
+        return new_class
+
+class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
     class Meta:
         model = ExtensionProxy
         fields = ['name', 'version', 'secret_key', 'trial_period_days']
@@ -101,7 +43,6 @@ class ExtensionProxyForm(forms.ModelForm):
                     if translation:
                         self.fields[field_name].initial = getattr(translation, field)
 
-
     def save(self, commit=True):
         instance = super().save(commit=False)
         if commit:
@@ -118,3 +59,4 @@ class ExtensionProxyForm(forms.ModelForm):
                     instance.set_translation(lang_code, field, value)
 
         return instance
+
