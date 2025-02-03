@@ -118,7 +118,20 @@ class ExtensionProxyForm(forms.ModelForm):
         # Теперь выполняем сохранение переводов
         instance.set_translation('en', 'name', self.cleaned_data['name_en'])
         instance.set_translation('en', 'description', self.cleaned_data['description_en'])
+        instance.set_translation('en', 'short_description', self.cleaned_data['short_description_en'])
+        instance.set_translation('en', 'title', self.cleaned_data['title_en'])
+        instance.set_translation('en', 'meta_description', self.cleaned_data['meta_description_en'])
+
         instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
         instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
+        instance.set_translation('ru', 'short_description', self.cleaned_data['short_description_ru'])
+        instance.set_translation('ru', 'title', self.cleaned_data['title_ru'])
+        instance.set_translation('ru', 'meta_description', self.cleaned_data['meta_description_ru'])
+
+        instance.set_translation('uk', 'name', self.cleaned_data['name_uk'])
+        instance.set_translation('uk', 'description', self.cleaned_data['description_uk'])
+        instance.set_translation('uk', 'short_description', self.cleaned_data['short_description_uk'])
+        instance.set_translation('uk', 'title', self.cleaned_data['title_uk'])
+        instance.set_translation('uk', 'meta_description', self.cleaned_data['meta_description_uk'])
 
         return instance

@@ -24,7 +24,6 @@ class Extension(models.Model):
         return self.translations.filter(language_code=get_language()).first()
 
 
-
 class ExtensionTranslation(models.Model):
     LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
     extension = models.ForeignKey(
