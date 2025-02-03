@@ -29,6 +29,7 @@ class ExtensionProxyForm(forms.ModelForm):
         required=False,
         widget=WysiwygWidget
     )
+
     name_ru = forms.CharField(
         label="RU",
         required=False,
@@ -40,42 +41,43 @@ class ExtensionProxyForm(forms.ModelForm):
         widget=WysiwygWidget
     )
     short_description_ru = forms.CharField(
-        label="EN",
+        label="RU",
         required=False,
         widget=WysiwygWidget
     )
     title_ru = forms.CharField(
-        label="EN",
+        label="RU",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
     meta_description_ru = forms.CharField(
-        label="EN",
+        label="RU",
         required=False,
         widget=WysiwygWidget
     )
+
     name_ua = forms.CharField(
-        label="RU",
+        label="UA",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
     description_ua = forms.CharField(
-        label="RU",
+        label="UA",
         required=False,
         widget=WysiwygWidget
     )
     short_description_ua = forms.CharField(
-        label="EN",
+        label="UA",
         required=False,
         widget=WysiwygWidget
     )
     title_ua = forms.CharField(
-        label="EN",
+        label="UA",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
     meta_description_ua = forms.CharField(
-        label="EN",
+        label="UA",
         required=False,
         widget=WysiwygWidget
     )
