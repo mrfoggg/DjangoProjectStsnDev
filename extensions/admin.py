@@ -1,6 +1,6 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import ExtensionProxy
+from .models import ExtensionProxy, ExtensionTranslation
 from .forms import ExtensionProxyForm
 
 @admin.register(ExtensionProxy)
