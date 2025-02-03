@@ -1,9 +1,8 @@
 from django.db import models
-from django.db.models.base import ModelBase
 from django.utils.translation import gettext_lazy as _
 from DjangoProjectStsnDev import settings
 from django.utils.translation import get_language
-
+from django.db.models.base import ModelBase
 
 class Extension(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('extension_name'))
@@ -19,6 +18,12 @@ class Extension(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def current_lang_translation(self):
+        return self.translations.filter(language_code=get_language()).first()
+
+
 
 class ExtensionTranslation(models.Model):
     LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
@@ -50,6 +55,18 @@ class ExtensionTranslation(models.Model):
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
+extension = Extension.objects.get(id=1)
+
+# Получение объекта перевода для текущего языка
+# translation = extension.current_lang_translation
+# if translation:
+#     print(translation.name)
+#     print(translation.description)
+#
+# # Получение словаря с переводами для всех полей для текущего языка
+# translations = extension.current_lang_fields_translation
+# for field, value in translations.items():
+#     print(f"{field}: {value}")
 
 class ExtensionProxyMeta(ModelBase):
     def __new__(cls, name, bases, attrs):
@@ -92,16 +109,10 @@ class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
         translation = self.get_translation(current_language)
         return translation.description if translation else None
 
-    # Возвращает объект перевода: ExtensionTranslation, который соответствует текущему языку.
     @property
     def current_lang_fields_translation(self):
-        return self.get_translation(get_language())
-
-    # метод возвращает словарь, где ключи — это имена полей, а значения — это переводы этих полей
-    # @property
-    # def current_lang_fields_translation(self):
-    #     current_language = get_language()
-    #     translation = self.get_translation(current_language)
-    #     if translation:
-    #         return {field: getattr(translation, field) for field in ExtensionTranslation.get_translatable_fields()}
-    #     return {field: None for field in ExtensionTranslation.get_translatable_fields()}
+        current_language = get_language()
+        translation = self.get_translation(current_language)
+        if translation:
+            return {field: getattr(translation, field) for field in ExtensionTranslation.get_translatable_fields()}
+        return {field: None for field in ExtensionTranslation.get_translatable_fields()}
