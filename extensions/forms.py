@@ -60,3 +60,4 @@ class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
                     instance.set_translation(lang_code, field, value)
 
         return instance
+
