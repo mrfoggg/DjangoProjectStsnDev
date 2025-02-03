@@ -6,7 +6,7 @@ from .forms import ExtensionProxyForm
 @admin.register(ExtensionProxy)
 class ExtensionProxyAdmin(ModelAdmin):
     form = ExtensionProxyForm
-    list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
+    list_display = ('name', 'description_current_language')
     fieldsets = (
         ("Основная информация", {
             'fields': ('name', 'version', 'secret_key', 'trial_period_days'),

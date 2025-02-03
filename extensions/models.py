@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from DjangoProjectStsnDev import settings
+from django.utils.translation import get_language
 
 
 class Extension(models.Model):
@@ -70,6 +71,19 @@ class ExtensionProxy(Extension):
     @property
     def description_ru(self):
         return self.get_translation('ru').description if self.get_translation('ru') else None
+
+    @property
+    def description_current_language(self):
+        """
+        Возвращает описание на текущем языке, если перевод существует.
+        """
+        current_language = get_language()  # Получаем текущий язык
+        translation = self.get_translation(current_language)
+        if translation:
+            return translation.description
+        return None
+
+
 
     def get_translation(self, language_code):
         """Возвращает перевод для заданного языка, если он существует."""
