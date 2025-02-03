@@ -61,9 +61,9 @@ class ExtensionProxyMeta(ModelBase):
             for lang_code in language_codes:
                 property_name = f"{field}_{lang_code}"
 
-                def getter(self, field=field, lang_code=lang_code):
-                    translation = self.get_translation(lang_code)
-                    return getattr(translation, field) if translation else None
+                def getter(self, field_name=field, lang=lang_code):
+                    translation = self.get_translation(lang)
+                    return getattr(translation, field_name) if translation else None
 
                 setattr(new_class, property_name, property(getter))
 
@@ -91,3 +91,17 @@ class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
         current_language = get_language()
         translation = self.get_translation(current_language)
         return translation.description if translation else None
+
+    # Возвращает объект перевода: ExtensionTranslation, который соответствует текущему языку.
+    @property
+    def current_lang_fields_translation(self):
+        return self.get_translation(get_language())
+
+    # метод возвращает словарь, где ключи — это имена полей, а значения — это переводы этих полей
+    # @property
+    # def current_lang_fields_translation(self):
+    #     current_language = get_language()
+    #     translation = self.get_translation(current_language)
+    #     if translation:
+    #         return {field: getattr(translation, field) for field in ExtensionTranslation.get_translatable_fields()}
+    #     return {field: None for field in ExtensionTranslation.get_translatable_fields()}
