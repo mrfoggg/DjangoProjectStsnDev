@@ -123,7 +123,7 @@ class ExtensionProxy(Extension):
     def save(self, commit=True):
         # Проходим по всем полям модели и сохраняем переводы
         for field in self._meta.get_fields():  # Все поля модели
-            if field.name not in ['language_code', 'extension']:  # Исключаем ненужные поля
+            if field.name not in ['language_code', 'extension', 'id']:  # Исключаем ненужные поля
                 self.set_translation('en', field.name, getattr(self, f'{field.name}_en', ''))
                 self.set_translation('ru', field.name, getattr(self, f'{field.name}_ru', ''))
 
