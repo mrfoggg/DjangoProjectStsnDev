@@ -101,6 +101,7 @@ class ExtensionProxyForm(forms.ModelForm):
                     if translation:
                         self.fields[field_name].initial = getattr(translation, field)
 
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         if commit:
