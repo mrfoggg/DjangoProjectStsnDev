@@ -1,12 +1,14 @@
 from django import forms
 from django.db.models import CharField
 from django.db.models.fields import TextField
+from django.forms.models import ModelFormMetaclass
+
 from .models import ExtensionProxy, ExtensionTranslation
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
 
 
-class ExtensionProxyFormMeta(type(forms.ModelForm)):
+class ExtensionProxyFormMeta(ModelFormMetaclass):
     def __new__(cls, name, bases, attrs):
         new_class = super().__new__(cls, name, bases, attrs)
 
