@@ -39,11 +39,17 @@ class ExtensionProxyForm(forms.ModelForm):
             self.fields['description_ru'].initial = instance.get_translation('ru').description if instance.get_translation('ru') else ''
 
     def save(self, commit=True):
+        # Сначала сохраняем основную модель Extension
         instance = super().save(commit=False)
+
+        # Сохраняем основную модель, если commit=True
+        if commit:
+            instance.save()
+
+        # Теперь выполняем сохранение переводов
         instance.set_translation('en', 'name', self.cleaned_data['name_en'])
         instance.set_translation('en', 'description', self.cleaned_data['description_en'])
         instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
         instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
-        if commit:
-            instance.save()
+
         return instance
