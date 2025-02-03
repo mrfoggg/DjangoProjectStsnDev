@@ -9,67 +9,53 @@ from DjangoProjectStsnDev import settings
 from extensions.models import ExtensionTranslation, Extension
 
 
-class TranslationFormMixin:
+class ExtensionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._add_translation_fields()
-
-    def _add_translation_fields(self):
-        for lang_code, lang_name in settings.LANGUAGES:
-            for field in ExtensionTranslation.get_translatable_fields():
-                field_key = f'{field}_{lang_code}'
-                widget_class = import_string(self.Meta.widgets.get(field, 'django.forms.TextInput'))
-                self.fields[field_key] = forms.CharField(
-                    label=f"{field} ({lang_code.upper()})",
+        # Добавляем поля переводов до вызова родительского __init__
+        for lang_code, _ in settings.LANGUAGES:
+            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
+                field_name = f'{field}_{lang_code}'
+                # Определяем тип виджета в зависимости от поля
+                widget = forms.Textarea if field in ['description', 'meta_description'] else forms.TextInput
+                # Добавляем поле в форму
+                self.fields[field_name] = forms.CharField(
                     required=False,
-                    widget=widget_class()
+                    widget=widget(),
+                    label=f"{field.replace('_', ' ').title()} ({lang_code.upper()})"
                 )
 
-
-class ExtensionAdminForm(TranslationFormMixin, forms.ModelForm):
-    class Meta:
-        model = Extension
-        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
-        widgets = {
-            'description': 'django.forms.Textarea',
-            'meta_description': 'django.forms.Textarea',
-            'short_description': 'django.forms.TextInput',
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        # Загружаем существующие переводы
         if self.instance.pk:
-            self._load_translations()
-
-    def _load_translations(self):
-        translations = {
-            t.language_code: t for t in self.instance.translations.all()
-        }
-        for lang_code, _ in settings.LANGUAGES:
-            translation = translations.get(lang_code)
-            if translation:
-                for field in ExtensionTranslation.get_translatable_fields():
-                    field_key = f'{field}_{lang_code}'
-                    self.fields[field_key].initial = getattr(translation, field, '')
+            translations = {
+                t.language_code: t for t in self.instance.translations.all()
+            }
+            for lang_code, _ in settings.LANGUAGES:
+                if translation := translations.get(lang_code):
+                    for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
+                        field_name = f'{field}_{lang_code}'
+                        if field_name in self.fields:
+                            self.fields[field_name].initial = getattr(translation, field, '')
 
     def save(self, commit=True):
         instance = super().save(commit=commit)
         if commit:
-            self._save_translations(instance)
+            # Сохраняем переводы
+            for lang_code, _ in settings.LANGUAGES:
+                translation_data = {
+                    field: self.cleaned_data.get(f'{field}_{lang_code}', '')
+                    for field in ['name', 'title', 'short_description', 'description', 'meta_description']
+                }
+                ExtensionTranslation.objects.update_or_create(
+                    extension=instance,
+                    language_code=lang_code,
+                    defaults=translation_data
+                )
         return instance
 
-    def _save_translations(self, instance):
-        for lang_code, _ in settings.LANGUAGES:
-            translation_data = {
-                field: self.cleaned_data.get(f'{field}_{lang_code}', '')
-                for field in ExtensionTranslation.get_translatable_fields()
-            }
-
-            ExtensionTranslation.objects.update_or_create(
-                extension=instance,
-                language_code=lang_code,
-                defaults=translation_data
-            )
+    class Meta:
+        model = Extension
+        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
 
 
 @admin.register(Extension)
@@ -88,8 +74,8 @@ class ExtensionAdmin(ModelAdmin):
             }),
         ]
 
-        # Группировка переводов по полям
-        translation_fields = [
+        # Группы переводимых полей
+        translatable_fields = [
             ('Название', 'name'),
             ('Заголовок', 'title'),
             ('Краткое описание', 'short_description'),
@@ -97,8 +83,8 @@ class ExtensionAdmin(ModelAdmin):
             ('Мета-описание', 'meta_description')
         ]
 
-        # Создаем секцию для каждого поля с переводами
-        for field_label, field_name in translation_fields:
+        # Создаем группы полей для каждого переводимого поля
+        for field_label, field_name in translatable_fields:
             translated_fields = [
                 f'{field_name}_{lang_code}'
                 for lang_code, _ in settings.LANGUAGES
