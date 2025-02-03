@@ -56,27 +56,27 @@ class ExtensionProxyForm(forms.ModelForm):
         widget=WysiwygWidget
     )
 
-    name_ua = forms.CharField(
+    name_uk = forms.CharField(
         label="UA",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
-    description_ua = forms.CharField(
+    description_uk = forms.CharField(
         label="UA",
         required=False,
         widget=WysiwygWidget
     )
-    short_description_ua = forms.CharField(
+    short_description_uk = forms.CharField(
         label="UA",
         required=False,
         widget=WysiwygWidget
     )
-    title_ua = forms.CharField(
+    title_uk = forms.CharField(
         label="UA",
         required=False,
         widget=UnfoldAdminTextInputWidget
     )
-    meta_description_ua = forms.CharField(
+    meta_description_uk = forms.CharField(
         label="UA",
         required=False,
         widget=WysiwygWidget
