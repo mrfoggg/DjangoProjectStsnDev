@@ -1,20 +1,11 @@
 from django.contrib import admin
-from unfold.admin import ModelAdmin
 from .models import ExtensionProxy
-from .forms import ExtensionProxyForm
+from .forms import ExtensionProxyForm  # Используем форму, которую мы определили ранее
 
-@admin.register(ExtensionProxy)
-class ExtensionProxyAdmin(ModelAdmin):
-    form = ExtensionProxyForm
-    # list_display = ('name', 'name_en', 'name_ru', 'description_en', 'description_ru')
-    fieldsets = (
-        ("Основная информация", {
-            'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
-        }),
-        ("Название", {
-            'fields': ('name_en', 'name_ru'),
-        }),
-        ("Описание", {
-            'fields': ('description_en', 'description_ru'),
-        }),
-    )
+class ExtensionProxyAdmin(admin.ModelAdmin):
+    form = ExtensionProxyForm  # Указываем форму с переведёнными полями
+
+    # Поля, которые будут отображаться в админке
+    fields = ['name', 'version', 'secret_key', 'trial_period_days', 'name_en', 'name_ru', 'description_en', 'description_ru']
+
+admin.site.register(ExtensionProxy, ExtensionProxyAdmin)
