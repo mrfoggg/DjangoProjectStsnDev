@@ -2,6 +2,8 @@
 from django import forms
 from django.contrib import admin
 from unfold.admin import ModelAdmin
+
+from DjangoProjectStsnDev import settings
 from .models import ExtensionProxy
 from unfold.contrib.forms.widgets import WysiwygWidget
 
