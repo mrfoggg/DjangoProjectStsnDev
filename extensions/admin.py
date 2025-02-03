@@ -1,111 +1,70 @@
 # admin.py
 from django import forms
 from django.contrib import admin
-from django.utils.module_loading import import_string
 from unfold.admin import ModelAdmin
-from django.utils.translation import gettext_lazy as _
-
-from DjangoProjectStsnDev import settings
-from extensions.models import ExtensionTranslation, Extension
+from .models import ExtensionProxy
+from unfold.contrib.forms.widgets import WysiwygWidget
 
 
-class ExtensionAdminForm(forms.ModelForm):
+class ExtensionProxyForm(forms.ModelForm):
     class Meta:
-        model = Extension
-        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
+        model = ExtensionProxy
+        fields = '__all__'
 
-
-class ExtensionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        instance = kwargs.get('instance')
 
-        # Add translation fields dynamically
-        for lang_code, _ in settings.LANGUAGES:
-            for field_name in ExtensionTranslation.get_translatable_fields():
-                field_key = f'{field_name}_{lang_code}'
+        # Удаляем оригинальные поля модели
+        self.fields.pop('name', None)
+        self.fields.pop('translations', None)
 
-                # Set appropriate widget based on field type
-                widget = forms.Textarea if field_name in ['description', 'meta_description'] else forms.TextInput
+        # Динамически добавляем поля переводов
+        for lang_code, lang_name in settings.LANGUAGES:
+            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
+                field_name = f'{field}_{lang_code}'
+                self.fields[field_name] = self._create_translation_field(field, lang_code)
 
-                self.fields[field_key] = forms.CharField(
-                    required=False,
-                    widget=widget(),
-                    label=f"{field_name.replace('_', ' ').title()} ({lang_code.upper()})"
-                )
+    def _create_translation_field(self, field, lang_code):
+        return forms.CharField(
+            label=f"{field.capitalize()} ({lang_code.upper()})",
+            required=False,
+            widget=self._get_widget(field)
+        )
 
-                # Set initial values if instance exists
-                if instance:
-                    try:
-                        translation = instance.translations.get(language_code=lang_code)
-                        self.fields[field_key].initial = getattr(translation, field_name, '')
-                    except ExtensionTranslation.DoesNotExist:
-                        pass
-
-    class Meta:
-        model = Extension
-        fields = ['name', 'version', 'secret_key', 'trial_period_days', 'file']
+    def _get_widget(self, field):
+        return WysiwygWidget() if field in ['description', 'meta_description'] else forms.TextInput()
 
 
-@admin.register(Extension)
-class ExtensionAdmin(ModelAdmin):
-    form = ExtensionAdminForm
+@admin.register(ExtensionProxy)
+class ExtensionProxyAdmin(ModelAdmin):
+    form = ExtensionProxyForm
     list_display = ('name', 'version', 'trial_period_days')
 
     def get_fieldsets(self, request, obj=None):
-        # Base fieldset with model fields
         fieldsets = [
-            (_('Basic Information'), {
-                'fields': [
-                    'name', 'version', 'secret_key',
-                    'trial_period_days', 'file'
-                ]
-            })
+            (None, {
+                'fields': ['version', 'secret_key', 'trial_period_days', 'file']
+            }),
         ]
 
-        # Translation fieldsets
-        translation_groups = {
-            _('Names'): ['name'],
-            _('Titles'): ['title'],
-            _('Short Descriptions'): ['short_description'],
-            _('Descriptions'): ['description'],
-            _('Meta Descriptions'): ['meta_description']
-        }
-
-        for group_label, field_names in translation_groups.items():
-            translation_fields = []
-            for field_name in field_names:
-                translation_fields.extend([
-                    f'{field_name}_{lang_code}'
-                    for lang_code, _ in settings.LANGUAGES
-                ])
+        # Группировка по типам полей
+        for field_type in [
+            ('Name', 'name'),
+            ('Title', 'title'),
+            ('Short Description', 'short_description'),
+            ('Description', 'description'),
+            ('Meta Description', 'meta_description')
+        ]:
+            fields_group = []
+            for lang_code, lang_name in settings.LANGUAGES:
+                fields_group.append(f"{field_type[1]}_{lang_code}")
 
             fieldsets.append((
-                group_label,
+                field_type[0],
                 {
-                    'fields': translation_fields,
+                    'fields': fields_group,
                     'classes': ('collapse',)
                 }
             ))
 
         return fieldsets
-
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-
-        # Save translations
-        for lang_code, _ in settings.LANGUAGES:
-            translation_data = {}
-
-            for field_name in ExtensionTranslation.get_translatable_fields():
-                trans_field_name = f'{field_name}_{lang_code}'
-                value = form.cleaned_data.get(trans_field_name)
-                if value is not None:  # Allow empty strings but not None
-                    translation_data[field_name] = value
-
-            if translation_data:
-                ExtensionTranslation.objects.update_or_create(
-                    extension=obj,
-                    language_code=lang_code,
-                    defaults=translation_data
-                )
