@@ -1,55 +1,124 @@
-# forms.py
 from django import forms
+from django.forms import TextInput, Textarea
+from .models import ExtensionProxy
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
-
-from DjangoProjectStsnDev import settings
-from .models import ExtensionProxy
-
-
 class ExtensionProxyForm(forms.ModelForm):
+    name_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    description_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    short_description_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_en = forms.CharField(
+        label="EN",
+        required=False,
+        widget=WysiwygWidget
+    )
+
+    name_ru = forms.CharField(
+        label="RU",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    description_ru = forms.CharField(
+        label="RU",
+        required=False,
+        widget=WysiwygWidget
+    )
+    short_description_ru = forms.CharField(
+        label="RU",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_ru = forms.CharField(
+        label="RU",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_ru = forms.CharField(
+        label="RU",
+        required=False,
+        widget=WysiwygWidget
+    )
+
+    name_uk = forms.CharField(
+        label="UA",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    description_uk = forms.CharField(
+        label="UA",
+        required=False,
+        widget=WysiwygWidget
+    )
+    short_description_uk = forms.CharField(
+        label="UA",
+        required=False,
+        widget=WysiwygWidget
+    )
+    title_uk = forms.CharField(
+        label="UA",
+        required=False,
+        widget=UnfoldAdminTextInputWidget
+    )
+    meta_description_uk = forms.CharField(
+        label="UA",
+        required=False,
+        widget=WysiwygWidget
+    )
     class Meta:
         model = ExtensionProxy
         fields = ['name', 'version', 'secret_key', 'trial_period_days']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._create_translation_fields()
-        self._init_translations()
+        instance = kwargs.get('instance')
+        if instance:
+            self.fields['name_en'].initial = instance.get_translation('en').name if instance.get_translation('en') else ''
+            self.fields['description_en'].initial = instance.get_translation('en').description if instance.get_translation('en') else ''
+            self.fields['short_description_en'].initial = instance.get_translation('en').short_description if instance.get_translation('en') else ''
+            self.fields['title_en'].initial = instance.get_translation('en').title if instance.get_translation('en') else ''
+            self.fields['meta_description_en'].initial = instance.get_translation('en').meta_description if instance.get_translation('en') else ''
 
-    def _create_translation_fields(self):
-        for lang_code, lang_name in settings.LANGUAGES:
-            for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
-                self._add_field(lang_code, field)
+            self.fields['name_ru'].initial = instance.get_translation('ru').name if instance.get_translation('ru') else ''
+            self.fields['description_ru'].initial = instance.get_translation('ru').description if instance.get_translation('ru') else ''
+            self.fields['short_description_ru'].initial = instance.get_translation('ru').short_description if instance.get_translation('ru') else ''
+            self.fields['title_ru'].initial = instance.get_translation('ru').title if instance.get_translation('ru') else ''
+            self.fields['meta_description_ru'].initial = instance.get_translation('ru').meta_description if instance.get_translation('ru') else ''
 
-    def _add_field(self, lang_code, field_name):
-        field_id = f"{field_name}_{lang_code}"
-        self.fields[field_id] = forms.CharField(
-            label=f"{field_name.capitalize()} ({lang_code.upper()})",
-            required=False,
-            widget=self._get_widget(field_name)
-        )
-
-    def _get_widget(self, field_name):
-        return WysiwygWidget() if field_name in ['description', 'meta_description'] else UnfoldAdminTextInputWidget()
-
-    def _init_translations(self):
-        if self.instance.pk:
-            for lang_code, _ in settings.LANGUAGES:
-                if translation := self.instance.get_translation(lang_code):
-                    for field in ['name', 'title', 'short_description', 'description', 'meta_description']:
-                        self.fields[f"{field}_{lang_code}"].initial = getattr(translation, field)
+            self.fields['name_uk'].initial = instance.get_translation('uk').name if instance.get_translation('uk') else ''
+            self.fields['description_uk'].initial = instance.get_translation('uk').description if instance.get_translation('uk') else ''
+            self.fields['short_description_uk'].initial = instance.get_translation('uk').short_description if instance.get_translation('uk') else ''
+            self.fields['title_uk'].initial = instance.get_translation('ua').title if instance.get_translation('uk') else ''
+            self.fields['meta_description_uk'].initial = instance.get_translation('uk').meta_description if instance.get_translation('uk') else ''
 
     def save(self, commit=True):
-        instance = super().save(commit=commit)
-        if commit:
-            self._save_all_translations(instance)
-        return instance
+        # Сначала сохраняем основную модель Extension
+        instance = super().save(commit=False)
 
-    def _save_all_translations(self, instance):
-        for lang_code, _ in settings.LANGUAGES:
-            trans_data = {
-                field: self.cleaned_data.get(f"{field}_{lang_code}", "")
-                for field in ['name', 'title', 'short_description', 'description', 'meta_description']
-            }
-            instance.set_translation(lang_code, trans_data)
+        # Сохраняем основную модель, если commit=True
+        # if commit:
+        instance.save()
+
+        # Теперь выполняем сохранение переводов
+        instance.set_translation('en', 'name', self.cleaned_data['name_en'])
+        instance.set_translation('en', 'description', self.cleaned_data['description_en'])
+        instance.set_translation('ru', 'name', self.cleaned_data['name_ru'])
+        instance.set_translation('ru', 'description', self.cleaned_data['description_ru'])
+
+        return instance

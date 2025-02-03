@@ -39,24 +39,54 @@ class ExtensionTranslation(models.Model):
     meta_description = models.TextField(blank=True, null=True)
 
     class Meta:
-        unique_together = ('extension', 'language_code')
-        verbose_name = _('translation')
-        verbose_name_plural = _('translations')
+        verbose_name = 'Языковый перевод'
+        verbose_name_plural = 'Языковые переводы'
 
     def __str__(self):
-        return f"{self.extension.name} ({self.language_code})"
+        return self.name
 
-class ExtensionProxy(Extension):
+    @classmethod
+    def get_translatable_fields(cls):
+        return ['name', 'title', 'short_description', 'description', 'meta_description']
+
+
+class ExtensionProxyMeta(type):
+    def __new__(cls, name, bases, attrs):
+        new_class = super().__new__(cls, name, bases, attrs)
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in settings.LANGUAGES]
+
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                property_name = f"{field}_{lang_code}"
+
+                def getter(self, field=field, lang_code=lang_code):
+                    translation = self.get_translation(lang_code)
+                    return getattr(translation, field) if translation else None
+
+                setattr(new_class, property_name, property(getter))
+
+        return new_class
+
+class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
     class Meta:
         proxy = True
-        verbose_name = _('Extension with translations')
-        verbose_name_plural = _('Extensions with translations')
 
     def get_translation(self, language_code):
         return self.translations.filter(language_code=language_code).first()
 
-    def set_translation(self, language_code, data):
-        translation, created = self.translations.get_or_create(language_code=language_code)
-        for field, value in data.items():
+    def set_translation(self, language_code, field, value):
+        translation = self.get_translation(language_code)
+        if translation:
             setattr(translation, field, value)
-        translation.save()
+            translation.save()
+        else:
+            translation = self.translations.create(language_code=language_code)
+            setattr(translation, field, value)
+            translation.save()
+
+    @property
+    def description_current_language(self):
+        current_language = get_language()
+        translation = self.get_translation(current_language)
+        return translation.description if translation else None
