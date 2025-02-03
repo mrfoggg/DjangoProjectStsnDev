@@ -39,13 +39,24 @@ class ExtensionTranslation(models.Model):
     meta_description = models.TextField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Языковый перевод'
-        verbose_name_plural = 'Языковые переводы'
+        unique_together = ('extension', 'language_code')
+        verbose_name = _('translation')
+        verbose_name_plural = _('translations')
 
     def __str__(self):
-        return self.name
+        return f"{self.extension.name} ({self.language_code})"
 
-    @classmethod
-    def get_translatable_fields(cls):
-        return ['name', 'title', 'short_description', 'description', 'meta_description']
+class ExtensionProxy(Extension):
+    class Meta:
+        proxy = True
+        verbose_name = _('Extension with translations')
+        verbose_name_plural = _('Extensions with translations')
 
+    def get_translation(self, language_code):
+        return self.translations.filter(language_code=language_code).first()
+
+    def set_translation(self, language_code, data):
+        translation, created = self.translations.get_or_create(language_code=language_code)
+        for field, value in data.items():
+            setattr(translation, field, value)
+        translation.save()
