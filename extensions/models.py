@@ -115,6 +115,16 @@ class ExtensionProxy(Extension):
             translation = self.translations.create(language_code=language_code)
             setattr(translation, field, value)
             translation.save()
+
+
+
+
+
+
+
+
+
+
 #
 # class ExtensionProxy(Extension):
 #     class Meta:
