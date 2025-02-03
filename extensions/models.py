@@ -59,11 +59,24 @@ class ExtensionProxy(Extension):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Создание динамических свойств для каждого языка
+        # Создаем динамические свойства для каждого языка
         for lang in self.languages:
-            # Создаем и устанавливаем атрибуты для каждого языка
-            setattr(self, f"description_{lang}",
-                    self.get_translation(lang).description if self.get_translation(lang) else None)
+            # Создаем и добавляем геттер
+            def getter(self, lang=lang):
+                return self.get_translation(lang).description if self.get_translation(lang) else None
+
+            # Создаем и добавляем сеттер
+            def setter(self, value, lang=lang):
+                translation = self.get_translation(lang)
+                if translation:
+                    translation.description = value
+                    translation.save()
+                else:
+                    translation = self.translations.create(language_code=lang, description=value)
+                    translation.save()
+
+            # Добавляем property с геттером и сеттером
+            setattr(self.__class__, f"description_{lang}", property(getter, setter))
 
 
     # # Виртуальные поля для каждого языка
@@ -84,6 +97,8 @@ class ExtensionProxy(Extension):
     @property
     def description_ru(self):
         return self.get_translation('ru').description if self.get_translation('ru') else None
+
+
 
     def get_translation(self, language_code):
         """Возвращает перевод для заданного языка, если он существует."""
