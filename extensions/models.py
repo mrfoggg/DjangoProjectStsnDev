@@ -88,36 +88,36 @@ class ExtensionProxy(Extension):
 
     @property
     def short_description_ru(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-    @property
-    def title_ru(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-    @property
-    def meta_description_ru(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-
-    @property
-    def name_ua(self):
-        return self.get_translation('ru').name if self.get_translation('ru') else None
-
-    @property
-    def description_ua(self):
         return self.get_translation('ru').description if self.get_translation('ru') else None
 
     @property
-    def short_description_ua(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
+    def title_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
 
     @property
-    def title_ua(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
+    def meta_description_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
+
 
     @property
-    def meta_description_ua(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
+    def name_uk(self):
+        return self.get_translation('uk').name if self.get_translation('uk') else None
+
+    @property
+    def description_uk(self):
+        return self.get_translation('uk').description if self.get_translation('uk') else None
+
+    @property
+    def short_description_uk(self):
+        return self.get_translation('uk').description if self.get_translation('uk') else None
+
+    @property
+    def title_uk(self):
+        return self.get_translation('uk').description if self.get_translation('uk') else None
+
+    @property
+    def meta_description_uk(self):
+        return self.get_translation('uk').description if self.get_translation('uk') else None
 
     @property
     def description_current_language(self):

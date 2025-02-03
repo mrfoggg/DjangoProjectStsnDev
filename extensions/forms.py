@@ -101,11 +101,11 @@ class ExtensionProxyForm(forms.ModelForm):
             self.fields['title_ru'].initial = instance.get_translation('ru').title if instance.get_translation('ru') else ''
             self.fields['meta_description_ru'].initial = instance.get_translation('ru').meta_description if instance.get_translation('ru') else ''
 
-            self.fields['name_ua'].initial = instance.get_translation('ua').name if instance.get_translation('ua') else ''
-            self.fields['description_ua'].initial = instance.get_translation('ua').description if instance.get_translation('ua') else ''
-            self.fields['short_description_ua'].initial = instance.get_translation('ua').short_description if instance.get_translation('ua') else ''
-            self.fields['title_ua'].initial = instance.get_translation('ua').title if instance.get_translation('ua') else ''
-            self.fields['meta_description_ua'].initial = instance.get_translation('ua').meta_description if instance.get_translation('ua') else ''
+            self.fields['name_uk'].initial = instance.get_translation('uk').name if instance.get_translation('uk') else ''
+            self.fields['description_uk'].initial = instance.get_translation('uk').description if instance.get_translation('uk') else ''
+            self.fields['short_description_uk'].initial = instance.get_translation('uk').short_description if instance.get_translation('uk') else ''
+            self.fields['title_ua'].initial = instance.get_translation('ua').title if instance.get_translation('uk') else ''
+            self.fields['meta_description_uk'].initial = instance.get_translation('uk').meta_description if instance.get_translation('uk') else ''
 
     def save(self, commit=True):
         # Сначала сохраняем основную модель Extension

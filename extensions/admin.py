@@ -12,18 +12,18 @@ class ExtensionProxyAdmin(ModelAdmin):
             'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
         }),
         ("Название", {
-            'fields': ('name_en', 'name_ru', 'name_ua'),
+            'fields': ('name_en', 'name_ru', 'name_uk'),
         }),
         ("Заголовок", {
-            'fields': ('title_en', 'title_ru', 'title_ua'),
+            'fields': ('title_en', 'title_ru', 'title_uk'),
         }),
         ("Краткое описание", {
-            'fields': ('short_description_en', 'short_description_ru', 'short_description_ua'),
+            'fields': ('short_description_en', 'short_description_ru', 'short_description_uk'),
         }),
         ("Полное описание", {
-            'fields': ('description_en', 'description_ru', 'description_ua'),
+            'fields': ('description_en', 'description_ru', 'description_uk'),
         }),
         ("Поисковое описание", {
-            'fields': ('meta_description_en', 'meta_description_ru', 'meta_description_ua'),
+            'fields': ('meta_description_en', 'meta_description_ru', 'meta_description_uk'),
         }),
     )
