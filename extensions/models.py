@@ -93,41 +93,5 @@ class ExtensionProxy(Extension):
             translation.save()
 
 
-    # # Виртуальные поля для каждого языка
-    # @property
-    # def name_en(self):
-    #     return self.get_translation('en').name if self.get_translation('en') else None
-    #
-    # @property
-    # def description_en(self):
-    #     return self.get_translation('en').description if self.get_translation('en') else None
-
-
-
-    # @property
-    # def name_ru(self):
-    #     return self.get_translation('ru').name if self.get_translation('ru') else None
-    #
-    # @property
-    # def description_ru(self):
-    #     return self.get_translation('ru').description if self.get_translation('ru') else None
-
-
-
-    # def get_translation(self, language_code):
-    #     """Возвращает перевод для заданного языка, если он существует."""
-    #     return self.translations.filter(language_code=language_code).first()
-    #
-    # def set_translation(self, language_code, field, value):
-    #     """Добавляем метод для сохранения переводов"""
-    #     translation = self.get_translation(language_code)
-    #     if translation:
-    #         setattr(translation, field, value)
-    #         translation.save()
-    #     else:
-    #         # Если перевода нет, создаем новый
-    #         translation = self.translations.create(language_code=language_code)
-    #         setattr(translation, field, value)
-    #         translation.save()
 
 
