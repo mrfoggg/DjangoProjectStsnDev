@@ -54,7 +54,7 @@ class ExtensionTranslation(models.Model):
     def get_translatable_fields(cls):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
-extension = Extension.objects.get(id=1)
+# extension = Extension.objects.get(id=1)
 
 # Получение объекта перевода для текущего языка
 # translation = extension.current_lang_translation
