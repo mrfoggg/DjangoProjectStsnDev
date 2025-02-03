@@ -12,9 +12,9 @@ class ExtensionProxyAdmin(ModelAdmin):
             'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
         }),
         ("Название", {
-            'fields': ('name_en', 'name_ru'),
+            'fields': ('name_en', 'name_ru', 'name_ua'),
         }),
         ("Описание", {
-            'fields': ('description_en', 'description_ru'),
+            'fields': ('description_en', 'description_ru', 'description_ua'),
         }),
     )
