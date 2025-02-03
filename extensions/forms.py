@@ -9,7 +9,7 @@ class ExtensionProxyFormMeta(type(forms.ModelForm)):
     def __new__(cls, name, bases, attrs):
         new_class = super().__new__(cls, name, bases, attrs)
         translatable_fields = ExtensionTranslation.get_translatable_fields()
-        language_codes = [code for code, _ in ExtensionProxy.LANGUAGE_CHOICES]
+        language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
         for field in translatable_fields:
             for lang_code in language_codes:
@@ -35,7 +35,7 @@ class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
         instance = kwargs.get('instance')
         if instance:
             translatable_fields = ExtensionTranslation.get_translatable_fields()
-            language_codes = [code for code, _ in ExtensionProxy.LANGUAGE_CHOICES]
+            language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
             for field in translatable_fields:
                 for lang_code in language_codes:
@@ -50,7 +50,7 @@ class ExtensionProxyForm(forms.ModelForm, metaclass=ExtensionProxyFormMeta):
             instance.save()
 
         translatable_fields = ExtensionTranslation.get_translatable_fields()
-        language_codes = [code for code, _ in ExtensionProxy.LANGUAGE_CHOICES]
+        language_codes = [code for code, _ in ExtensionTranslation.LANGUAGE_CHOICES]
 
         for field in translatable_fields:
             for lang_code in language_codes:
