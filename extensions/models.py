@@ -1,5 +1,3 @@
-from functools import partial
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from DjangoProjectStsnDev import settings
@@ -56,41 +54,36 @@ class ExtensionProxy(Extension):
     class Meta:
         proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
 
-    # Список языков и атрибутов модели
-    languages = ['en', 'ru', 'fr']
-    attributes = ['name', 'description']
+    # Виртуальные поля для каждого языка
+    @property
+    def name_en(self):
+        return self.get_translation('en').name if self.get_translation('en') else None
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    @property
+    def description_en(self):
+        return self.get_translation('en').description if self.get_translation('en') else None
 
-        # Создаем динамические свойства для каждого языка и каждого атрибута
-        for lang in self.languages:
-            for attr in self.attributes:
-                # Создаем и добавляем геттер и сеттер для каждого языка и атрибута
-                def getter(self, lang=lang, attr=attr):
-                    translation = self.get_translation(lang)
-                    if translation:
-                        return getattr(translation, attr, None)
-                    return None
+    @property
+    def name_ru(self):
+        return self.get_translation('ru').name if self.get_translation('ru') else None
 
-                def setter(self, value, lang=lang, attr=attr):
-                    translation = self.get_translation(lang)
-                    if translation:
-                        setattr(translation, attr, value)
-                        translation.save()
-                    else:
-                        # Создаем новый перевод, если его нет
-                        translation = self.translations.create(language_code=lang, **{attr: value})
-                        translation.save()
-
-                # Добавляем свойства в класс для каждого языка и атрибута
-                setattr(self.__class__, f'{attr}_{lang}', property(lambda self, lang=lang, attr=attr: getter(self, lang, attr), lambda self, value, lang=lang, attr=attr: setter(self, value, lang, attr)))
+    @property
+    def description_ru(self):
+        return self.get_translation('ru').description if self.get_translation('ru') else None
 
     def get_translation(self, language_code):
         """Возвращает перевод для заданного языка, если он существует."""
         return self.translations.filter(language_code=language_code).first()
 
-
-
-
+    def set_translation(self, language_code, field, value):
+        """Добавляем метод для сохранения переводов"""
+        translation = self.get_translation(language_code)
+        if translation:
+            setattr(translation, field, value)
+            translation.save()
+        else:
+            # Если перевода нет, создаем новый
+            translation = self.translations.create(language_code=language_code)
+            setattr(translation, field, value)
+            translation.save()
 
