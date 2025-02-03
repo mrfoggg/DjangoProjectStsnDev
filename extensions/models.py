@@ -97,7 +97,7 @@ class ExtensionProxy(Extension):
         translations = {}
         for field in self._meta.get_fields():  # Получаем все поля модели
             # Исключаем поля language_code и extension (основные поля для перевода)
-            if field.name not in ['language_code', 'extension']:
+            if field.name not in ['language_code', 'extension', 'id']:
                 translations[field.name] = {
                     'en': getattr(self.get_translation('en'), field.name, None),
                     'ru': getattr(self.get_translation('ru'), field.name, None),
