@@ -2,24 +2,15 @@ from django.contrib import admin
 from unfold.admin import ModelAdmin
 
 from DjangoProjectStsnDev import settings
-from .models import ExtensionProxy, ExtensionTranslation
-from .forms import ExtensionProxyForm
+from .forms import ExtensionForm
+from .models import ExtensionTranslation, Extension
 from rich import  print, inspect
 
 
-@admin.register(ExtensionProxy)
-class ExtensionProxyAdmin(ModelAdmin):
-    form = ExtensionProxyForm
-    list_display = ('name', 'description_current_language')
-
-    # inspect(form, methods=True)
-
-
-    def get_form(self, request, obj=None, change=False, **kwargs):
-        print('LOCALS get_form - ', locals())
-        # kwargs['fields'].extend(['title_en', 'title_uk'])
-        return super(ExtensionProxyAdmin, self).get_form(request, obj, **kwargs)
-
+@admin.register(Extension)
+class ExtensionAdmin(ModelAdmin):
+    form = ExtensionForm
+    list_display = ('name', )
 
     def get_fieldsets(self, request, obj=None):
         print('LOCALS get_fieldsets - ', locals())

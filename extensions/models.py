@@ -42,32 +42,3 @@ class ExtensionTranslation(models.Model):
             field for field in cls._meta.fields
             if isinstance(field, (models.fields.CharField, models.fields.TextField)) and field.name != 'language_code'
         ]
-
-class ExtensionProxy(Extension):
-    class Meta:
-        proxy = True
-
-    def get_translation(self, language_code):
-
-        return self.translations.filter(language_code=language_code).first()
-
-    def set_translation(self, language_code, field, value):
-        translation = self.get_translation(language_code)
-        if translation:
-            setattr(translation, field, value)
-            translation.save()
-        else:
-            translation = self.translations.create(language_code=language_code)
-            setattr(translation, field, value)
-            translation.save()
-
-    @property
-    def description_current_language(self):
-        current_language = get_language()
-        translation = self.get_translation(current_language)
-        return translation.description if translation else None
-
-    # Возвращает объект перевода: ExtensionTranslation, который соответствует текущему языку.
-    @property
-    def current_lang_fields_translation(self):
-        return self.get_translation(get_language())
