@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import ModelBase
 from django.utils.translation import gettext_lazy as _
 from DjangoProjectStsnDev import settings
 from django.utils.translation import get_language
@@ -18,6 +19,11 @@ class Extension(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def current_lang_translation(self):
+        return self.translations.filter(language_code=get_language()).first()
+
 
 class ExtensionTranslation(models.Model):
     LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
@@ -50,101 +56,57 @@ class ExtensionTranslation(models.Model):
         return ['name', 'title', 'short_description', 'description', 'meta_description']
 
 
+class ExtensionProxyMeta(ModelBase):
+    def __new__(cls, name, bases, attrs):
+        new_class = super().__new__(cls, name, bases, attrs)
+        translatable_fields = ExtensionTranslation.get_translatable_fields()
+        language_codes = [code for code, _ in settings.LANGUAGES]
 
-class ExtensionProxy(Extension):
+        for field in translatable_fields:
+            for lang_code in language_codes:
+                property_name = f"{field}_{lang_code}"
+
+                def getter(self, field_name=field, lang=lang_code):
+                    translation = self.get_translation(lang)
+                    return getattr(translation, field_name) if translation else None
+
+                setattr(new_class, property_name, property(getter))
+
+        return new_class
+
+class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
     class Meta:
-        proxy = True  # Указываем, что модель будет прокси и не создаст новую таблицу
-
-    # Виртуальные поля для каждого языка
-    @property
-    def name_en(self):
-        return self.get_translation('en').name if self.get_translation('en') else None
-
-    @property
-    def description_en(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-    @property
-    def short_description_en(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-    @property
-    def title_en(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-    @property
-    def meta_description_en(self):
-        return self.get_translation('en').description if self.get_translation('en') else None
-
-
-
-    @property
-    def name_ru(self):
-        return self.get_translation('ru').name if self.get_translation('ru') else None
-
-    @property
-    def description_ru(self):
-        return self.get_translation('ru').description if self.get_translation('ru') else None
-
-    @property
-    def short_description_ru(self):
-        return self.get_translation('ru').description if self.get_translation('ru') else None
-
-    @property
-    def title_ru(self):
-        return self.get_translation('ru').description if self.get_translation('ru') else None
-
-    @property
-    def meta_description_ru(self):
-        return self.get_translation('ru').description if self.get_translation('ru') else None
-
-
-    @property
-    def name_uk(self):
-        return self.get_translation('uk').name if self.get_translation('uk') else None
-
-    @property
-    def description_uk(self):
-        return self.get_translation('uk').description if self.get_translation('uk') else None
-
-    @property
-    def short_description_uk(self):
-        return self.get_translation('uk').description if self.get_translation('uk') else None
-
-    @property
-    def title_uk(self):
-        return self.get_translation('uk').description if self.get_translation('uk') else None
-
-    @property
-    def meta_description_uk(self):
-        return self.get_translation('uk').description if self.get_translation('uk') else None
-
-    @property
-    def description_current_language(self):
-        """
-        Возвращает описание на текущем языке, если перевод существует.
-        """
-        current_language = get_language()  # Получаем текущий язык
-        translation = self.get_translation(current_language)
-        if translation:
-            return translation.description
-        return None
-
-
+        proxy = True
 
     def get_translation(self, language_code):
-        """Возвращает перевод для заданного языка, если он существует."""
         return self.translations.filter(language_code=language_code).first()
 
     def set_translation(self, language_code, field, value):
-        """Добавляем метод для сохранения переводов"""
         translation = self.get_translation(language_code)
         if translation:
             setattr(translation, field, value)
             translation.save()
         else:
-            # Если перевода нет, создаем новый
             translation = self.translations.create(language_code=language_code)
             setattr(translation, field, value)
             translation.save()
 
+    @property
+    def description_current_language(self):
+        current_language = get_language()
+        translation = self.get_translation(current_language)
+        return translation.description if translation else None
+
+    # Возвращает объект перевода: ExtensionTranslation, который соответствует текущему языку.
+    @property
+    def current_lang_fields_translation(self):
+        return self.get_translation(get_language())
+
+    # метод возвращает словарь, где ключи — это имена полей, а значения — это переводы этих полей
+    # @property
+    # def current_lang_fields_translation(self):
+    #     current_language = get_language()
+    #     translation = self.get_translation(current_language)
+    #     if translation:
+    #         return {field: getattr(translation, field) for field in ExtensionTranslation.get_translatable_fields()}
+    #     return {field: None for field in ExtensionTranslation.get_translatable_fields()}

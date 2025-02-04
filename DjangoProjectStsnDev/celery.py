@@ -4,9 +4,9 @@ import sqlite3
 from celery import Celery
 
 # Установите режим WAL для SQLite
-con = sqlite3.connect('/var/www/DjangoProjectStsnDev/celerydb.sqlite')
-con.execute('PRAGMA journal_mode=WAL;')
-con.close()
+# con = sqlite3.connect('/var/www/DjangoProjectStsnDev/celerydb.sqlite')
+# con.execute('PRAGMA journal_mode=WAL;')
+# con.close()
 
 # Установите настройки Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoProjectStsnDev.settings')
