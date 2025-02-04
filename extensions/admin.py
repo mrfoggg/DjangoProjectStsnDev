@@ -16,7 +16,7 @@ class ExtensionAdmin(ModelAdmin):
         print('LOCALS get_fieldsets - ', locals())
         fieldsets = [
             ("Основная информация", {
-                'fields': ('name', 'version', 'secret_key', 'trial_period_days'),
+                'fields': (('name', 'version'), ('secret_key', 'trial_period_days')),
             }),
         ]
 
