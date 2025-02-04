@@ -1,7 +1,5 @@
 from django.db import models
-from django.db.models.base import ModelBase
 from django.utils.translation import gettext_lazy as _
-from DjangoProjectStsnDev import settings
 from django.utils.translation import get_language
 
 
@@ -26,59 +24,31 @@ class Extension(models.Model):
 
 
 class ExtensionTranslation(models.Model):
-    LANGUAGE_CHOICES = [(code, name) for code, name in settings.LANGUAGES]
-    extension = models.ForeignKey(
-        Extension,
-        on_delete=models.CASCADE,
-        related_name='translations',
-        verbose_name=_('extension')
-    )
-    language_code = models.CharField(
-        max_length=10,
-        choices=LANGUAGE_CHOICES,
-        verbose_name=_('language_code')
-    )
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    short_description = models.CharField(max_length=255)
+    extension = models.ForeignKey('Extension', related_name='translations', on_delete=models.CASCADE)
+    language_code = models.CharField(max_length=15, db_index=True)
+    name = models.CharField(max_length=255, verbose_name='Название')
+    description = models.TextField()
+    short_description = models.TextField()
     title = models.CharField(max_length=255)
-    meta_description = models.TextField(blank=True, null=True)
+    meta_description = models.TextField()
 
     class Meta:
-        verbose_name = 'Языковый перевод'
-        verbose_name_plural = 'Языковые переводы'
-
-    def __str__(self):
-        return self.name
+        unique_together = ('extension', 'language_code')
 
     @classmethod
     def get_translatable_fields(cls):
-        return ['name', 'title', 'short_description', 'description', 'meta_description']
+        # Возвращает все поля типа CharField и TextField, исключая поле 'language_code'
+        return [
+            field for field in cls._meta.fields
+            if isinstance(field, (models.fields.CharField, models.fields.TextField)) and field.name != 'language_code'
+        ]
 
-
-class ExtensionProxyMeta(ModelBase):
-    def __new__(cls, name, bases, attrs):
-        new_class = super().__new__(cls, name, bases, attrs)
-        translatable_fields = ExtensionTranslation.get_translatable_fields()
-        language_codes = [code for code, _ in settings.LANGUAGES]
-
-        for field in translatable_fields:
-            for lang_code in language_codes:
-                property_name = f"{field}_{lang_code}"
-
-                def getter(self, field_name=field, lang=lang_code):
-                    translation = self.get_translation(lang)
-                    return getattr(translation, field_name) if translation else None
-
-                setattr(new_class, property_name, property(getter))
-
-        return new_class
-
-class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
+class ExtensionProxy(Extension):
     class Meta:
         proxy = True
 
     def get_translation(self, language_code):
+
         return self.translations.filter(language_code=language_code).first()
 
     def set_translation(self, language_code, field, value):
@@ -101,12 +71,3 @@ class ExtensionProxy(Extension, metaclass=ExtensionProxyMeta):
     @property
     def current_lang_fields_translation(self):
         return self.get_translation(get_language())
-
-    # метод возвращает словарь, где ключи — это имена полей, а значения — это переводы этих полей
-    # @property
-    # def current_lang_fields_translation(self):
-    #     current_language = get_language()
-    #     translation = self.get_translation(current_language)
-    #     if translation:
-    #         return {field: getattr(translation, field) for field in ExtensionTranslation.get_translatable_fields()}
-    #     return {field: None for field in ExtensionTranslation.get_translatable_fields()}
