@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block title %}
-    <title>Ожидание письма</title>
+    <title>{% trans "wait_email_title" %}</title>
 {% endblock %}
 
 {% block content %}
-  <p>Следуйте инструкциям в письме</p>
+  <p>{% trans "wait_email" %}</p>
 {% endblock %}

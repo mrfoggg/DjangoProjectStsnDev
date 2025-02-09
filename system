@@ -1,0 +1,40 @@
+[mbases -  (<class 'extensions.forms.ExtensionProxyForm'>,)
+[mATTRS -  {'Meta': <class 'django.forms.models.Meta'>, 'declared_fields': {}}
+[mname -  ExtensionProxyForm
+[mbases -  (<class 'django.forms.widgets.ExtensionProxyForm'>,)
+[m[04/Feb/2025 19:42:27] "GET /admin/extensions/extensionproxy/1/change/ HTTP/1.1" 200 139246
+[m[04/Feb/2025 19:42:27] "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[m^C[22;1;7m%[22;27m                                                                                                                                                                                    
+[m[38:5:76m❯[39m [32mpython[39m [4mmanage.py[24m runserver
+[mATTRS -  {'__module__': 'extensions.forms', '__qualname__': 'ExtensionProxyForm', '__firstlineno__': 30, 'test': 'jlkjlkjsdlkcs', 'Meta': <class 'extensions.forms.ExtensionProxyForm.M
+[meta'>, '__init__': <function ExtensionProxyForm.__init__ at 0x7fb24cb25580>, 'save': <function ExtensionProxyForm.save at 0x7fb24cb25620>, '__static_attributes__': (), '__classcell__'
+[m: <cell at 0x7fb24cb34340: CustomModelFormMeta object at 0x5641c8190910>, 'declared_fields': {'name_en': <django.forms.fields.CharField object at 0x7fb24cf62890>, 'description_en': <d
+[mjango.forms.fields.CharField object at 0x7fb24cf626d0>, 'short_description_en': <django.forms.fields.CharField object at 0x7fb24cf62430>, 'title_en': <django.forms.fields.CharField ob
+[mject at 0x7fb24cf625f0>, 'meta_description_en': <django.forms.fields.CharField object at 0x7fb24cf62b30>, 'name_ru': <django.forms.fields.CharField object at 0x7fb24cf62cf0>, 'descrip
+[mtion_ru': <django.forms.fields.CharField object at 0x7fb24cf62dd0>, 'short_description_ru': <django.forms.fields.CharField object at 0x7fb24cf62eb0>, 'title_ru': <django.forms.fields.
+[mCharField object at 0x7fb24cf62f90>, 'meta_description_ru': <django.forms.fields.CharField object at 0x7fb24cf63070>, 'name_uk': <django.forms.fields.CharField object at 0x7fb24cf6315
+[m0>, 'description_uk': <django.forms.fields.CharField object at 0x7fb24cf63230>, 'short_description_uk': <django.forms.fields.CharField object at 0x7fb24cf63310>, 'title_uk': <django.f
+[morms.fields.CharField object at 0x7fb24cf633f0>, 'meta_description_uk': <django.forms.fields.CharField object at 0x7fb24cf634d0>}}
+[mname -  ExtensionProxyForm
+[mbases -  (<class 'django.forms.models.ModelForm'>,)
+[mATTRS -  {'__module__': 'extensions.forms', '__qualname__': 'ExtensionProxyForm', '__firstlineno__': 30, 'test': 'jlkjlkjsdlkcs', 'Meta': <class 'extensions.forms.ExtensionProxyForm.M
+[meta'>, '__init__': <function ExtensionProxyForm.__init__ at 0x7fedad129580>, 'save': <function ExtensionProxyForm.save at 0x7fedad129620>, '__static_attributes__': (), '__classcell__'
+[m: <cell at 0x7fedad138130: CustomModelFormMeta object at 0x560419e9da50>, 'declared_fields': {'name_en': <django.forms.fields.CharField object at 0x7fedad566890>, 'description_en': <d
+[mjango.forms.fields.CharField object at 0x7fedad5666d0>, 'short_description_en': <django.forms.fields.CharField object at 0x7fedad566430>, 'title_en': <django.forms.fields.CharField ob
+[mject at 0x7fedad5665f0>, 'meta_description_en': <django.forms.fields.CharField object at 0x7fedad566b30>, 'name_ru': <django.forms.fields.CharField object at 0x7fedad566cf0>, 'descrip
+[mtion_ru': <django.forms.fields.CharField object at 0x7fedad566dd0>, 'short_description_ru': <django.forms.fields.CharField object at 0x7fedad566eb0>, 'title_ru': <django.forms.fields.
+[mCharField object at 0x7fedad566f90>, 'meta_description_ru': <django.forms.fields.CharField object at 0x7fedad567070>, 'name_uk': <django.forms.fields.CharField object at 0x7fedad56715
+[m0>, 'description_uk': <django.forms.fields.CharField object at 0x7fedad567230>, 'short_description_uk': <django.forms.fields.CharField object at 0x7fedad567310>, 'title_uk': <django.f
+[morms.fields.CharField object at 0x7fedad5673f0>, 'meta_description_uk': <django.forms.fields.CharField object at 0x7fedad5674d0>}}
+[mname -  ExtensionProxyForm
+[mbases -  (<class 'django.forms.models.ModelForm'>,)
+[mWatching for file changes with StatReloader
+[mPerforming system checks...
+
+[mSystem check identified no issues (0 silenced).
+[mFebruary 04, 2025 - 19:42:49
+[mDjango version 5.1.5, using settings 'DjangoProjectStsnDev.settings'
+[mStarting development server at http://127.0.0.1:8000/
+[mQuit the server with CONTROL-C.
+
+[m:

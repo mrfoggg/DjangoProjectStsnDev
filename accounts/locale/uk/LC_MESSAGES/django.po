@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-08 13:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+#: accounts/forms.py:10 accounts/forms.py:19
+msgid "email_placeholder"
+msgstr "Введіть Email"
+
+#: accounts/forms.py:17
+msgid "email_label"
+msgstr "Ваш Email"
+
+#: accounts/forms.py:23
+msgid "password_label"
+msgstr "Пароль"
+
+#: accounts/forms.py:25 accounts/forms.py:35
+msgid "password_placeholder"
+msgstr "Введіть пароль"
+
+#: accounts/forms.py:37
+msgid "password2_placeholder"
+msgstr "Повторіть пароль"
+
+#: accounts/templates/cabinet.html:5
+msgid "cabinet_title"
+msgstr "Особистий кабінет"
+
+#: accounts/templates/cabinet.html:13
+msgid "personal_info"
+msgstr "Персональні дані"
+
+#: accounts/templates/cabinet.html:14
+msgid "my_orders"
+msgstr "Мої замовлення"
+
+#: accounts/templates/cabinet.html:15
+msgid "my_licenses"
+msgstr "Тестові ліцензії"
+
+#: accounts/templates/cabinet.html:16
+msgid "password_change"
+msgstr "Зміна пароля"
+
+#: accounts/templates/cabinet.html:21
+msgid "logout"
+msgstr "Вийти"
+
+#: accounts/templates/cabinet.html:35
+#: accounts/templates/custom_set_password.html:52
+msgid "not_authorized"
+msgstr "Ви не авторизовані"
+
+#: accounts/templates/cabinet.html:36
+#: accounts/templates/custom_set_password.html:53
+msgid "login"
+msgstr "Увійти"
+
+#: accounts/templates/cabinet.html:37 accounts/templates/custom_login.html:29
+#: accounts/templates/custom_set_password.html:54
+msgid "register"
+msgstr "Зареєструватися"
+
+#: accounts/templates/client_logged_out.html:4
+msgid "logout_title"
+msgstr "Ви вийшли з акаунта"
+
+#: accounts/templates/client_logged_out.html:8
+msgid "logout_success"
+msgstr "Ви вийшли з акаунта"
+
+#: accounts/templates/client_logged_out.html:9
+msgid "login_again"
+msgstr "Увійти знову"
+
+#: accounts/templates/custom_login.html:4
+msgid "authorization_title"
+msgstr "Вхід в обліковий запис"
+
+#: accounts/templates/custom_login.html:9
+msgid "email_password_authorization"
+msgstr "Вхід за паролем"
+
+#: accounts/templates/custom_login.html:19
+#: accounts/templates/email_registration.html:17
+msgid "looks_good"
+msgstr "Виглядає вірно"
+
+#: accounts/templates/custom_login.html:20
+#: accounts/templates/email_registration.html:20
+msgid "provide_valid_email"
+msgstr "Вкажіть коректну електронну пошту"
+
+#: accounts/templates/custom_login.html:25
+msgid "provide_valid_password"
+msgstr "Вкажіть пароль"
+
+#: accounts/templates/custom_login.html:28
+msgid "confirm_login"
+msgstr "Підтвердити вхід"
+
+#: accounts/templates/custom_set_password.html:4
+msgid "set_password_title"
+msgstr "Встановлення пароля"
+
+#: accounts/templates/custom_set_password.html:9
+msgid "please_create_password"
+msgstr "Будь ласка, створіть новий пароль для вашого акаунта"
+
+#: accounts/templates/custom_set_password.html:16
+msgid "set_password_form_error"
+msgstr "Помилка при встановленні пароля"
+
+#: accounts/templates/custom_set_password.html:44
+msgid "set_password"
+msgstr "Встановити пароль"
+
+#: accounts/templates/custom_set_password.html:48
+#: accounts/templates/email_registration.html:30
+msgid "already_register"
+msgstr "Вже зареєстровані?"
+
+#: accounts/templates/email_registration.html:4
+msgid "registration_title"
+msgstr "Реєстрація"
+
+#: accounts/templates/email_registration.html:10
+msgid "email_entry"
+msgstr "Введення Email для реєстрації"
+
+#: accounts/templates/email_registration.html:29
+msgid "send"
+msgstr "Відправити"
+
+#: accounts/templates/email_verification_sent_success.html:4
+msgid "wait_email_title"
+msgstr "Лист надіслано"
+
+#: accounts/templates/email_verification_sent_success.html:8
+msgid "wait_email"
+msgstr "Слідуйте інструкціям в листі"
+
+#: accounts/views.py:19
+msgid "csrf_failure"
+msgstr "Термін дії CSRF-токена минув. Спробуйте ще раз."
+
+#: accounts/views.py:40
+msgid "email_not_registered"
+msgstr "Електронна пошта не зареєстрована"
+
+#: accounts/views.py:42
+msgid "wrong_password"
+msgstr "Невірний пароль"
+
+#: accounts/views.py:45
+msgid "password_not_set"
+msgstr "Пароль не встановлено"
+
+#: accounts/views.py:47
+msgid "please_enter_valid_data"
+msgstr "Будь ласка, введіть коректні дані"
+
+#: accounts/views.py:70
+msgid ""
+"Этот адрес электронной почты уже зарегистрирован. Пожалуйста, <a "
+"href=\"{}\">войдите в аккаунт</a> или укажите другой email."
+msgstr ""
+"Ця електронна пошта вже зареєстрована. Будь ласка, <a "
+"href=\"{}\">увійдіть в акаунт</a> або вкажіть інший email."
+
+#: accounts/views.py:87
+msgid "Для активации аккаунта перейдите по следующей ссылке: {}"
+msgstr "Для активації акаунта перейдіть за наступним посиланням: {}"
+
+#: accounts/views.py:93
+msgid "Ошибка при отправке письма. Попробуйте снова."
+msgstr "Помилка при відправці листа. Спробуйте ще раз."
+
+#: accounts/views.py:101 accounts/views.py:169
+msgid "Ошибка в поле '{}': {}"
+msgstr "Помилка в полі '{}': {}"
+
+#: accounts/views.py:108
+msgid ""
+"Вам отправлено письмо со ссылкой на страницу активации аккаунта. Ссылка "
+"действительна {} минут."
+msgstr ""
+"Вам надіслано лист з посиланням на сторінку активації акаунта. Посилання "
+"дійсне {} хвилин."
+
+#: accounts/views.py:121
+msgid "Ваш аккаунт уже активирован и пароль установлен."
+msgstr "Ваш акаунт вже активований і пароль встановлений."
+
+#: accounts/views.py:124
+msgid "Ваш аккаунт активен, но вы еще не установили пароль."
+msgstr "Ваш акаунт активний, але ви ще не встановили пароль."
+
+#: accounts/views.py:131
+msgid "Ссылка для активации недействительна или срок ее действия истек."
+msgstr "Посилання для активації недійсне або термін його дії минув."
+
+#: accounts/views.py:144
+msgid "Вы успешно подтвердили почту, но еще не установили пароль."
+msgstr "Ви успішно підтвердили пошту, але ще не встановили пароль."
+
+#: accounts/views.py:148
+msgid "Ссылка для активации недействительна."
+msgstr "Посилання для активації недійсне."
+
+#: accounts/views.py:155
+msgid "Для получения ссылки на установку пароля введите ваш Email."
+msgstr "Для отримання посилання на встановлення пароля введіть ваш Email."
+
+#: accounts/views.py:163
+msgid "Пароль успешно установлен!"
+msgstr "Пароль успішно встановлено!"
+
+#: accounts/views.py:176
+msgid "Пароль уже был установлен"
+msgstr "Пароль вже був встановлений"

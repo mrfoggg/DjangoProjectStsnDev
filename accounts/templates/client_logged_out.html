@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block title %}
-    <title>Страница выхода</title>
+    <title>{% trans "logout_title" %}</title>
 {% endblock %}
 
 {% block content %}
-  <p>Logged out!</p>
-  <a href="{% url 'client_login'%}">Click here to login again.</a>
+  <h3>{% trans "logout_success" %}</h3>
+  <a href="{% url 'client_login'%}">{% trans "login_again" %}</a>
 {% endblock %}

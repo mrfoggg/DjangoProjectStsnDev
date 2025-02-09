@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.conf.global_settings import STORAGES
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django.contrib.postgres',
+    'sass_processor',
     'orders.apps.OrdersConfig',
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
@@ -88,6 +90,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_filters': 'template_library.custom_filters',  # Указываем путь к файлу
+            },
+            # 'builtins': {
+            #     'template_library.custom_filters.add_class',  # Указываем путь к файлу
+            # },
+
         },
     },
 ]
@@ -169,18 +178,36 @@ LOCALE_PATHS = [
 ]
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-# STATIC_URL = 'stsn_dev/static/'
-# STATIC_ROOT = '/home/h68663c/public_html/stsn_dev/static'
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR.parent / 'static'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # Папка для статических файлов
+    BASE_DIR / 'static/compiled_sass',  # Папка для скомпилированных файлов
+]
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = '/home/h68663c/public_html/stsn_dev/media'
-MEDIA_ROOT = '/var/www/media/'
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+SASS_PROCESSOR_ENABLED = True
+
+# SASS_PROCESSOR_ROOT = BASE_DIR / 'static/css'
+
+STORAGES['sass_processor'] = {
+    'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    'OPTIONS': {
+        'location': BASE_DIR / 'static/compiled_sass',  # Папка для скомпилированных CSS файлов
+        'base_url': '/static',  # URL, по которому файлы будут доступны
+    },
+}
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -194,7 +221,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'  # База данных 0 для Celery
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # База данных 0 для результатов
 
-
+CSRF_FAILURE_VIEW = "accounts.views.custom_csrf_failure"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.stsn-dev.kyiv.ua'
@@ -253,3 +280,5 @@ UNFOLD = {
         "dark": lambda request: static("admin/icons/stsn-icon.svg"),  # dark mode
     },
 }
+LANGUAGE_COOKIE_SECURE = True
+# LANGUAGE_COOKIE_SAMESITE = True

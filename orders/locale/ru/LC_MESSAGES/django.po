@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 11:51+0200\n"
+"POT-Creation-Date: 2025-02-07 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,154 +19,152 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: orders/models.py:13 orders/models.py:27
+
+#: orders/models.py:15 orders/models.py:29
 msgid "nickname"
 msgstr "Ник на форуме"
 
-#: orders/models.py:14 orders/models.py:28
+#: orders/models.py:16 orders/models.py:30
 msgid "email"
 msgstr "Электронная почта"
 
-#: orders/models.py:15
+#: orders/models.py:17
 msgid "user_link"
 msgstr "Ссылка нп профиль покупателя"
 
-#: orders/models.py:18
+#: orders/models.py:20
 msgid "forum_user"
 msgstr "Пользователь форума"
 
-#: orders/models.py:19
+#: orders/models.py:21
 msgid "forum_users"
 msgstr "Пользователи форума"
 
-#: orders/models.py:29
+#: orders/models.py:31
 msgid "developer_link"
 msgstr "Ссылка на профиль разработчика"
 
-#: orders/models.py:30
+#: orders/models.py:32
 msgid "credits"
 msgstr "Баланс"
 
-#: orders/models.py:33
+#: orders/models.py:35
 msgid "developer_account"
 msgstr "Профиль разработчика"
 
-#: orders/models.py:34
+#: orders/models.py:36
 msgid "developer_accounts"
 msgstr "Профили разработчиков"
 
-#: orders/models.py:42
-msgid "extension_name"
-msgstr "Название"
-
-#: orders/models.py:44
-msgid "secret_key"
-msgstr "Секретный ключ"
-
-#: orders/models.py:47 orders/models.py:77
-msgid "extension"
-msgstr "Расширение"
-
-#: orders/models.py:48
-msgid "extensions"
-msgstr "Расширения"
-
-#: orders/models.py:56
+#: orders/models.py:45
 msgid "file_name"
 msgstr "Название"
 
-#: orders/models.py:57
+#: orders/models.py:46
 msgid "file_link"
 msgstr "Ссылка на файл форума"
 
-#: orders/models.py:58
+#: orders/models.py:47
 msgid "developer"
 msgstr "Разработчик"
 
-#: orders/models.py:61 orders/models.py:107
+#: orders/models.py:50 orders/models.py:96
 msgid "forum_file"
 msgstr "Файл форума"
 
-#: orders/models.py:62
+#: orders/models.py:51
 msgid "forum_files"
 msgstr "Файлы форума"
 
-#: orders/models.py:75
+#: orders/models.py:64
 msgid "no_match"
 msgstr "нет соответствий"
 
-#: orders/models.py:82
+#: orders/models.py:66
+msgid "extension"
+msgstr "Расширение"
+
+#: orders/models.py:71
 msgid "new"
 msgstr "Новый"
 
-#: orders/models.py:83
+#: orders/models.py:72
 msgid "processing"
 msgstr "Обрабатывается"
 
-#: orders/models.py:84
+#: orders/models.py:73
 msgid "processed"
 msgstr "Обработан"
 
-#: orders/models.py:85
+#: orders/models.py:74
 msgid "email_sent"
 msgstr "Письмо отправлено"
 
-#: orders/models.py:86
+#: orders/models.py:75
 msgid "email_failed"
 msgstr "Ошибка отправки письма"
 
-#: orders/models.py:90
+#: orders/models.py:79
 msgid "purchase_date"
 msgstr "Дата покупки"
 
-#: orders/models.py:91
+#: orders/models.py:80
 msgid "currency"
 msgstr "Валюта"
 
-#: orders/models.py:92
+#: orders/models.py:81
 msgid "total_amount"
 msgstr "Итого"
 
-#: orders/models.py:93
+#: orders/models.py:82
 msgid "commission"
 msgstr "Комисиия"
 
-#: orders/models.py:94
+#: orders/models.py:83
 msgid "customer"
 msgstr "Пользователь"
 
-#: orders/models.py:95
+#: orders/models.py:84
 msgid "order_status"
 msgstr "Статус заказа"
 
-#: orders/models.py:98 orders/models.py:106
+#: orders/models.py:87 orders/models.py:95
 msgid "order"
 msgstr "Заказ"
 
-#: orders/models.py:99
+#: orders/models.py:88
 msgid "orders"
 msgstr "Заказы"
 
-#: orders/models.py:109
+#: orders/models.py:98
 msgid "domain"
 msgstr "Домен"
 
-#: orders/models.py:110
+#: orders/models.py:99
 msgid "test_domain"
 msgstr "Тестовый домен"
 
-#: orders/models.py:112
+#: orders/models.py:101
 msgid "domain_license"
 msgstr "Лицензионный ключ"
 
-#: orders/models.py:113
+#: orders/models.py:102
 msgid "test_domain_license"
 msgstr "Лицензионный ключ для тестового домена"
 
-#: orders/models.py:117
+#: orders/models.py:106
 msgid "order_file"
 msgstr "Файл в заказе"
 
-#: orders/models.py:118
+#: orders/models.py:107
 msgid "order_files"
 msgstr "Файлы в заказе"
+
+#~ msgid "extension_name"
+#~ msgstr "Название"
+
+#~ msgid "secret_key"
+#~ msgstr "Секретный ключ"
+
+#~ msgid "extensions"
+#~ msgstr "Расширения"

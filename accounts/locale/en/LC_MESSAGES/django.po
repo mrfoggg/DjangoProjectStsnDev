@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-08 13:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: accounts/forms.py:10 accounts/forms.py:19
+msgid "email_placeholder"
+msgstr "Enter Email"
+
+#: accounts/forms.py:17
+msgid "email_label_"
+msgstr "Your Email--"
+
+#: accounts/forms.py:23
+msgid "password_label"
+msgstr "Password"
+
+#: accounts/forms.py:25 accounts/forms.py:35
+msgid "password_placeholder"
+msgstr "Enter password"
+
+#: accounts/forms.py:37
+msgid "password2_placeholder"
+msgstr "Confirm password"
+
+#: accounts/templates/cabinet.html:5
+msgid "cabinet_title"
+msgstr "Personal Cabinet"
+
+#: accounts/templates/cabinet.html:13
+msgid "personal_info"
+msgstr "Personal Information"
+
+#: accounts/templates/cabinet.html:14
+msgid "my_orders"
+msgstr "My Orders"
+
+#: accounts/templates/cabinet.html:15
+msgid "my_licenses"
+msgstr "Test Licenses"
+
+#: accounts/templates/cabinet.html:16
+msgid "password_change"
+msgstr "Change Password"
+
+#: accounts/templates/cabinet.html:21
+msgid "logout"
+msgstr "Log Out"
+
+#: accounts/templates/cabinet.html:35
+#: accounts/templates/custom_set_password.html:52
+msgid "not_authorized"
+msgstr "You are not authorized"
+
+#: accounts/templates/cabinet.html:36
+#: accounts/templates/custom_set_password.html:53
+msgid "login"
+msgstr "Log In"
+
+#: accounts/templates/cabinet.html:37 accounts/templates/custom_login.html:29
+#: accounts/templates/custom_set_password.html:54
+msgid "register"
+msgstr "Register"
+
+#: accounts/templates/client_logged_out.html:4
+msgid "logout_title"
+msgstr "You have logged out"
+
+#: accounts/templates/client_logged_out.html:8
+msgid "logout_success"
+msgstr "You have successfully logged out"
+
+#: accounts/templates/client_logged_out.html:9
+msgid "login_again"
+msgstr "Log in again"
+
+#: accounts/templates/custom_login.html:4
+msgid "authorization_title"
+msgstr "Sign In to Your Account"
+
+#: accounts/templates/custom_login.html:9
+msgid "email_password_authorization"
+msgstr "Sign in with your password"
+
+#: accounts/templates/custom_login.html:19
+#: accounts/templates/email_registration.html:17
+msgid "looks_good"
+msgstr "Looks good"
+
+#: accounts/templates/custom_login.html:20
+#: accounts/templates/email_registration.html:20
+msgid "provide_valid_email"
+msgstr "Please provide a valid email address"
+
+#: accounts/templates/custom_login.html:25
+msgid "provide_valid_password"
+msgstr "Please provide a valid password"
+
+#: accounts/templates/custom_login.html:28
+msgid "confirm_login"
+msgstr "Confirm login"
+
+#: accounts/templates/custom_set_password.html:4
+msgid "set_password_title"
+msgstr "Set Password"
+
+#: accounts/templates/custom_set_password.html:9
+msgid "please_create_password"
+msgstr "Please create a new password for your account"
+
+#: accounts/templates/custom_set_password.html:16
+msgid "set_password_form_error"
+msgstr "Error setting password"
+
+#: accounts/templates/custom_set_password.html:44
+msgid "set_password"
+msgstr "Set Password"
+
+#: accounts/templates/custom_set_password.html:48
+#: accounts/templates/email_registration.html:30
+msgid "already_register"
+msgstr "Already registered?"
+
+#: accounts/templates/email_registration.html:4
+msgid "registration_title"
+msgstr "Registration"
+
+#: accounts/templates/email_registration.html:10
+msgid "email_entry"
+msgstr "Enter Email to Register"
+
+#: accounts/templates/email_registration.html:29
+msgid "send"
+msgstr "Send"
+
+#: accounts/templates/email_verification_sent_success.html:4
+msgid "wait_email_title"
+msgstr "Email Sent"
+
+#: accounts/templates/email_verification_sent_success.html:8
+msgid "wait_email"
+msgstr "Follow the instructions in the email"
+
+#: accounts/views.py:19
+msgid "csrf_failure"
+msgstr "CSRF token expired. Please try again."
+
+#: accounts/views.py:40
+msgid "email_not_registered"
+msgstr "This email address is already registered. Please <a href=\"{}\">log in</a> or provide a different email."
+
+#: accounts/views.py:42
+msgid "wrong_password"
+msgstr "Incorrect password"
+
+#: accounts/views.py:45
+msgid "password_not_set"
+msgstr "Password not set"
+
+#: accounts/views.py:47
+msgid "please_enter_valid_data"
+msgstr "Please enter valid data"
+
+#: accounts/views.py:70
+msgid ""
+"This email address is already registered. Please <a "
+"href=\"{}\">log in</a> or provide a different email."
+msgstr "This email address is already registered. Please <a href=\"{}\">log in</a> or provide a different email."
+
+#: accounts/views.py:87
+msgid "Для активации аккаунта перейдите по следующей ссылке: {}"
+msgstr "To activate your account, click the following link: {}"
+
+#: accounts/views.py:93
+msgid "Ошибка при отправке письма. Попробуйте снова."
+msgstr "Error sending email. Please try again."
+
+#: accounts/views.py:101 accounts/views.py:169
+msgid "Ошибка в поле '{}': {}"
+msgstr "Error in field '{}': {}"
+
+#: accounts/views.py:108
+msgid ""
+"You have been sent an email with an activation link. The link is valid for {} minutes."
+msgstr "You have been sent an email with an activation link. The link is valid for {} minutes."
+
+#: accounts/views.py:121
+msgid "Ваш аккаунт уже активирован и пароль установлен."
+msgstr "Your account is already activated and the password is set."
+
+#: accounts/views.py:124
+msgid "Ваш аккаунт активен, но вы еще не установили пароль."
+msgstr "Your account is active, but you have not set a password yet."
+
+#: accounts/views.py:131
+msgid "Ссылка для активации недействительна или срок ее действия истек."
+msgstr "The activation link is invalid or has expired."
+
+#: accounts/views.py:144
+msgid "Вы успешно подтвердили почту, но еще не установили пароль."
+msgstr "You have successfully confirmed your email, but have not set a password yet."
+
+#: accounts/views.py:148
+msgid "Ссылка для активации недействительна."
+msgstr "The activation link is invalid."
+
+#: accounts/views.py:155
+msgid "Для получения ссылки на установку пароля введите ваш Email."
+msgstr "Enter your email to receive the password reset link."
+
+#: accounts/views.py:163
+msgid "Пароль успешно установлен!"
+msgstr "Password successfully set!"
+
+#: accounts/views.py:176
+msgid "Пароль уже был установлен"
+msgstr "The password has already been set"

@@ -1,8 +1,7 @@
-<!-- main/templates/main/header.html -->
 {% load static %}
 {% load i18n %}
 
-<header class="bg-light p-3">
+<header>
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
         <a href="{% url 'home' %}">
             <img src="{% static 'icons/stsn_dev_logo.svg' %}" alt="Logo" height="70" class="mb-3 mb-md-0">
@@ -23,12 +22,14 @@
             <a href="{% url 'cabinet' %}" class="mx-4">
                 <img src="{% static user.is_authenticated|yesno:'icons/user.svg,icons/register.svg' %}" class="border-start border-end px-3" alt="{{ user.is_authenticated|yesno:'user,login or register' }}" height="40">
             </a>
-            <div style="display: flex; flex-direction: column;">
-{#              <span class="fw-light">ua</span>#}
-{#              <span class="fw-bold text-decoration-underline">ru</span>#}
-{#              <span class="fw-light">en</span>#}
-                <form action="{% url 'set_language' %}" method="post" id="language-form">{% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}">
+
+            <div class="d-flex flex-column">
+                <form action="{% url 'set_language' %}" method="post" id="language-form">
+                    {% csrf_token %}
+
+                    <input id="language-input" name="language" type="hidden" value="">
+                    <input id="next-input" name="next" type="hidden" value="">
+
                     <div class="language-selector">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
@@ -41,50 +42,10 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <input type="submit" style="display:none" id="submit-button">
                 </form>
             </div>
+
         </div>
     </div>
 </header>
 
-<style>
-    .language-option {
-        cursor: pointer;
-        padding: 0 6px;
-        transition: background-color 0.3s ease;
-    }
-
-    .language-option:hover {
-        background-color: #f0f0f0;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Получаем все элементы языка
-        const languageOptions = document.querySelectorAll('.language-option');
-        const languageForm = document.getElementById('language-form');
-        const submitButton = document.getElementById('submit-button');
-
-        // Для каждого элемента языка добавляем обработчик клика
-        languageOptions.forEach(function(option) {
-            option.addEventListener('click', function(event) {
-                event.preventDefault();  // Предотвращаем стандартное поведение ссылки
-
-                // Получаем выбранный язык из атрибута data-language
-                const selectedLanguage = option.getAttribute('data-language');
-
-                // Создаем скрытое поле для выбранного языка и добавляем в форму
-                let languageInput = document.createElement('input');
-                languageInput.type = 'hidden';
-                languageInput.name = 'language';
-                languageInput.value = selectedLanguage;
-                languageForm.appendChild(languageInput);
-
-                // Отправляем форму
-                languageForm.submit();
-            });
-        });
-    });
-</script>

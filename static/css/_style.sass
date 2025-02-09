@@ -1,0 +1,118 @@
+$border-color: #cbd1d5
+$content-background: #f8f8f8
+
+html, body
+    height: 100%
+    margin: 0
+
+.wrapper
+    display: flex
+    flex-direction: column
+    min-height: 100%
+    background-color: #f1f1f1
+
+header
+    background-color: #c8c7c7
+    padding: .5rem 0
+    border-bottom: 3px solid #2F476F
+    .language-option
+        cursor: pointer
+        padding: 0 6px
+        transition: background-color 0.3s ease
+
+        &:hover
+            background-color: #f0f0f0
+
+footer
+    background-color: #7CB4E3
+    padding: 10px
+    text-align: center
+    width: 100%
+
+.content
+    flex: 1
+    display: flex
+    padding: .5rem
+    margin: .5rem
+
+    > .container
+        background-color: white
+        //display: flex
+        //align-items: flex-start
+        padding: 1rem
+
+
+.home
+    &-header
+        border: 1px solid $border-color
+        padding: 1rem 2rem
+        margin-bottom: 2rem
+        font-style: italic
+
+        p:last-child
+            margin-bottom: 0.25rem
+
+    //&-container
+    //    margin: 0 1rem
+
+
+.card
+    &-header
+        font-weight: bold
+
+    &-footer
+        display: flex
+        justify-content: space-between
+
+
+.user-content
+    display: flex
+    height: 100%
+
+    .nav
+        display: flex
+        height: 100%
+        width: 17rem
+
+        &-link
+            background-color: white!important
+            border-right: 1px solid $border-color
+            cursor: pointer
+            padding: 1rem
+            font-size: 1.25rem
+
+            &.active
+                border-top: 1px solid $border-color
+                border-bottom: 1px solid $border-color
+                border-right: none
+                color: #1a1d20
+                text-decoration: underline
+                font-weight: bold
+                background-color: $content-background!important
+
+        &-user
+            border-right: 1px solid $border-color
+            //border-top: 1px solid $border-color
+            padding-top: 1rem
+
+            img
+                margin: 1rem
+                padding: 1rem
+                border: 2px solid #7CB4E3
+                border-radius: 50%
+                width: 7rem
+
+            span
+                padding-bottom: 3rem
+                font-weight: bold
+                word-wrap: anywhere
+
+            form
+                margin-top: 1rem
+
+    .tab-content
+        flex-grow: 1
+        height: 100%
+        width: auto
+        padding: 2rem
+        background-color: $content-background

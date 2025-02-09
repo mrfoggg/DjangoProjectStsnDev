@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-08 13:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: accounts/forms.py:10 accounts/forms.py:19
+msgid "email_placeholder"
+msgstr "Введите Email"
+
+#: accounts/forms.py:17
+msgid "email_label"
+msgstr "Ваш Email чик"
+
+#: accounts/forms.py:23
+msgid "password_label"
+msgstr "Пароль"
+
+#: accounts/forms.py:25 accounts/forms.py:35
+msgid "password_placeholder"
+msgstr "Введите пароль"
+
+#: accounts/forms.py:37
+msgid "password2_placeholder"
+msgstr "Повторите пароль"
+
+#: accounts/templates/cabinet.html:5
+msgid "cabinet_title"
+msgstr "Личный кабинет"
+
+#: accounts/templates/cabinet.html:13
+msgid "personal_info"
+msgstr "Персональные данные"
+
+#: accounts/templates/cabinet.html:14
+msgid "my_orders"
+msgstr "Мои заказы"
+
+#: accounts/templates/cabinet.html:15
+msgid "my_licenses"
+msgstr "Тестовые лицензии"
+
+#: accounts/templates/cabinet.html:16
+msgid "password_change"
+msgstr "Смена пароля"
+
+#: accounts/templates/cabinet.html:21
+msgid "logout"
+msgstr "Выйти"
+
+#: accounts/templates/cabinet.html:35
+#: accounts/templates/custom_set_password.html:52
+msgid "not_authorized"
+msgstr "Вы не авторизованы"
+
+#: accounts/templates/cabinet.html:36
+#: accounts/templates/custom_set_password.html:53
+msgid "login"
+msgstr "Войти"
+
+#: accounts/templates/cabinet.html:37 accounts/templates/custom_login.html:29
+#: accounts/templates/custom_set_password.html:54
+msgid "register"
+msgstr "Зарегистрироваться"
+
+#: accounts/templates/client_logged_out.html:4
+msgid "logout_title"
+msgstr "Вы вышли из аккаунта"
+
+#: accounts/templates/client_logged_out.html:8
+msgid "logout_success"
+msgstr "Вы вышли из аккаунта"
+
+#: accounts/templates/client_logged_out.html:9
+msgid "login_again"
+msgstr "Войти снова"
+
+#: accounts/templates/custom_login.html:4
+msgid "authorization_title"
+msgstr "Вход в учетную запись"
+
+#: accounts/templates/custom_login.html:9
+msgid "email_password_authorization"
+msgstr "Вход по паролю"
+
+#: accounts/templates/custom_login.html:19
+#: accounts/templates/email_registration.html:17
+msgid "looks_good"
+msgstr "Выглядит верно"
+
+#: accounts/templates/custom_login.html:20
+#: accounts/templates/email_registration.html:20
+msgid "provide_valid_email"
+msgstr "Укажите корректный адрес электронной почты"
+
+#: accounts/templates/custom_login.html:25
+msgid "provide_valid_password"
+msgstr "Укажите пароль"
+
+#: accounts/templates/custom_login.html:28
+msgid "confirm_login"
+msgstr "Подтвердить вход"
+
+#: accounts/templates/custom_set_password.html:4
+msgid "set_password_title"
+msgstr "Установка пароля"
+
+#: accounts/templates/custom_set_password.html:9
+msgid "please_create_password"
+msgstr "Пожалуйста, создайте новый пароль для своей учетной записи"
+
+#: accounts/templates/custom_set_password.html:16
+msgid "set_password_form_error"
+msgstr "Ошибка установки пароля"
+
+#: accounts/templates/custom_set_password.html:44
+msgid "set_password"
+msgstr "Установить пароль"
+
+#: accounts/templates/custom_set_password.html:48
+#: accounts/templates/email_registration.html:30
+msgid "already_register"
+msgstr "Уже зарегистрированы?"
+
+#: accounts/templates/email_registration.html:4
+msgid "registration_title"
+msgstr "Регистрация"
+
+#: accounts/templates/email_registration.html:10
+msgid "email_entry"
+msgstr "Ввод Email для регистрации"
+
+#: accounts/templates/email_registration.html:29
+msgid "send"
+msgstr "Отправить"
+
+#: accounts/templates/email_verification_sent_success.html:4
+msgid "wait_email_title"
+msgstr "Письмо отправлено"
+
+#: accounts/templates/email_verification_sent_success.html:8
+msgid "wait_email"
+msgstr "Следуйте инструкциям в письме"
+
+#: accounts/views.py:19
+msgid "csrf_failure"
+msgstr "Срок действия CSRF-токена истек. Попробуйте снова."
+
+#: accounts/views.py:40
+msgid "email_not_registered"
+msgstr "Уже зарегистрированы?"
+
+#: accounts/views.py:42
+msgid "wrong_password"
+msgstr "Установить пароль"
+
+#: accounts/views.py:45
+msgid "password_not_set"
+msgstr "Смена пароля"
+
+#: accounts/views.py:47
+msgid "please_enter_valid_data"
+msgstr "Пожалуйста введите корректные данные"
+
+#: accounts/views.py:70
+msgid ""
+"Этот адрес электронной почты уже зарегистрирован. Пожалуйста, <a "
+"href=\"{}\">войдите в аккаунт</a> или укажите другой email."
+msgstr ""
+
+#: accounts/views.py:87
+msgid "Для активации аккаунта перейдите по следующей ссылке: {}"
+msgstr ""
+
+#: accounts/views.py:93
+msgid "Ошибка при отправке письма. Попробуйте снова."
+msgstr ""
+
+#: accounts/views.py:101 accounts/views.py:169
+msgid "Ошибка в поле '{}': {}"
+msgstr ""
+
+#: accounts/views.py:108
+msgid ""
+"Вам отправлено письмо со ссылкой на страницу активации аккаунта. Ссылка "
+"действительна {} минут."
+msgstr ""
+
+#: accounts/views.py:121
+msgid "Ваш аккаунт уже активирован и пароль установлен."
+msgstr ""
+
+#: accounts/views.py:124
+msgid "Ваш аккаунт активен, но вы еще не установили пароль."
+msgstr ""
+
+#: accounts/views.py:131
+msgid "Ссылка для активации недействительна или срок ее действия истек."
+msgstr ""
+
+#: accounts/views.py:144
+msgid "Вы успешно подтвердили почту, но еще не установили пароль."
+msgstr ""
+
+#: accounts/views.py:148
+msgid "Ссылка для активации недействительна."
+msgstr ""
+
+#: accounts/views.py:155
+msgid "Для получения ссылки на установку пароля введите ваш Email."
+msgstr ""
+
+#: accounts/views.py:163
+msgid "Пароль успешно установлен!"
+msgstr ""
+
+#: accounts/views.py:176
+msgid "Пароль уже был установлен"
+msgstr ""

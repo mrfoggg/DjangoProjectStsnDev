@@ -1,20 +1,47 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
 
 {% block title %}
-    <title>Личный кабинет</title>
+    <title>{% trans "cabinet_title" %}</title>
 {% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2>Кабинет пользователя {{ user.email }}</h2>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Выйти</button>
-        </form>
+{#        <h2 class="mb-4">Кабинет пользователя {{ user.email }}</h2>#}
+        <div class="d-flex align-items-start user-content">
+            <div class="nav flex-column nav-pills user-cabinet-menu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <div class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" role="tab" aria-controls="v-pills-info" aria-selected="true">{% trans "personal_info" %}</div>
+                <div class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">{% trans "my_orders" %}</div>
+                <div class="nav-link" id="v-pills-licenses-tab" data-bs-toggle="pill" data-bs-target="#v-pills-licenses" role="tab" aria-controls="v-pills-licenses" aria-selected="false">{% trans "my_licenses" %}</div>
+                <div class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" role="tab" aria-controls="v-pills-password" aria-selected="false">{% trans "password_change" %}</div>
+
+                <div class="nav-user text-center">
+                    <div>
+                        <img src="{% static 'icons/user.svg' %}" alt="avatar">
+                    </div>
+
+                    <span>{{ user.email }}</span>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">{% trans "logout" %}</button>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab" tabindex="0">Имя и фамилия</div>
+                <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab" tabindex="0">список заказов</div>
+                <div class="tab-pane fade" id="v-pills-licenses" role="tabpanel" aria-labelledby="v-pills-licenses-tab" tabindex="0">список лицензий</div>
+                <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="v-pills-password-tab" tabindex="0">форма смены пароля</div>
+            </div>
+        </div>
+
     {% else %}
         <div class="text-center">
-            <a href="{% url 'client_login' %}" class="btn btn-primary">Войти</a>
-            <a href="{% url 'send_email_verification_for_register' %}" class="btn btn-secondary ms-3">Зарегистрироваться</a>
+            <h3 class="mb-4">{% trans "not_authorized" %}</h3>
+            <a href="{% url 'client_login' %}" class="btn btn-primary">{% trans "login" %}</a>
+            <a href="{% url 'send_email_verification_for_register' %}" class="btn btn-secondary ms-3">{% trans "register" %}</a>
         </div>
+
     {% endif %}
 {% endblock %}

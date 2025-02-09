@@ -1,44 +1,34 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block title %}
-    <title>Авторизация</title>
+    <title>{% trans "authorization_title" %}</title>
 {% endblock %}
 
 {% block content %}
-    <h2>Login2</h2>
-    <form method="post" action="{% url 'client_login' %}">
-        {% csrf_token %}
+{#    <h3 id="test" class="text-center mb-4">Авторизация через почту и пароль</h3>#}
+    <h3 id="test" class="text-center mb-4">{% trans "email_password_authorization" %}</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="loginForm" class="needs-validation" method="post" action="{% url 'client_login' %}" novalidate>
+                {% csrf_token %}
 
-        {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-                <strong>Error!</strong> Please try again.
-            </div>
-        {% endif %}
-
-        <div class="mb-3">
-            <label for="username" class="form-label">{{ form.username.label }}</label>
-            {{ form.username }}
-            {% if form.username.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {% for error in form.username.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+                <div id="alert"></div> <!-- Место для вывода ошибок -->
+                <div class="mb-3 position-relative">
+                    <label for="id_username" class="form-label">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    <div class="valid-tooltip">{% trans "looks_good" %}</div>
+                    <div class="invalid-tooltip">{% trans "provide_valid_email" %}</div>
                 </div>
-            {% endif %}
-        </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">{{ form.password.label }}</label>
-            {{ form.password }}
-            {% if form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {% for error in form.password.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+                <div class="mb-3 position-relative">
+                    <label for="id_password" class="form-label">{{ form.password.label }}</label>
+                    {{ form.password }}
+                    <div class="invalid-tooltip">{% trans "provide_valid_password" %}</div>
                 </div>
-            {% endif %}
+                <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                    <button type="submit" class="btn btn-primary mt-3">{% trans "confirm_login" %}</button>
+                    <a href="{% url 'send_email_verification_for_register' %}">{% trans "register" %}</a>
+                </div>
+            </form>
         </div>
-
-        <button type="submit" class="btn btn-primary">Подтвердить вход</button>
-    </form>
+    </div>
 {% endblock %}

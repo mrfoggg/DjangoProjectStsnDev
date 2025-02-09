@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-25 14:49+0200\n"
+"POT-Creation-Date: 2025-02-07 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,14 +20,14 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: DjangoProjectStsnDev/settings.py:133
+#: DjangoProjectStsnDev/settings.py:170
 msgid "Russian"
 msgstr "Русский"
 
-#: DjangoProjectStsnDev/settings.py:135
+#: DjangoProjectStsnDev/settings.py:171
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: DjangoProjectStsnDev/settings.py:136
+#: DjangoProjectStsnDev/settings.py:172
 msgid "English"
 msgstr "Английский"

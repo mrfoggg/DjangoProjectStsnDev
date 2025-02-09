@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Главная страница</h2>
+    <div class="home-header">
+        {{ install_info|safe }}
+    </div>
+    {% for extension in extensions %}
+        <div class="card col-md-6">
+            <div class="card-header">
+                <h4>{{ extension.translation.name }}</h4>
+            </div>
+            <div class="card-body">
+                <p>{{ extension.translation.short_description }}</p>
+            </div>
+            <div class="card-footer">
+                <span>v. {{ extension.version }}</span>
+                <span>тестовый период {{ extension.trial_period_days }} дней</span>
+                <a href="{% url 'extension_detail' slug=extension.translation.slug %}">Подробнее</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
 {% endblock %}

@@ -18,22 +18,28 @@ class Extension(models.Model):
     def __str__(self):
         return self.name
 
+    def get_translation(self, language_code):
+        """ Возвращает перевод расширения для заданного кода языка. """
+        return self.translations.filter(language_code=language_code).first()
+
     @property
     def current_lang_translation(self):
-        return self.translations.filter(language_code=get_language()).first()
+        return self.get_translation(get_language())
+
 
 
 class ExtensionTranslation(models.Model):
     extension = models.ForeignKey('Extension', related_name='translations', on_delete=models.CASCADE)
     language_code = models.CharField(max_length=15, db_index=True)
     name = models.CharField(max_length=255, verbose_name='Название')
-    description = models.TextField()
-    short_description = models.TextField()
     title = models.CharField(max_length=255)
+    short_description = models.TextField()
+    description = models.TextField()
     meta_description = models.TextField()
+    slug = models.SlugField(max_length=255, db_index=True)
 
     class Meta:
-        unique_together = ('extension', 'language_code')
+        unique_together = ('language_code', 'slug')
 
     @classmethod
     def get_translatable_fields(cls):
@@ -42,3 +48,7 @@ class ExtensionTranslation(models.Model):
             field for field in cls._meta.fields
             if isinstance(field, (models.fields.CharField, models.fields.TextField)) and field.name != 'language_code'
         ]
+
+    @classmethod
+    def get_wysiwyg_widget_fields_list (cls):
+        return ['description',]

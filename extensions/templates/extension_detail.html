@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ extension.name }}</h1>
+    <p>{{ extension.extension.version }}</p>
+
+    <!-- Скрытый блок с данными language_slug_dict -->
+    <div id="language-slug-data" style="display:none;">
+        {{ language_slug_dict|json_script:"language-slug-dict"|safe }}
+    </div>
+
+{% endblock %}
