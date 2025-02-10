@@ -47,14 +47,15 @@ class ExtensionForm(forms.ModelForm, metaclass=CustomModelFormMeta):
                     translation_form_field_name = f"{field.name}_{lang_code}"
                     self.fields[translation_form_field_name].initial = getattr(translation_instance, field.name) if translation_instance else ""
 
-    def save(self, commit=False):
-        instance = super().save(commit=False)
-        cleaned_data = self.cleaned_data
-
-        for lang_code in self.language_codes:
-            ExtensionTranslation.objects.update_or_create(
-                extension = instance,
-                language_code = lang_code,
-                defaults = {field.name: cleaned_data.get(f"{field.name}_{lang_code}", None) for field in self.translation_fields}
-            )
+    def save(self, commit=True):
+        instance = super().save(commit=commit)
+        if 1:
+            cleaned_data = self.cleaned_data
+            for lang_code in [code for code, _ in settings.LANGUAGES]:
+                ExtensionTranslation.objects.update_or_create(
+                    extension=instance,
+                    language_code=lang_code,
+                    defaults={field.name: cleaned_data.get(f"{field.name}_{lang_code}", None) for field in
+                              ExtensionTranslation.get_translatable_fields()}
+                )
         return instance
