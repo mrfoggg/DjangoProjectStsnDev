@@ -2,7 +2,8 @@
 
 {% block content %}
     <h1>{{ extension.name }}</h1>
-    <p>{{ extension.extension.version }}</p>
+    <span>{{ extension.extension.version }}</span>
+    <p>{{ extension.description|safe }}</p>
 
     <!-- Скрытый блок с данными language_slug_dict -->
     <div id="language-slug-data" style="display:none;">
